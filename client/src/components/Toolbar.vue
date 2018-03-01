@@ -2,12 +2,12 @@
   <div class="toolbar">
     <div class="top">
       <a class="active" href="#/" title="Dashboard"><icon name="home" scale="2.5"></icon><span>Dashboard</span></a>
-      <a href="#" title="Projects"><icon name="folder-open" scale="2.5"></icon><span>Projects</span></a>
+      <a href="#/projects" title="Projects"><icon name="folder-open" scale="2.5"></icon><span>Projects</span></a>
       <a href="#/experiments" title="Experiments"><icon name="flask" scale="2.5"></icon><span>Experiments</span></a>
     </div>
     <div class="bottom">
-      <a href="#" title="Search"><icon name="search" scale="2.5"></icon><span>Search</span></a>
-      <a href="#" title="Settings"><icon name="cog" scale="2.5"></icon><span>Settings</span></a>
+      <a href="#/search" title="Search"><icon name="search" scale="2.5"></icon><span>Search</span></a>
+      <a href="#/settings" title="Settings"><icon name="cog" scale="2.5"></icon><span>Settings</span></a>
     </div>
   </div>
 </template>

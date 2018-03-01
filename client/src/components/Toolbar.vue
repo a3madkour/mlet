@@ -1,13 +1,23 @@
 <template>
   <div class="toolbar">
     <div class="top">
-      <a class="active" href="#/" title="Dashboard"><icon name="home" scale="2.5"></icon><span>Dashboard</span></a>
-      <a href="#/projects" title="Projects"><icon name="folder-open" scale="2.5"></icon><span>Projects</span></a>
-      <a href="#/experiments" title="Experiments"><icon name="flask" scale="2.5"></icon><span>Experiments</span></a>
+      <a @click="activate_el(0)" v-bind:class="{active: active_el == 0}" href="#/" title="Dashboard">
+        <icon name="home" scale="2.5"></icon><span>Dashboard</span>
+      </a>
+      <a @click="activate_el(1)" :class="{active: active_el == 1}" href="#/projects" title="Projects">
+        <icon name="folder-open" scale="2.5"></icon><span>Projects</span>
+        </a>
+      <a @click="activate_el(2)" :class="{active: active_el == 2}" href="#/experiments" title="Experiments">
+        <icon name="flask" scale="2.5"></icon><span>Experiments</span>
+      </a>
     </div>
     <div class="bottom">
-      <a href="#/search" title="Search"><icon name="search" scale="2.5"></icon><span>Search</span></a>
-      <a href="#/settings" title="Settings"><icon name="cog" scale="2.5"></icon><span>Settings</span></a>
+      <a @click="activate_el(3)" :class="{active: active_el == 3}" href="#/search" title="Search">
+        <icon name="search" scale="2.5"></icon><span>Search</span>
+      </a>
+      <a @click="activate_el(4)" :class="{active: active_el == 4}" href="#/settings" title="Settings">
+        <icon name="cog" scale="2.5"></icon><span>Settings</span>
+      </a>
     </div>
   </div>
 </template>
@@ -17,6 +27,16 @@
   export default {
     components: {
       Icon
+    },
+    data: function() {
+      return {
+        active_el: 0,
+      }
+    },
+    methods: {
+      activate_el: function(el) {
+        this.active_el = el;
+      }
     }
   }
 </script>

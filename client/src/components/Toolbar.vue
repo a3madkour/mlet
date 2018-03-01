@@ -1,9 +1,9 @@
 <template>
   <div class="toolbar">
     <div class="top">
-      <a class="active" href="#" title="Dashboard"><icon name="home" scale="2.5"></icon><span>Dashboard</span></a>
+      <a class="active" href="#/" title="Dashboard"><icon name="home" scale="2.5"></icon><span>Dashboard</span></a>
       <a href="#" title="Projects"><icon name="folder-open" scale="2.5"></icon><span>Projects</span></a>
-      <a href="#" title="Experiments"><icon name="flask" scale="2.5"></icon><span>Experiments</span></a>
+      <a href="#/experiments" title="Experiments"><icon name="flask" scale="2.5"></icon><span>Experiments</span></a>
     </div>
     <div class="bottom">
       <a href="#" title="Search"><icon name="search" scale="2.5"></icon><span>Search</span></a>

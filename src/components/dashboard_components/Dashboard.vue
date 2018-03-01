@@ -3,8 +3,7 @@
     <div class="row">
       <div class="col-12">
         <h2 class='text-left'>Notifications</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+        <DashNotificationsTable/>
       </div>
     </div>
 
@@ -30,6 +29,17 @@
   </div>
 </template>
 
+<script>
+import DashNotificationsTable from './DashNotificationsTable.vue'
+
+export default {
+  components: {
+    DashNotificationsTable
+  }
+}
+
+</script>
+
 <style lang="scss">
-@import '../../node_modules/bootstrap/scss/bootstrap.scss';
+@import '../../../node_modules/bootstrap/scss/bootstrap.scss';
 </style>

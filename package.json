@@ -13,13 +13,14 @@
     "babel-preset-es2015": "^6.24.1",
     "bootstrap": "^4.0.0",
     "jquery": "^3.3.1",
+    "moment": "^2.20.1",
     "node-sass": "^4.7.2",
     "popper": "^1.0.1",
     "popper.js": "^1.12.9",
     "sass-loader": "^6.0.6",
     "vue": "^2.5.11",
     "vue-awesome": "^2.3.4",
-    "vue-table-component": "^1.9.1"
+    "vue-tables-2": "^1.3.42"
   },
   "browserslist": [
     "> 1%",

@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <h1>MLET App!</h1>
     <div class="container-fluid"">
       <div class="row full-width-row">
         <div class="col-2">
@@ -8,6 +7,7 @@
         </div>
         <div class="col-10">
           <Dashboard/>
+          <!--<Experiments/>-->
         </div>
       </div>
     </div>
@@ -17,12 +17,14 @@
 <script>
 import Toolbar from './components/Toolbar.vue'
 import Dashboard from './components/dashboard_components/Dashboard.vue'
+import Experiments from './components/experiments_components/Experiments.vue'
 
 export default {
   name: 'app',
   components: {
     Toolbar,
-    Dashboard
+    Dashboard,
+    Experiments
   }
 }
 

@@ -6,8 +6,7 @@
 	      <Toolbar/>
         </div>
         <div class="col-10">
-          <router-view/>
-          <!--<Dashboard/>-->
+          <Dashboard/>
           <!--<Experiments/>-->
         </div>
       </div>
@@ -23,7 +22,9 @@ import Experiments from './components/experiments_components/Experiments.vue'
 export default {
   name: 'app',
   components: {
-    Toolbar
+    Toolbar,
+    Dashboard,
+    Experiments
   }
 }
 

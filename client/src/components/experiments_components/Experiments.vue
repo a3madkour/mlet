@@ -1,7 +1,9 @@
 <template>
   <div class="container-fluid experiments">
-    <div class="row">
-      <ExperimentMetrics/>
+    <div class="row justify-content-end">
+      <div class="col-4">
+        <ExperimentMetrics/>
+      </div>
     </div>
     <div class="row">
       <div class="col-12">
@@ -61,8 +63,4 @@ export default {
 
 <style lang="scss">
 @import '../../../node_modules/bootstrap/scss/bootstrap.scss';
-
-.experiments {
-  padding: 30px;
-}
 </style>

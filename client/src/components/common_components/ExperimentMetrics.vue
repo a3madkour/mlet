@@ -9,9 +9,9 @@
     </thead>
     <tbody>
     <tr v-for="entry in data">
-      <th v-for="key in columns">
+      <td v-for="key in columns">
         {{ entry[key] }}
-      </th>
+      </td>
     </tr>
     </tbody>
   </table>
@@ -25,10 +25,18 @@ export default {
       columns: ['queued', 'running', 'completed', 'failed'],
       data:  [{queued: '1', running: '1', completed: '1', failed: '1'}]
     }
+  },
+  filters: {
+    capitalize: function (value) {
+      if (!value) return ''
+      value = value.toString()
+      return value.charAt(0).toUpperCase() + value.slice(1)
+    }
   }
 }
 </script>
 
 <style lang='scss'>
 @import '../../../node_modules/bootstrap/scss/bootstrap.scss';
+
 </style>

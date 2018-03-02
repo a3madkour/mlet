@@ -10,12 +10,16 @@
     <div class="row">
       <div class="col-6">
         <h2 class='text-left'>My Experiments</h2>
-        <v-client-table :columns="eColumns" :data="eTableData" :options="eOptions"></v-client-table>
+        <v-client-table :columns="eColumns" :data="eTableData" :options="eOptions">
+          <a slot="name" slot-scope="props" href="#/experiments/details">Experiment #{{ props.row.id }}</a>
+        </v-client-table>
       </div>
 
       <div class="col-3">
         <h2 class='text-left'>My Projects</h2>
-        <v-client-table :columns="pColumns" :data="pTableData" :options="pOptions"></v-client-table>
+        <v-client-table :columns="pColumns" :data="pTableData" :options="pOptions">
+          <a slot="name" slot-scope="props" href="#/projects/details">Project #{{ props.row.id }}</a>
+        </v-client-table>
       </div>
 
       <div class="col-3">
@@ -43,14 +47,14 @@ export default {
 // Get the data and options for the Notifications table
 var getNTableData = function() {
   return {
-	nColumns: ['description', 'type', 'date'],
+	nColumns: ['description', 'type', 'time'],
     nTableData: [
-      {description:'Experiment  #1 succeeded', type:'Experiment', date:'Date #1'},
-      {description:'Person #1 reuests access to Project #1', type:'Project', date:'Date #2'},
-      {description:'Experiment  #2 failed', type:'Experiment', date:'Date #3'},
-      {description:'Experiment  #3 failed', type:'Experiment', date:'Date #4'},
-      {description:'Experiment  #4 failed', type:'Experiment', date:'Date #5'},
-      {description:'Experiment  #5 failed', type:'Experiment', date:'Date #6'}
+      {description:'Experiment  #1 succeeded', type:'Experiment',            time:'Febuary 25, 15:11:04'},
+      {description:'Person #1 reuests access to Project #1', type:'Project', time:'Febuary 25, 15:11:04'},
+      {description:'Experiment  #2 failed', type:'Experiment',               time:'Febuary 25, 15:11:04'},
+      {description:'Experiment  #3 failed', type:'Experiment',               time:'Febuary 25, 15:11:04'},
+      {description:'Experiment  #4 failed', type:'Experiment',               time:'Febuary 25, 15:11:04'},
+      {description:'Experiment  #5 failed', type:'Experiment',               time:'Febuary 25, 15:11:04'}
     ],
     nOptions: {
         filterable: false,
@@ -64,16 +68,16 @@ var getETableData = function() {
   return {
     eColumns: ['name', 'status'],
     eTableData: [
-      {name:'Experiment #10', status:'Running'},
-      {name:'Experiment #9',  status:'Running'},
-      {name:'Experiment #8',  status:'Running'},
-      {name:'Experiment #7',  status:'Failed'},
-      {name:'Experiment #6',  status:'Succeeded'},
-      {name:'Experiment #5',  status:'Succeeded'},
-      {name:'Experiment #4',  status:'Failed'},
-      {name:'Experiment #3',  status:'Succeeded'},
-      {name:'Experiment #2',  status:'Succeeded'},
-      {name:'Experiment #1',  status:'Failed'},
+      {id:10, name:'Experiment #10', status:'Running'},
+      {id:9,  name:'Experiment #9',  status:'Running'},
+      {id:8,  name:'Experiment #8',  status:'Running'},
+      {id:7,  name:'Experiment #7',  status:'Failed'},
+      {id:6,  name:'Experiment #6',  status:'Succeeded'},
+      {id:5,  name:'Experiment #5',  status:'Succeeded'},
+      {id:4,  name:'Experiment #4',  status:'Failed'},
+      {id:3,  name:'Experiment #3',  status:'Succeeded'},
+      {id:2,  name:'Experiment #2',  status:'Succeeded'},
+      {id:1,  name:'Experiment #1',  status:'Failed'},
     ],
     eOptions: {
         filterable: false,
@@ -87,16 +91,16 @@ var getPTableData = function() {
   return {
     pColumns: ['name'],
     pTableData: [
-      {name:'Project #1'},
-      {name:'Project #2'},
-      {name:'Project #3'},
-      {name:'Project #4'},
-      {name:'Project #5'},
-      {name:'Project #6'},
-      {name:'Project #7'},
-      {name:'Project #8'},
-      {name:'Project #9'},
-      {name:'Project #10'},
+      {id:10, name:'Project #1'},
+      {id:9,  name:'Project #2'},
+      {id:8,  name:'Project #3'},
+      {id:7,  name:'Project #4'},
+      {id:6,  name:'Project #5'},
+      {id:5,  name:'Project #6'},
+      {id:4,  name:'Project #7'},
+      {id:3,  name:'Project #8'},
+      {id:2,  name:'Project #9'},
+      {id:1,  name:'Project #10'},
     ],
     pOptions: {
         filterable: false,

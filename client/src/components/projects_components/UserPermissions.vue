@@ -2,27 +2,25 @@
   <div class="userPermissions">
     <div align="center" style = "margin:auto;width:50%;bottom:50%;">
       <div  class = "buttons">
-        <a href="#" class="btn btn-info btn-lg">
-          <span class="glyphicon glyphicon-user"></span> 
-        </a>
-        <p> <b>User:</b> {{user.name}} </p>
+          <icon name="user" scale="2.5"></icon>
+        <p> <b>User(s):</b> {{users.join()}} </p>
       </div>
       <div id='example-3'>
-        <input type="checkbox" id="Read" value="Read" v-model="user.permissions">
+        <input type="checkbox" id="Read" value="Read">
         <label for="Read">Read</label>
-        <input type="checkbox" id="Write" value="Write" v-model="user.permissions">
+        <input type="checkbox" id="Write" value="Write" >
         <label for="Write">Write</label>
-        <input type="checkbox" id="Execute" value="Execute" v-model="user.permissions">
+        <input type="checkbox" id="Execute" value="Execute" >
         <label for="Execute">Execute</label>
       </div>
       <div class = "buttons">
         <div style = "float:right;"> 
-         <button type="button" class="btn btn-primary" @click="$emit('close')" >
+         <button type="button" class="btn btn-primary" @click="addUser" >
           Confirm
         </button>
         </div>
         <div style = "float:left;"> 
-         <button type="button" class="btn btn-danger" @click="$emit('close')" >
+         <button type="button" class="btn btn-danger" @click="$modal.hide(name)" >
           Cancel
         </button>
         </div>
@@ -34,17 +32,22 @@
 
 <script>
 import Vue from 'vue';
+import Icon from 'vue-awesome/components/Icon'
 export default {
   name: 'userPermissions',
-  props : ["user"],
-  components: {
+  props : ["users", "name"],
+  components: {Icon
   },
   data () {
     return {
       selected: [], // Must be an array reference!
     }  
   },
-  methods: {}
+  methods: {
+    addUser(){
+      this.$modal.hide(this.name)
+    }
+  }
 }
 </script>
 <style>

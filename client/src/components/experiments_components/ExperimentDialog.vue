@@ -38,6 +38,13 @@
     </div>
     <div v-if='currentScreen === 3'>
           users
+          <label for="repo">Please assign users to the experiment:</label>
+          <div class = "userContainer">
+          <div :class = "{active: user.active, ind:true, assigned: user.assigned}"  v-for = "user in users" @click="userClick(user)">
+            <icon name="user" scale="2.5"></icon>
+            <span :class = "{active: user.active, text:true}" >{{user.name}}</span>
+          </div>
+        </div>
     </div>
         <div class = 'buttons'>
       <div v-if='currentScreen === 0'style="float:left;" >
@@ -65,7 +72,9 @@
   </div>
 </template>
 <script>
+import Icon from 'vue-awesome/components/Icon'
 export default {
+  components: {Icon},
   name: 'experimentDialog',
   props: ['experimentData'],
   methods: {
@@ -92,12 +101,59 @@ export default {
     },
     endDialog(){
       this.$emit('close')
+    },
+    userClick(user){  
+        this.users[this.users.indexOf(user)].active = !this.users[this.users.indexOf(user)].active;
+        if(this.selected.indexOf(user.name) <0 ){
+            this.selected.push(user.name);
+        }else{
+            this.selected.splice(this.selected.indexOf(user.name));
+        }
+        console.log(this.selected);
     }
   },
   data (){
-    return{currentScreen : 0}
+    return{currentScreen : 0,
+    users: [{name:"Charlie", active:false,assigned:false, permissions : []},{name:"User", active:false,assigned:false, permissions : []}, {name:"Sam", active:false, assigned:false,permissions : []}], 
+    selected:[]
+    }
   }
 }
 </script>
 <style>
+.userContainer {
+  align:center;
+  display:flex;
+  border-style:solid;
+  background-color: #DCDCDC;
+  border-color: #555;
+  border-radius: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  text-align: center;
+}
+.ind{
+  float:left;
+  padding-left: 1%;
+  padding-right: 1%;
+  text-align: center;
+  color: black;
+  font-size: 20px;
+}
+.text{
+  padding-left: 1%;
+  padding-right: 1%;
+  text-align: center;
+  color: black;
+  font-size: 20px;
+  display: block;
+}
+.active{
+  color: #4CAF50;
+}
+.assigned{
+  color: #4CAF50;
+}
 </style>

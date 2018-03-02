@@ -54,7 +54,7 @@
   border-top: none;
   border-bottom: none;
   border-left: none;
-  border-width: 3px;
+  border-width: 4px;
 }
 
 .toolbar .top {
@@ -94,7 +94,7 @@
   border-top: none;
   border-bottom: none;
   border-left: none;
-  border-width: 3px;
+  border-width: 4px;
 }
 
 .toolbar .active {
@@ -104,6 +104,6 @@
   border-top: none;
   border-bottom: none;
   border-left: none;
-  border-width: 3px;
+  border-width: 4px;
 }
 </style>

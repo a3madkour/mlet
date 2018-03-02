@@ -11,14 +11,20 @@
       <div class="col-6">
         <h2 class='text-left'>My Experiments</h2>
         <v-client-table :columns="eColumns" :data="eTableData" :options="eOptions">
-          <a slot="name" slot-scope="props" href="#/experiments/details">Experiment #{{ props.row.id }}</a>
+          <a slot="name" slot-scope="props" href="#/experiments/details">
+            <p v-if="props.row.id!=1">Experiment #{{ props.row.id }}</p>
+            <p v-else>my_first_exp</p>
+          </a>
         </v-client-table>
       </div>
 
       <div class="col-3">
         <h2 class='text-left'>My Projects</h2>
         <v-client-table :columns="pColumns" :data="pTableData" :options="pOptions">
-          <a slot="name" slot-scope="props" href="#/projects/details">Project #{{ props.row.id }}</a>
+          <a slot="name" slot-scope="props" href="#/projects/details">
+            <p v-if="props.row.id!=1">Project #{{ props.row.id }}</p>
+            <p v-else>SSB_detector</p>
+          </a>
         </v-client-table>
       </div>
 

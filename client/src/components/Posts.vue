@@ -1,7 +1,7 @@
 <template>
   <div class="posts">
     This file will list all the posts.
-    <button @click="show" >omak </button>
+    <button @click="show" > New </button>
     <modals-container/>
   </div>
 </template>
@@ -16,12 +16,12 @@ export default {
   components: {
   },
   data () {
-    return {}
+    return {projectData:{}}
   },
   methods: {
     show(){
-      this.$modal.show(ProjectDialog,{}, {name:"first",clickToClose: false});
-      console.log("leeeeeeeeeeeh");
+      console.log(this.projectData);
+      this.$modal.show(ProjectDialog,{projectData: this.projectData}, {name:"first",clickToClose: false,height:"auto", width:"50%"});
     }
   }
 }

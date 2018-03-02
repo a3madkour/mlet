@@ -11,7 +11,7 @@
         <input type="address" class="form-control" id="projectName" placeholder="My Project"v-model="projectData.name" required>
       </div>
       <div class="form-group">
-        <label for="projectDescription">Please enter a bried description of the project</label>
+        <label for="projectDescription">Please enter a brief description of the project</label>
         <textarea  rows="4" cols="50" type="projectDescription" class="form-control" id="projectDescription" placeholder="..." v-model="projectData.description"></textarea>
       </div>
       <div class="form-group">
@@ -65,7 +65,7 @@
         <input type="fileName"id="projectTags" class="form-control" v-model="projectData.fileName">
       </div>
       <div class="form-group" >
-        <label for="executable">Please enter in the git executable to be run</label>
+        <label for="executable">Executable path:</label>
         <input type="executable" class="form-control" id="executable" placeholder=" "v-model="projectData.executable">
       </div>
     </div>

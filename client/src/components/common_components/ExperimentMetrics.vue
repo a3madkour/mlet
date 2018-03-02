@@ -23,7 +23,6 @@ export default {
   data: function () {
     return {
       columns: ['queued', 'running', 'completed', 'failed'],
-      data:  [{queued: '1', running: '1', completed: '1', failed: '1'}]
     }
   },
   filters: {
@@ -32,7 +31,8 @@ export default {
       value = value.toString()
       return value.charAt(0).toUpperCase() + value.slice(1)
     }
-  }
+  },
+  props: ['data']
 }
 </script>
 

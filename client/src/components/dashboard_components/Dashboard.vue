@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid">
+  <div class="py-3 container-fluid">
     <div class="row">
       <div class="col-12">
         <h2 class='text-left'>Notifications</h2>

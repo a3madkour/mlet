@@ -49,6 +49,12 @@
   margin: 0px;
   padding: 0px;
   background-color: #555;
+  border-style: solid;
+  border-color: #FFFACD; 
+  border-top: none;
+  border-bottom: none;
+  border-left: none;
+  border-width: 3px;
 }
 
 .toolbar .top {
@@ -83,10 +89,22 @@
 
 .toolbar a:hover {
   background-color: #000;
+  border-style: solid;
+  border-color: #FFFACD; 
+  border-top: none;
+  border-bottom: none;
+  border-left: none;
+  border-width: 3px;
 }
 
 .toolbar .active {
   background-color: #4CAF50;
+  border-style: solid;
+  border-color: #FFFACD; 
+  border-top: none;
+  border-bottom: none;
+  border-left: none;
+  border-width: 3px;
 }
 </style>
 

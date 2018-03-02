@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid experiments">
+  <div class="py-3 container-fluid">
     <div class="row justify-content-end">
       <div class="col-4">
         <ExperimentMetrics/>
@@ -7,7 +7,19 @@
     </div>
     <div class="row">
       <div class="col-12">
-        <v-client-table :columns="columns" :data="tableData" :options="options"></v-client-table>
+        <v-client-table :columns="columns" :data="tableData" :options="options">
+          <toggle-button slot="notify" 
+                         slot-scope="props"
+                         :value="false" 
+                         color="#82C7EB" 
+                         :sync="true" 
+                         :labels="true"/>
+        </v-client-table>
+      </div>
+    </div>
+    <div class="row justify-content-end">
+      <div class="col-1"
+        <AddExperimentButton/>  
       </div>
     </div>
   </div>
@@ -16,13 +28,16 @@
 <script>
 import Vue from 'vue';
 import ExperimentMetrics from '../common_components/ExperimentMetrics.vue'
-
+import AddExperimentButton from '../common_components/AddExperimentButton.vue'
+import ToggleButton from 'vue-js-toggle-button'
 import {ClientTable} from 'vue-tables-2';
 let tableOptions = {};
+
 Vue.use(ClientTable, tableOptions);
+Vue.use(ToggleButton)
 
 export default {
-  components: {ExperimentMetrics},
+  components: {ExperimentMetrics, AddExperimentButton},
   data: function () {
     return {
       columns: ['start_time', 'name', 'owner', 'project', 'run_duration', 'status', 'notify'],
@@ -54,7 +69,10 @@ export default {
         {start_time:'test', name:'Experiment #1',  owner:'User #1', project:'Project #1', run_duration:'1', status:'Failed'},
       ],
       options: {
-          perPage:20
+          perPage:20,
+          perPageValues: [10, 20, 50],
+          sortable: ['start_time', 'name', 'owner', 'project', 'run_duration', 'status'],
+          filterable: ['start_time', 'name', 'owner', 'project', 'run_duration', 'status'],
       }
     }
   }

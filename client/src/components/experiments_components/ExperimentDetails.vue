@@ -7,7 +7,7 @@
       </a>
     </div>
     <div class="col">
-      <h1 class="float-left">Experiment #1</h1>
+      <h1 class="float-left">my_first_exp</h1>
     </div>
   </div>
   <div class="row">

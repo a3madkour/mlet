@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid experiments">
+  <div class="py-3 container-fluid">
     <div class="row justify-content-end">
       <div class="col-4">
         <ExperimentMetrics/>
@@ -10,19 +10,25 @@
         <v-client-table :columns="columns" :data="tableData" :options="options"></v-client-table>
       </div>
     </div>
+    <div class="row justify-content-end">
+      <div class="col-1"
+        <AddExperimentButton/>  
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import Vue from 'vue';
 import ExperimentMetrics from '../common_components/ExperimentMetrics.vue'
+import AddExperimentButton from '../common_components/AddExperimentButton.vue'
 
 import {ClientTable} from 'vue-tables-2';
 let tableOptions = {};
 Vue.use(ClientTable, tableOptions);
 
 export default {
-  components: {ExperimentMetrics},
+  components: {ExperimentMetrics, AddExperimentButton},
   data: function () {
     return {
       columns: ['start_time', 'name', 'owner', 'project', 'run_duration', 'status', 'notify'],

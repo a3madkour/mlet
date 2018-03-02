@@ -8,7 +8,7 @@
     <div class="row">
       <div class="col-12">
         <v-client-table :columns="columns" :data="tableData" :options="options">
-          <a slot="name" slot-scope="props" href="#/experiments/details">Test</a>
+          <a slot="name" slot-scope="props" href="#/experiments/details">Experiment #{{ props.row.id }}</a>
           <toggle-button slot="notify" 
                          slot-scope="props"
                          :value="false" 

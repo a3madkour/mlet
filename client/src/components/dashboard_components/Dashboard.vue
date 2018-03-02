@@ -21,6 +21,7 @@
       <div class="col-3">
         <h2 class='text-left'>System Info</h2>
         <img src="./systems_info.png" class="rounded img-fluid">
+        <p><b>Note:</b> This is a temp image for the prototype</p>
       </div>
     </div>
   </div>

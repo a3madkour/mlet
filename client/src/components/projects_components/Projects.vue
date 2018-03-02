@@ -44,7 +44,8 @@ export default {
         {name:'Project #1',  owner:'User #1', date_of_creation:'1', description:lorem},
       ],
       options: {
-          perPage:5
+          perPage:5,
+          perPageValues: [5, 10, 20]
       }
     }
   }

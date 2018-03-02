@@ -1,11 +1,11 @@
 <template>
-  <div class = "welcome" align="center" style = "margin:auto;width:50%;bottom:50%;">
-    <h6>
+  <div class = "welcome" align="center" style = "margin:auto;width:50%;bottom:50%; padding-top:200px;">
+    <h1>
       WELCOME!
-    </h6>
+    </h1>
     <form v-if = "currentScreen === 0" >
       <div>
-        <small id="db" class="form-text text-muted">Please enter the following information for the database you wish to connect to.</small>
+        <p id="db" class="form-text text-muted">Please enter the following information for the database you wish to connect to.</p>
       </div>
       <div class="form-group">
         <label for="address">Address</label>
@@ -23,7 +23,7 @@
     <div v-if = "currentScreen === 1">
       <form>
         <div>
-          <small id="db" class="form-text text-muted">Please update the following information.</small>
+          <p id="db" class="form-text text-muted">Please update the following information.</p>
         </div>
         <div class="form-group">
           <label for="username">Username</label>
@@ -45,7 +45,7 @@
     </div>
     <div v-if = "currentScreen === 2">
         <div>
-          <small id="db" class="form-text text-muted">Please select the projects you wish to be added to.</small>
+          <p id="db" class="form-text text-muted">Please select the projects you wish to be added to.</p>
         </div>
         <select class="custom-select" multiple>
           <option selected>List of Projects</option>
@@ -79,23 +79,23 @@
 </template>
 
 <script>
-    export default {
-        name: "welcome",
-        methods: {
-          nextDialog: function(){
-            this.currentScreen +=1;
-          },
-          previousDialog: function(){
-            this.currentScreen -=1;
-          },
-          endDialog: function(){
+export default {
+    name: "welcome",
+    methods: {
+      nextDialog: function(){
+        this.currentScreen +=1;
+      },
+      previousDialog: function(){
+        this.currentScreen -=1;
+      },
+      endDialog: function(){
 
-          }
-        },
-        data(){
-            return {currentScreen: 0, welcomeScreen:{}}
-        }
+      }
+    },
+    data(){
+        return {currentScreen: 0, welcomeScreen:{}}
     }
+}
 </script>
 
 <style >

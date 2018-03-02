@@ -29,6 +29,10 @@ export default {
 <style lang="scss">
 @import '../node_modules/bootstrap/scss/bootstrap.scss';
 
+html {
+  font-size: 14px;
+}
+
 body {
   margin: 0px;
   padding: 0px;

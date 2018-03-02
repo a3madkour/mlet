@@ -1,7 +1,7 @@
 <template>
   <div class="toolbar">
     <div class="top">
-      <a @click="activate_el(0)" v-bind:class="{active: active_el == 0}" href="#/" title="Dashboard">
+      <a @click="activate_el(0)" v-bind:class="{active: active_el == 0}" href="#/dashboard" title="Dashboard">
         <icon name="home" scale="2.5"></icon><span>Dashboard</span>
       </a>
       <a @click="activate_el(1)" :class="{active: active_el == 1}" href="#/projects" title="Projects">

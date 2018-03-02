@@ -48,7 +48,7 @@
           <p id="db" class="form-text text-muted">Please select the projects you wish to be added to.</p>
         </div>
         <select class="custom-select" multiple>
-          <option selected>List of Projects</option>
+          <option selected>Sample Project</option>
         </select>
       </div>
       <div class='buttons'>
@@ -68,7 +68,7 @@
             </button>
         </div>
         <div style = 'float:right;' v-if = "currentScreen === 2">
-          <a href="#/" >
+          <a href="#/dashboard" >
             <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
               Done
             </button>

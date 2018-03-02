@@ -114,7 +114,7 @@ export default {
   },
   data (){
     return{currentScreen : 0,
-    users: [{name:"Charlie", active:false,assigned:false, permissions : []},{name:"User", active:false,assigned:false, permissions : []}, {name:"Sam", active:false, assigned:false,permissions : []}], 
+    users: [{name:"Jack", active:false,assigned:false, permissions : []},{name:"User", active:false,assigned:false, permissions : []}, {name:"Jill", active:false, assigned:false,permissions : []}], 
     selected:[]
     }
   }

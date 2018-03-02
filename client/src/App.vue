@@ -7,8 +7,6 @@
         </div>
         <div class="col-10">
           <router-view/>
-          <!--<Dashboard/>-->
-          <!--<Experiments/>-->
         </div>
       </div>
     </div>

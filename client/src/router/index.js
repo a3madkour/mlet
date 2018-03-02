@@ -6,6 +6,7 @@ import Experiments from '@/components/experiments_components/Experiments.vue'
 import Projects from '@/components/projects_components/Projects.vue'
 import Settings from '@/components/settings_components/Settings.vue'
 import Search from '@/components/search_components/Search.vue'
+import Welcome from '@/components/Welcome.vue'
 
 Vue.use(Router)
 
@@ -41,6 +42,11 @@ export default new Router({
       path: '/posts',
       name: 'Posts',
       component: Posts
+    },
+    {
+      path: '/welcome',
+      name: 'Welcome',
+      component: Welcome
     }
   ]
 })

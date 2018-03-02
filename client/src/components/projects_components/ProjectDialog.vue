@@ -51,9 +51,22 @@
       <div class="form-group" >
         <label for="executable">Please enter in the git executable to be run</label>
         <input type="executable" class="form-control" id="executable" placeholder=" "v-model="projectData.executable">
+
       </div>
       <div style="height:20px; width:100%; clear:both;"></div>
     </div>
+    <div v-if='currentScreen === 3'>
+      <div style="height:20px; width:100%; clear:both;"></div>
+      <div class="form-group" >
+        <label for="parametersFile">Please select a file for parameter format:</label>
+        <input type="file" @change="onFileChange"> 
+      </div>
+      <div class="form-group" >
+        <textarea  type="fileTxt" class="form-control" id="fileTxt" placeholder=" " v-model="projectData.fileTxt"></textarea>
+      </div>
+      <div style="height:20px; width:100%; clear:both;"></div>
+    </div>
+
   </div>
 </template>
 <script>
@@ -62,11 +75,25 @@ export default {
   props: ['projectData'],
   methods: {
     nextDialog : function(){
-      console.log(this.projectData)
       this.currentScreen += 1;
     },
     previousDialog : function(){
       this.currentScreen -= 1;
+    },
+    onFileChange(e) {
+      var files = e.target.files || e.dataTransfer.files;
+      if (!files.length)
+        return;
+      this.createImage(files[0]);
+    },
+    createImage(file) {
+      var reader = new FileReader();
+      var vm = this;
+
+      reader.onload = (e) => {
+        vm.projectData.fileTxt = e.target.result;
+      };
+      reader.readAsText(file);
     }
   },
   data (){

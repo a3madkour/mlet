@@ -16,7 +16,7 @@ export default {
   components: {
   },
   data () {
-    return {projectData:{}}
+    return {projectData:{fileTxt:""}}
   },
   methods: {
     show(){

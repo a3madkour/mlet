@@ -10,7 +10,7 @@
           <label for="experimentName">Please select the project for the experiment:</label>
         </div>
         <select class="custom-select" multiple>
-          <option selected>List of Projects</option>
+          <option selected>Sample Project</option>
         </select>
     </div>
     <div v-if='currentScreen === 1'>

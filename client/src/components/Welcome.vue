@@ -48,7 +48,7 @@
           <small id="db" class="form-text text-muted">Please select the projects you wish to be added to.</small>
         </div>
         <select class="custom-select" multiple>
-          <option selected>Sample Project</option>
+          <option selected>List of Projects</option>
         </select>
       </div>
       <div class='buttons'>

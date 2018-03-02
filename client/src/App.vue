@@ -52,4 +52,13 @@ h2 {
   margin-left: -15px;
   margin-right: -15px;
 }
+.buttons{
+  width: 100%;
+  display:inline-block;
+  overflow: auto;
+  white-space: nowrap;
+  margin:0px auto;
+  padding-top: 1%;
+  padding-bottom: 1%;
+}
 </style>

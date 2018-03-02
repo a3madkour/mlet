@@ -20,7 +20,7 @@
       </div>
     </div>
     <div v-if='currentScreen === 1'>
-          users
+          <button @click ="userPermission"> HALP </button>
     </div>
     <div v-if='currentScreen === 2'>
       <div class="form-group" >
@@ -95,6 +95,10 @@
   </div>
 </template>
 <script>
+import Vue from 'vue';
+import VModal from 'vue-js-modal';
+import UserPermissions from './UserPermissions.vue';
+Vue.use(VModal, {dynamic: true});
 export default {
   name: 'projectDialog',
   props: ['projectData'],
@@ -122,19 +126,16 @@ export default {
     },
     endDialog(){
       this.$emit('close')
+    },
+    userPermission(){
+      this.$modal.show(UserPermissions,{user: this.userZ}, {name:"first",clickToClose: false,height:"auto", width:"50%"});
     }
   },
   data (){
-    return{currentScreen : 0}
+    return{currentScreen : 0, userZ: {name:"Charlie", permissions:[]}}
   }
 }
 </script>
 <style>
-.buttons{
-  width: 100%;
-  display:inline-block;
-  overflow: auto;
-  white-space: nowrap;
-  margin:0px auto;
-}
+
 </style>

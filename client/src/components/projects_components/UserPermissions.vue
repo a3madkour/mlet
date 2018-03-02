@@ -1,18 +1,18 @@
 <template>
-  <div class="posts">
+  <div class="userPermissions">
     <div align="center" style = "margin:auto;width:50%;bottom:50%;">
       <div  class = "buttons">
         <a href="#" class="btn btn-info btn-lg">
           <span class="glyphicon glyphicon-user"></span> 
         </a>
-        <p> <b>User:</b> {{userName}} </p>
+        <p> <b>User:</b> {{user.name}} </p>
       </div>
       <div id='example-3'>
-        <input type="checkbox" id="Read" value="Read" v-model="selected">
+        <input type="checkbox" id="Read" value="Read" v-model="user.permissions">
         <label for="Read">Read</label>
-        <input type="checkbox" id="Write" value="Write" v-model="selected">
+        <input type="checkbox" id="Write" value="Write" v-model="user.permissions">
         <label for="Write">Write</label>
-        <input type="checkbox" id="Execute" value="Execute" v-model="selected">
+        <input type="checkbox" id="Execute" value="Execute" v-model="user.permissions">
         <label for="Execute">Execute</label>
       </div>
       <div class = "buttons">
@@ -35,8 +35,8 @@
 <script>
 import Vue from 'vue';
 export default {
-  name: 'posts',
-  props : ["userName"],
+  name: 'userPermissions',
+  props : ["user"],
   components: {
   },
   data () {

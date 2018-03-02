@@ -99,11 +99,4 @@
 </script>
 
 <style >
-.buttons{
-  width: 100%;
-  display:inline-block;
-  overflow: auto;
-  white-space: nowrap;
-  margin:0px auto;
-}
 </style>

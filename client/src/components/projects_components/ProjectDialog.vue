@@ -1,12 +1,11 @@
 <template>
-  <div class = "dialog">
+  <div class = "dialog" style ="margin:auto; padding-top: 2%;padding-left: 2%;padding-right: 2%;">
     <div style="position :absolute;right:0px;top:0px;" >
       <button type="button" class = "close" aria-label="Close" @click="$emit('close')" >
         <span aria-hidden="true"> &times; </span>
       </button>
     </div>
     <div v-if='currentScreen === 0'>
-      <div style="height:20px; width:100%; clear:both;"></div>
       <div class="form-group" >
         <label for="projectName">Please enter in a name for the project</label>
         <input type="address" class="form-control" id="projectName" placeholder="My Project"v-model="projectData.name" required>
@@ -21,12 +20,9 @@
       </div>
     </div>
     <div v-if='currentScreen === 1'>
-      <div style="height:20px; width:100%; clear:both;"></div>
           users
-      <div style="height:20px; width:100%; clear:both;"></div>
     </div>
     <div v-if='currentScreen === 2'>
-      <div style="height:20px; width:100%; clear:both;"></div>
       <div class="form-group" >
         <label for="repo">Please enter in the git repository for the project</label>
         <input type="repo" class="form-control" id="repo" placeholder=" "v-model="projectData.repo">
@@ -39,7 +35,6 @@
     </div>
 
     <div v-if='currentScreen === 3'>
-      <div style="height:20px; width:100%; clear:both;"></div>
       <div class="form-group" >
         <label for="parametersFile">Please select a file for parameter format:</label>
         <input type="file" @change="onFileChange"> 
@@ -50,7 +45,6 @@
     </div>
 
     <div v-if='currentScreen === 4'>
-      <div style="height:20px; width:100%; clear:both;"></div>
       <div class="form-group" >
         <label for="projectName">Name:</label>
         <input type="address" class="form-control"  id="projectName" placeholder="My Project"v-model="projectData.name">

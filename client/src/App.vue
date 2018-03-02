@@ -3,7 +3,7 @@
     <div class="container-fluid"">
       <div class="row full-width-row">
         <div class="col-2">
-	      <Toolbar/>
+	      <Toolbar v-if = "$route.name != 'Welcome'"/>
         </div>
         <div class="col-10">
           <router-view/>
@@ -16,7 +16,6 @@
 <script>
 import Toolbar from './components/Toolbar.vue'
 import Dashboard from './components/dashboard_components/Dashboard.vue'
-import Experiments from './components/experiments_components/Experiments.vue'
 
 export default {
   name: 'app',

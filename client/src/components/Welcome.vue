@@ -70,9 +70,11 @@
             </button>
         </div>
         <div style = 'float:right;' v-if = "currentScreen === 2">
+          <a href="#/" >
             <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
               Done
             </button>
+          </a>
       </div>
     </div>
   </div>

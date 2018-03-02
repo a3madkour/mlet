@@ -1,21 +1,15 @@
-# mlet
+# MLET
 
-> A Vue.js project
+## Setup
 
-## Build Setup
-
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
+### Required software
+You will need to install npm to run MLET. You can install npm here: <https://nodejs.org/en/download/>
+### Install dependencies
+Once you have downloaded node.js/npm, download the repo. In the command line go to the client directory and run the following commands:
 ```
+npm install
+npm start
+```
+The webpage should show up at <http://localhost:8080>
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+

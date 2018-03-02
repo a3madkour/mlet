@@ -38,6 +38,11 @@
         </v-client-table>
       </div>
   </div>
+  <div class="row justify-content-end">
+    <div class="col-1"
+      <AddExperimentButton/>  
+    </div>
+  </div>
 </div>
 </template>
 
@@ -46,6 +51,7 @@ import Vue from 'vue';
 import moment from 'moment'
 import Icon from 'vue-awesome/components/Icon'
 import ExperimentMetrics from '../common_components/ExperimentMetrics.vue'
+import AddExperimentButton from '../common_components/AddExperimentButton.vue'
 import ToggleButton from 'vue-js-toggle-button'
 import {ClientTable} from 'vue-tables-2';
 let tableOptions = {};
@@ -66,7 +72,7 @@ var now = moment().unix();
 var noDuration = "00 00:00:00.000";
 
 export default {
-  components: {Icon, ExperimentMetrics},
+  components: {Icon, ExperimentMetrics, AddExperimentButton},
   data: function () {
     return {
       metricData: [{queued: '4', running: '10', completed: '8', failed: '4'}],

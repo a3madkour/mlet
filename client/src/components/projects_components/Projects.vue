@@ -6,18 +6,21 @@
       </div>
     </div>
     <div class="row justify-content-end">
-      <div class="col-1"
-        <AddProjectButton/>  
+      <div class="col-1">
+        <button type="button" class="btn btn-default btn-lg rounded-circle border-dark" @click="show">
+            <span class="glyphicon glyphicon-plus" style="font-size:30px;"></span> 
+         </button>
+
       </div>
     </div>
-
+  <modals-container/>
   </div>
 </template>
 
 <script>
 import Vue from 'vue';
-import AddProjectButton from '../common_components/AddProjectButton.vue'
-
+import VModal from 'vue-js-modal';
+import ProjectDialog from './ProjectDialog.vue';
 import {ClientTable} from 'vue-tables-2';
 let tableOptions = {};
 Vue.use(ClientTable, tableOptions);
@@ -25,9 +28,10 @@ Vue.use(ClientTable, tableOptions);
 var lorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean consequat sapien sit amet justo molestie, eu fermentum massa iaculis. Vestibulum faucibus fermentum odio ut faucibus. Nullam ut erat vestibulum, congue tortor eu, ornare lorem. Mauris efficitur vestibulum purus, sed commodo metus sollicitudin vitae. Ut id orci mi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.";
 
 export default {
-  components: {AddProjectButton},
+  components: {},
   data: function () {
     return {
+      projectData: {fileTxt:""},
       columns: ['name', 'owner', 'date_of_creation', 'description'],
       tableData: [
         {name:'Project #12', owner:'User #1', date_of_creation:'1', description:lorem},
@@ -48,6 +52,12 @@ export default {
           perPageValues: [5, 10, 20]
       }
     }
+  },
+  methods:{
+    show(){
+      console.log(this.projectData);
+      this.$modal.show(ProjectDialog,{projectData: this.projectData}, {name:"first",clickToClose: false,height:"auto", width:"50%"});
+    } 
   }
 } 
 </script>

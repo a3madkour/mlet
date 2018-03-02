@@ -5,26 +5,11 @@
         <span aria-hidden="true"> &times; </span>
       </button>
     </div>
-    <div v-if='currentScreen === 0'style="position :absolute;left:0px;bottom:0px;" >
-      <button type="button" class="btn btn-danger" @click="$emit('close')" >
-        Cancel 
-      </button>
-    </div>
-    <div v-if='currentScreen != 0'style="position :absolute;left:0px;bottom:0px;" >
-      <button type="button" class="btn btn-primary" @click="previousDialog" >
-        Back
-      </button>
-    </div>
-    <div style="position :absolute;right:0px;bottom:0px;" >
-      <button type="button" class="btn btn-primary" @click=nextDialog >
-        Next 
-      </button>
-    </div>
     <div v-if='currentScreen === 0'>
       <div style="height:20px; width:100%; clear:both;"></div>
       <div class="form-group" >
         <label for="projectName">Please enter in a name for the project</label>
-        <input type="address" class="form-control" id="projectName" placeholder="My Project"v-model="projectData.name">
+        <input type="address" class="form-control" id="projectName" placeholder="My Project"v-model="projectData.name" required>
       </div>
       <div class="form-group">
         <label for="projectDescription">Please enter a bried description of the project</label>
@@ -34,12 +19,10 @@
         <label for="projectTags">Please enter in comma seprated tags for the project</label>
         <input type="projectTags" class="form-control" id="projectTags" placeholder="CNNs"v-model="projectData.tagString">
       </div>
-      <div style="height:20px; width:100%; clear:both;"></div>
     </div>
     <div v-if='currentScreen === 1'>
       <div style="height:20px; width:100%; clear:both;"></div>
           users
-      <div style="height:20px; width:100%; clear:both;"></div>
       <div style="height:20px; width:100%; clear:both;"></div>
     </div>
     <div v-if='currentScreen === 2'>
@@ -53,8 +36,8 @@
         <input type="executable" class="form-control" id="executable" placeholder=" "v-model="projectData.executable">
 
       </div>
-      <div style="height:20px; width:100%; clear:both;"></div>
     </div>
+
     <div v-if='currentScreen === 3'>
       <div style="height:20px; width:100%; clear:both;"></div>
       <div class="form-group" >
@@ -64,9 +47,57 @@
       <div class="form-group" >
         <textarea  type="fileTxt" class="form-control" id="fileTxt" placeholder=" " v-model="projectData.fileTxt"></textarea>
       </div>
-      <div style="height:20px; width:100%; clear:both;"></div>
     </div>
 
+    <div v-if='currentScreen === 4'>
+      <div style="height:20px; width:100%; clear:both;"></div>
+      <div class="form-group" >
+        <label for="projectName">Name:</label>
+        <input type="address" class="form-control"  id="projectName" placeholder="My Project"v-model="projectData.name">
+      </div>
+      <div class="form-group">
+        <label for="projectDescription">Description:</label>
+        <textarea  rows="4" cols="50" type="projectDescription" class="form-control" id="projectDescription" placeholder="" v-model="projectData.description"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="projectTags">Tags:</label>
+        <input type="projectTags"id="projectTags" class="form-control" v-model="projectData.tagString">
+      </div>
+      <div class="form-group">
+        <label for="projectTags">Users:</label>
+      </div>
+      <div class="form-group">
+        <label for="fileName" >Input Spec:</label>
+        <input type="fileName"id="projectTags" class="form-control" v-model="projectData.fileName">
+      </div>
+      <div class="form-group" >
+        <label for="executable">Please enter in the git executable to be run</label>
+        <input type="executable" class="form-control" id="executable" placeholder=" "v-model="projectData.executable">
+      </div>
+    </div>
+        <div class = 'buttons'>
+      <div v-if='currentScreen === 0'style="float:left;" >
+        <button type="button" class="btn btn-danger" @click="$emit('close')" >
+          Cancel 
+        </button>
+      </div>
+      <div v-if='currentScreen != 0'style="float:left;" >
+        <button type="button" class="btn btn-primary" @click="previousDialog" >
+          Back
+        </button>
+      </div>
+      <div v-if='currentScreen != 4' style="float:right;" >
+        <button type="button" class="btn btn-primary" @click=nextDialog >
+          Next 
+        </button>
+      </div>
+      <div v-if='currentScreen === 4'style="float:right;" >
+        <button type="button" class="btn btn-success" @click=endDialog>
+          Confirm
+        </button>
+      </div>
+    </div>
+    </div>
   </div>
 </template>
 <script>
@@ -94,6 +125,9 @@ export default {
         vm.projectData.fileTxt = e.target.result;
       };
       reader.readAsText(file);
+    },
+    endDialog(){
+      this.$emit('close')
     }
   },
   data (){
@@ -102,4 +136,11 @@ export default {
 }
 </script>
 <style>
+.buttons{
+  width: 100%;
+  display:inline-block;
+  overflow: auto;
+  white-space: nowrap;
+  margin:0px auto;
+}
 </style>

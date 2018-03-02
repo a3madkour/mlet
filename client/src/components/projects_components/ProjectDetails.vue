@@ -1,12 +1,31 @@
 <template>
-  <div class="py-3 container-fluid">
-    <div class="row justify-content-end">
-      <div class="col-4">
-        <ExperimentMetrics :data="metricData"></ExperimentMetrics>
+<div class="py-3 project-details container-fluid">
+  <div class="row">
+    <div class="col-1">
+      <a class="back" href="#/projects" title="Back">
+        <icon name="caret-left" scale="5.0"></icon>
+      </a>
+    </div>
+    <div class="col">
+      <h1 class="float-left">Project #1</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-8">
+      <div class="card" align="left">
+        <div class="card-body">
+          <p class="card-text-1"><b>Owner:</b> User #1</p>
+          <p class="card-text-2"><b>Created On:</b> February 15, 2018</p>
+          <p class="card-text-3"><b>Description:</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean consequat sapien sit amet justo molestie, eu fermentum massa iaculis. Vestibulum faucibus fermentum odio ut faucibus. Nullam ut erat vestibulum, congue tortor eu, ornare lorem. Mauris efficitur vestibulum purus, sed commodo metus sollicitudin vitae. Ut id orci mi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
+        </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-12">
+    <div class="col-4">
+      <ExperimentMetrics :data="metricData"></ExperimentMetrics>
+    </div>
+  </div>
+  <div class="row top-buffer">
+    <div class="col-12">
         <v-client-table :columns="columns" :data="tableData" :options="options">
           <a slot="name" slot-scope="props" href="#/experiments/details">Test</a>
           <toggle-button slot="notify" 
@@ -18,20 +37,15 @@
                          class="toggle"/>
         </v-client-table>
       </div>
-    </div>
-    <div class="row justify-content-end">
-      <div class="col-1"
-        <AddExperimentButton/>  
-      </div>
-    </div>
   </div>
+</div>
 </template>
 
 <script>
 import Vue from 'vue';
 import moment from 'moment'
+import Icon from 'vue-awesome/components/Icon'
 import ExperimentMetrics from '../common_components/ExperimentMetrics.vue'
-import AddExperimentButton from '../common_components/AddExperimentButton.vue'
 import ToggleButton from 'vue-js-toggle-button'
 import {ClientTable} from 'vue-tables-2';
 let tableOptions = {};
@@ -52,7 +66,7 @@ var now = moment().unix();
 var noDuration = "00 00:00:00.000";
 
 export default {
-  components: {ExperimentMetrics, AddExperimentButton},
+  components: {Icon, ExperimentMetrics},
   data: function () {
     return {
       metricData: [{queued: '4', running: '10', completed: '8', failed: '4'}],
@@ -90,15 +104,29 @@ export default {
           sortable: ['start_time', 'name', 'owner', 'project', 'run_duration', 'status'],
           filterable: ['start_time', 'name', 'owner', 'project', 'run_duration', 'status'],
       }
-    }
+	}
   }
-} 
+}
 </script>
 
 <style lang="scss">
 @import '../../../node_modules/bootstrap/scss/bootstrap.scss';
 
-.toggle {
-  display:block;
+.project-details h1 {
+  color: black;
+  font-size: 64px;
 }
+
+.project-details .back {
+  display: block;
+  text-align: center;
+  transition: all 0.3s ease;
+  color: black;
+  font-size: 36px;
+}
+
+.top-buffer { 
+  margin-top:20px; 
+}
+
 </style>

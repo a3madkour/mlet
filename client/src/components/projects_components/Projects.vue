@@ -2,7 +2,9 @@
   <div class="py-3 container-fluid">
     <div class="row">
       <div class="col-12">
-        <v-client-table :columns="columns" :data="tableData" :options="options"></v-client-table>
+        <v-client-table :columns="columns" :data="tableData" :options="options">
+          <a slot="name" slot-scope="props" href="#/projects/details">Test</a>
+        </v-client-table>
       </div>
     </div>
     <div class="row justify-content-end">
@@ -40,18 +42,18 @@ export default {
       projectData: {fileTxt:""},
       columns: ['name', 'owner', 'date_of_creation', 'description'],
       tableData: [
-        {name:'Project #12', owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
-        {name:'Project #11', owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
-        {name:'Project #10', owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
-        {name:'Project #9',  owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
-        {name:'Project #8',  owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
-        {name:'Project #7',  owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
-        {name:'Project #6',  owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
-        {name:'Project #5',  owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
-        {name:'Project #4',  owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
-        {name:'Project #3',  owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
-        {name:'Project #2',  owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
-        {name:'Project #1',  owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
+        {owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
+        {owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
+        {owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
+        {owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
+        {owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
+        {owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
+        {owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
+        {owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
+        {owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
+        {owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
+        {owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
+        {owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
       ],
       options: {
           perPage:5,

@@ -3,7 +3,9 @@ import Router from 'vue-router'
 import Posts from '@/components/Posts'
 import Dashboard from '@/components/dashboard_components/Dashboard'
 import Experiments from '@/components/experiments_components/Experiments.vue'
+import ExperimentDetails from '@/components/experiments_components/ExperimentDetails.vue'
 import Projects from '@/components/projects_components/Projects.vue'
+import ProjectDetails from '@/components/projects_components/ProjectDetails.vue'
 import Settings from '@/components/settings_components/Settings.vue'
 import Search from '@/components/search_components/Search.vue'
 import Welcome from '@/components/Welcome.vue'
@@ -23,9 +25,19 @@ export default new Router({
       component: Experiments
     },
     {
+      path: '/experiments/details',
+      name: 'ExperimentDetails',
+      component: ExperimentDetails
+    },
+    {
       path: '/projects',
       name: 'Projects',
       component: Projects
+    },
+    {
+      path: '/projects/details',
+      name: 'ProjectDetails',
+      component: ProjectDetails
     },
     {
       path: '/settings',

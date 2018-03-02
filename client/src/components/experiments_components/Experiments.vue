@@ -20,25 +20,29 @@
       </div>
     </div>
     <div class="row justify-content-end">
-      <div class="col-1"
-        <AddExperimentButton/>  
+      <div class="col-1">
+        <button type="button" class="btn btn-default btn-lg rounded-circle border-dark" @click="show">
+            <span class="glyphicon glyphicon-plus" style="font-size:30px;"></span> 
+         </button>
       </div>
     </div>
+    <modals-container/>
   </div>
 </template>
 
 <script>
 import Vue from 'vue';
+import VModal from 'vue-js-modal';
+import ExperimentDialog from './ExperimentDialog.vue';
 import moment from 'moment'
 import ExperimentMetrics from '../common_components/ExperimentMetrics.vue'
-import AddExperimentButton from '../common_components/AddExperimentButton.vue'
 import ToggleButton from 'vue-js-toggle-button'
 import {ClientTable} from 'vue-tables-2';
 let tableOptions = {};
 
 Vue.use(ClientTable, tableOptions);
 Vue.use(ToggleButton)
-
+Vue.use(VModal, {dynamic: true});
 var unixToDate = function (t) {
   return moment.unix(t).format("YYYY-MM-DD HH:mm");
 }
@@ -52,9 +56,10 @@ var now = moment().unix();
 var noDuration = "00 00:00:00.000";
 
 export default {
-  components: {ExperimentMetrics, AddExperimentButton},
+  components: {ExperimentMetrics},
   data: function () {
     return {
+      experimentData: {fileTxt : ""},
       metricData: [{queued: '4', running: '10', completed: '8', failed: '4'}],
       columns: ['start_time', 'name', 'owner', 'project', 'run_duration', 'status', 'notify'],
       tableData: [
@@ -91,7 +96,13 @@ export default {
           filterable: ['start_time', 'name', 'owner', 'project', 'run_duration', 'status'],
       }
     }
-  }
+  },
+  methods:{
+        show(){
+          console.log(this.experimentData);
+          this.$modal.show(ExperimentDialog,{experimentData: this.experimentData}, {name:"first",clickToClose: false,height:"auto", width:"50%"});
+        } 
+      }
 } 
 </script>
 

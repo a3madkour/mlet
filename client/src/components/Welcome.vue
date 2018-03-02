@@ -44,14 +44,12 @@
       </form>
     </div>
     <div v-if = "currentScreen === 2">
-      <form>
         <div>
           <small id="db" class="form-text text-muted">Please select the projects you wish to be added to.</small>
         </div>
         <select class="custom-select" multiple>
           <option selected>List of Projects</option>
         </select>
-      </form>
       </div>
       <div class='buttons'>
         <div style = 'float:left;' v-if = "currentScreen === 0" >

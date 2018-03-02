@@ -24,11 +24,10 @@ import Vue from 'vue';
 import VModal from 'vue-js-modal';
 import ProjectDialog from './ProjectDialog.vue';
 import moment from 'moment'
-import AddProjectButton from '../common_components/AddProjectButton.vue'
 import {ClientTable} from 'vue-tables-2';
 let tableOptions = {};
 Vue.use(ClientTable, tableOptions);
-
+Vue.use(VModal, {dynamic: true});
 var unixToDate = function (t) {
   return moment.unix(t).format("YYYY-MM-DD HH:mm");
 }

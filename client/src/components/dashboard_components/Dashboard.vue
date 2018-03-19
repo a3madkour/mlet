@@ -3,14 +3,14 @@
     <div class="row">
       <div class="col-12">
         <h2 class='text-left'>Notifications</h2>
-        <v-client-table :columns="nColumns" :data="nTableData" :options="nOptions"></v-client-table>
+        <v-client-table class="dn-table" :columns="nColumns" :data="nTableData" :options="nOptions"></v-client-table>
       </div>
     </div>
 
     <div class="row">
       <div class="col-6">
         <h2 class='text-left'>My Experiments</h2>
-        <v-client-table :columns="eColumns" :data="eTableData" :options="eOptions">
+        <v-client-table class="de-table" :columns="eColumns" :data="eTableData" :options="eOptions">
           <a slot="name" slot-scope="props" href="#/experiments/details">
             <p v-if="props.row.id!=1">Experiment #{{ props.row.id }}</p>
             <p v-else>my_first_exp</p>
@@ -20,7 +20,7 @@
 
       <div class="col-3">
         <h2 class='text-left'>My Projects</h2>
-        <v-client-table :columns="pColumns" :data="pTableData" :options="pOptions">
+        <v-client-table class="dp-table" :columns="pColumns" :data="pTableData" :options="pOptions">
           <a slot="name" slot-scope="props" href="#/projects/details">
             <p v-if="props.row.id!=1">Project #{{ props.row.id }}</p>
             <p v-else>SSB_detector</p>
@@ -64,7 +64,8 @@ var getNTableData = function() {
     ],
     nOptions: {
         filterable: false,
-        perPage:5
+        perPage:5,
+        orderBy: {column: 'time'},
     }
   }
 }
@@ -87,7 +88,8 @@ var getETableData = function() {
     ],
     eOptions: {
         filterable: false,
-        perPage:10
+        perPage:10,
+        orderBy: {column: 'name'},
     }
   }
 }
@@ -110,7 +112,8 @@ var getPTableData = function() {
     ],
     pOptions: {
         filterable: false,
-        perPage:10
+        perPage:10,
+        orderBy: {column: 'name'},
     }
   }
 }
@@ -119,4 +122,16 @@ var getPTableData = function() {
 
 <style lang="scss">
 @import '../../../node_modules/bootstrap/scss/bootstrap.scss';
+
+.dn-table tr td:nth-child(n+1):nth-child(-n+3) {
+  white-space: nowrap;
+}
+
+.de-table tr td:nth-child(n+1):nth-child(-n+2) {
+  white-space: nowrap;
+}
+
+.dp-table tr td:nth-child(n+1) {
+  white-space: nowrap;
+}
 </style>

@@ -7,7 +7,7 @@
     </div>
     <div class="row">
       <div class="col-12">
-        <v-client-table :columns="columns" :data="tableData" :options="options">
+        <v-client-table class="e-table" :columns="columns" :data="tableData" :options="options">
           <a slot="name" slot-scope="props" href="#/experiments/details">
             <p v-if="props.row.id!=1">Experiment #{{ props.row.id }}</p>
             <p v-else>my_first_exp</p>
@@ -97,6 +97,7 @@ export default {
           perPageValues: [10, 20, 50],
           sortable: ['start_time', 'name', 'owner', 'project', 'run_duration', 'status'],
           filterable: ['start_time', 'name', 'owner', 'project', 'run_duration', 'status'],
+          orderBy: {column: 'start_time'},
       }
     }
   },
@@ -114,5 +115,13 @@ export default {
 
 .toggle {
   display:block;
+}
+
+.e-table tr td:nth-child(n+1):nth-child(-n+6) {
+  white-space: nowrap;
+}
+
+.e-table tr tf:nth-child(n+7) {
+  width: 25px;
 }
 </style>

@@ -2,7 +2,7 @@
   <div class="py-3 container-fluid">
     <div class="row">
       <div class="col-12">
-        <v-client-table :columns="columns" :data="tableData" :options="options">
+        <v-client-table class="p-table" :columns="columns" :data="tableData" :options="options">
           <a slot="name" slot-scope="props" href="#/projects/details">Project #{{ props.row.id }}</a>
         </v-client-table>
       </div>
@@ -59,6 +59,7 @@ export default {
           perPageValues: [5, 10, 20],
           sortable: ['name', 'owner', 'date_of_creation'],
           filterable: ['name', 'owner', 'date_of_creation'],
+          orderBy: {column: 'date_of_creation'},
       }
     }
   },
@@ -73,4 +74,9 @@ export default {
 
 <style lang="scss">
 @import '../../../node_modules/bootstrap/scss/bootstrap.scss';
+
+.p-table tr td:nth-child(n+1):nth-child(-n+3) {
+  white-space: nowrap;
+}
+
 </style>

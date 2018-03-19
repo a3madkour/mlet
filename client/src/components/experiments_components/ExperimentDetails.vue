@@ -36,7 +36,8 @@
   </div>
   <div class="row top-buffer">
     <div class="col-6">
-      <textarea  rows="20" cols="50" type="experimentNotes" placeholder="Experiment notes..." class="form-control" id="experimentNotes"></textarea>
+      <textarea rows="20" cols="50" type="experimentNotes" placeholder="Experiment notes..." class="form-control" id="experimentNotes" v-on-clickaway="saveNotes" @click="editingNotes">
+      </textarea>
     </div>
     <div class="col-6">
       <md-card>
@@ -62,13 +63,16 @@ import EventBus from '../../event-bus';
 import Icon from 'vue-awesome/components/Icon'
 import 'swiper/dist/css/swiper.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
+import { mixin as clickaway } from 'vue-clickaway';
 
 export default {
+  mixins: [ clickaway ],
   components: {Icon, swiper, swiperSlide},
   data: function () {
     return {
+      editting_notes: false,
       swiperOption: {
-		spaceBetween: 50,
+		    spaceBetween: 50,
         pagination: {
           el: '.swiper-pagination',
           type: 'fraction'
@@ -78,10 +82,21 @@ export default {
           prevEl: '.swiper-button-prev'
         }
       }
-	}
+	  }
   },
   created: function() {
     EventBus.$emit('activate_element', 2);
+  },
+  methods: {
+    editingNotes: function() {
+      this.editing_notes = true;
+    },
+    saveNotes: function() {
+      if (this.editing_notes) {
+        this.editing_notes = false;
+        this.$notify({group: 'experiment-saved', type:'success', title: 'Experiment notes have been saved!'});
+      }
+    },
   },
 }
 </script>

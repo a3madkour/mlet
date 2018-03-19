@@ -15,7 +15,6 @@
 
 <script>
 import Toolbar from './components/Toolbar.vue'
-import Dashboard from './components/dashboard_components/Dashboard.vue'
 
 export default {
   name: 'app',

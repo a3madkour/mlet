@@ -35,6 +35,7 @@
 
 <script>
 import Vue from 'vue';
+import EventBus from '../../event-bus';
 import VModal from 'vue-js-modal';
 import ExperimentDialog from './ExperimentDialog.vue';
 import moment from 'moment'
@@ -101,12 +102,15 @@ export default {
       }
     }
   },
+  created: function() {
+    EventBus.$emit('activate_element', 2);
+  },
   methods:{
-        show(){
-          console.log(this.experimentData);
-          this.$modal.show(ExperimentDialog,{experimentData: this.experimentData}, {name:"first",clickToClose: false,height:"auto", width:"50%"});
-        } 
-      }
+    show(){
+      console.log(this.experimentData);
+      this.$modal.show(ExperimentDialog,{experimentData: this.experimentData}, {name:"first",clickToClose: false,height:"auto", width:"50%"});
+    } 
+  }
 } 
 </script>
 

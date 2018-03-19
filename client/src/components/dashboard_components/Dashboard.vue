@@ -39,6 +39,7 @@
 
 <script>
 import Vue from 'vue';
+import EventBus from '../../event-bus';
 import {ClientTable} from 'vue-tables-2';
 let tableOptions = {};
 Vue.use(ClientTable, tableOptions);
@@ -47,7 +48,10 @@ export default {
   components: {},
   data: function () {
     return Object.assign({}, getNTableData(), getETableData(), getPTableData())
-  }
+  },
+  created: function() {
+    EventBus.$emit('activate_element', 0);
+  },
 }
 
 // Get the data and options for the Notifications table

@@ -21,6 +21,7 @@
 
 <script>
 import Vue from 'vue';
+import EventBus from '../../event-bus';
 import VModal from 'vue-js-modal';
 import ProjectDialog from './ProjectDialog.vue';
 import moment from 'moment'
@@ -28,6 +29,7 @@ import {ClientTable} from 'vue-tables-2';
 let tableOptions = {};
 Vue.use(ClientTable, tableOptions);
 Vue.use(VModal, {dynamic: true});
+
 var unixToDate = function (t) {
   return moment.unix(t).format("YYYY-MM-DD HH:mm");
 }
@@ -62,6 +64,9 @@ export default {
           orderBy: {column: 'date_of_creation'},
       }
     }
+  },
+  created: function() {
+    EventBus.$emit('activate_element', 1);
   },
   methods:{
     show(){

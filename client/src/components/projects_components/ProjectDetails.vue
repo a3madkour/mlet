@@ -57,6 +57,7 @@
 
 <script>
 import Vue from 'vue';
+import EventBus from '../../event-bus';
 import VModal from 'vue-js-modal';
 import moment from 'moment'
 import Icon from 'vue-awesome/components/Icon'
@@ -126,12 +127,15 @@ export default {
 
 	 }
   }, 
+  created: function() {
+    EventBus.$emit('activate_element', 1);
+  },
   methods:{
-        show(){
-          console.log(this.experimentData);
-          this.$modal.show(ExperimentDialog,{experimentData: this.experimentData}, {name:"first",clickToClose: false,height:"auto", width:"50%"});
-        } 
-      }
+    show(){
+      console.log(this.experimentData);
+      this.$modal.show(ExperimentDialog,{experimentData: this.experimentData}, {name:"first",clickToClose: false,height:"auto", width:"50%"});
+    } 
+  }
 }
 </script>
 

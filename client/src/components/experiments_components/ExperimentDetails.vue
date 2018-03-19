@@ -58,6 +58,7 @@
 
 <script>
 import Vue from 'vue';
+import EventBus from '../../event-bus';
 import Icon from 'vue-awesome/components/Icon'
 import 'swiper/dist/css/swiper.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
@@ -78,7 +79,10 @@ export default {
         }
       }
 	}
-  }
+  },
+  created: function() {
+    EventBus.$emit('activate_element', 2);
+  },
 }
 </script>
 

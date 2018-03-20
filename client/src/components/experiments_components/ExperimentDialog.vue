@@ -1,7 +1,7 @@
 <template>
   <div class = "dialog" style ="margin:auto; padding-top: 2%;padding-left: 2%;padding-right: 2%;">
     <div style="position :absolute;right:0px;top:0px;" >
-      <button type="button" class = "close" aria-label="Close" @click="$emit('close')" >
+      <button type="button" class = "close" aria-label="Close" @click="closeDialog" >
         <span aria-hidden="true"> &times; </span>
       </button>
     </div>
@@ -48,7 +48,7 @@
     </div>
         <div class = 'buttons'>
       <div v-if='currentScreen === 0'style="float:left;" >
-        <button type="button" class="btn btn-danger" @click="$emit('close')" >
+        <button type="button" class="btn btn-danger" @click="closeDialog" >
           Cancel 
         </button>
       </div>
@@ -74,10 +74,11 @@
 <script>
 import Icon from 'vue-awesome/components/Icon'
 import ExperimentsService from '@/services/ExperimentsService'
+import EventBus from '../../event-bus';
 export default {
   components: {Icon},
   name: 'experimentDialog',
-  props: ['experimentData'],
+  props: [],
   methods: {
     nextDialog : function(){
       this.currentScreen += 1;
@@ -102,8 +103,11 @@ export default {
     },
     endDialog(){
       this.addExperiment();
-      this.$emit('close');
       this.$notify({group: 'experiment-created', type:'success', title: 'Experiment created!'});
+      this.$emit('close');
+    },
+    closeDialog(){
+      this.$emit('close');
     },
     async addExperiment(){
       this.tags = this.tagString.split(',')
@@ -116,9 +120,12 @@ export default {
         tags: this.tags,
         parameterFule: this.parameterFile,
         notes: this.notes,
-        users: this.userNames
+        users: this.userNames,
+        start_time: Date(),
+        run_duration: Date()
       })
       this.$router.push({name: 'Experiments'});
+      EventBus.$emit('experiment_dialog_close');
     },
     userClick(user){  
         this.users[this.users.indexOf(user)].active = !this.users[this.users.indexOf(user)].active;
@@ -127,7 +134,6 @@ export default {
         }else{
             this.userNames.splice(this.userNames.indexOf(user.name));
         }
-        console.log(this.userNames);
     }
   },
   data (){
@@ -136,13 +142,13 @@ export default {
     name: '',
     owner: '',
     project: '',
-    status: '',
+    status: 'Running',
     description: '',
     tags : [],
     tagString: '',
     parameterFile: '',
     notes: '',
-    userNames: []
+    userNames: [],
     }
   }
 }

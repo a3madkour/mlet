@@ -37,11 +37,8 @@ import VModal from 'vue-js-modal';
 import ExperimentDialog from './ExperimentDialog.vue';
 import moment from 'moment'
 import ExperimentMetrics from '../common_components/ExperimentMetrics.vue'
-<<<<<<< HEAD
 import ExperimentsService from '@/services/ExperimentsService'
-=======
 import HelpModal from '../common_components/help_modal.vue';
->>>>>>> de249b1e833b7e6b51f37e7c72e3dcb7a13b3a28
 import ToggleButton from 'vue-js-toggle-button'
 import {ClientTable} from 'vue-tables-2';
 let tableOptions = {};
@@ -103,7 +100,6 @@ export default {
       console.log(this.experimentData);
       this.$modal.show(ExperimentDialog,{experimentData: this.experimentData}, {name:"first",clickToClose: false,height:"auto", width:"50%"});
     },
-<<<<<<< HEAD
      async getExperiments () {
       const response = await ExperimentsService.fetchExperiments()
       this.tableData = response.data.experiments

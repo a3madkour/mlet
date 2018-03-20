@@ -1,5 +1,5 @@
 <template>
-  <div class = "welcome" align="center" style = "margin:auto;width:50%;bottom:50%; padding-top:200px;">
+  <div class = "welcome col-sm-6" style="margin: 280px">
     <h1>
       WELCOME!
     </h1>
@@ -52,11 +52,6 @@
         </select>
       </div>
       <div class='buttons'>
-        <div style = 'float:left;' v-if = "currentScreen === 0" >
-            <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
-              Cancel
-            </button>
-        </div>
         <div  style = 'float:right;' v-if = "currentScreen != 2">
             <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off" @click=nextDialog>
               Next

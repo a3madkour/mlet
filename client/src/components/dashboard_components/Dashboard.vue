@@ -24,8 +24,8 @@
 
       <div class="col-7">
         <h2 class='text-left'>System Info</h2>
-        <img src="./systems_info.png" class="rounded img-fluid">
-        <img src="./systems_info.png" class="rounded img-fluid">
+        <SystemInfo></SystemInfo>
+        <!--<img src="./systems_info.png" class="rounded img-fluid">-->
         <p><b>Note:</b> This is a temp image for the prototype</p>
       </div>
     </div>
@@ -35,12 +35,15 @@
 <script>
 import Vue from 'vue';
 import EventBus from '../../event-bus';
+import SystemInfo from './SystemInfo';
 import {ClientTable} from 'vue-tables-2';
 let tableOptions = {};
 Vue.use(ClientTable, tableOptions);
 
 export default {
-  components: {},
+  components: {
+    SystemInfo,  
+  },
   data: function () {
     return Object.assign({}, getNTableData(), getPTableData())
   },

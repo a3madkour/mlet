@@ -1,5 +1,10 @@
 <template>
   <div class="userPermissions">
+    <div class='help-button'>
+       <button type="button" class="btn btn-default btn-lg" @click="showHelp">
+         <span class="glyphicon glyphicon-question-sign" style="font-size:30px;"></span> 
+       </button>
+    </div>
     <div align="center" style = "margin:auto;width:50%;bottom:50%;">
       <div  class = "buttons">
           <icon name="user" scale="2.5"></icon>
@@ -32,11 +37,20 @@
 
 <script>
 import Vue from 'vue';
+import HelpModal from '../common_components/help_modal.vue';
 import Icon from 'vue-awesome/components/Icon'
+
+var permissions_explanation = `There are three different types of user permissions in MLET: Read, Write, and Excecute. These are analogous to the permissions
+you can set for a file in a modern day file system. Read permission will allow a user to view the project details and experiments. Write permission will allow
+a user to create new experiments for this project. Execute permision will allow a user to run a experiment for this project on whatever machine MLET is being 
+run from.`;
+
 export default {
   name: 'userPermissions',
   props : ["users", "name"],
-  components: {Icon
+  components: {
+    Icon,
+    HelpModal,
   },
   data () {
     return {
@@ -46,9 +60,15 @@ export default {
   methods: {
     addUser(){
       this.$modal.hide(this.name)
+    },
+
+    showHelp: function () {
+      this.$modal.show(HelpModal, {header_text:"User Permissions", help_text:permissions_explanation, clickToClose: false, height:"auto", width:"50%"});
     }
-  }
+  },
 }
 </script>
-<style>
+
+<style lang="scss">
+@import '../../../node_modules/bootstrap/scss/bootstrap.scss';
 </style>

@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Posts from '@/components/Posts'
+import NewPost from '@/components/NewPost'
+import EditPost from '@/components/EditPost'
 import Dashboard from '@/components/dashboard_components/Dashboard'
 import Experiments from '@/components/experiments_components/Experiments.vue'
 import ExperimentDetails from '@/components/experiments_components/ExperimentDetails.vue'
@@ -54,6 +56,16 @@ export default new Router({
       path: '/posts',
       name: 'Posts',
       component: Posts
+    },
+    {
+      path: '/posts/new',
+      name: 'NewPost',
+      component: NewPost
+    },
+    {
+      path: '/posts/:id',
+      name: 'EditPost',
+      component: EditPost
     },
     {
       path: '/',

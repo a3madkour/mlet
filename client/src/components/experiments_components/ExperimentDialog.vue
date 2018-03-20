@@ -101,8 +101,9 @@ export default {
       reader.readAsText(file);
     },
     endDialog(){
-      this.$emit('close');
       this.addExperiment();
+      this.$emit('close');
+      this.$notify({group: 'experiment-created', type:'success', title: 'Experiment created!'});
     },
     async addExperiment(){
       this.tags = this.tagString.split(',')

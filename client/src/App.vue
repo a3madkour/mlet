@@ -1,5 +1,18 @@
 <template>
   <div id="app">
+  <notifications group="experiment-saved"
+                 position="bottom right"
+                 :speed="500"
+                 :duration="1000"/>
+  <notifications group="experiment-created"
+                 position="bottom right"
+                 :speed="500"
+                 :duration="1000"/>
+  <notifications group="project-created"
+                 position="bottom right"
+                 :speed="500"
+                 :duration="1000"/>
+
     <div class="container-fluid"">
       <div class="row full-width-row">
         <div class="col-2">

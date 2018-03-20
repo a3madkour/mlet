@@ -8,7 +8,6 @@
 import Vue from 'vue';
 import EventBus from '../../event-bus';
 
-
 export default {
   components: {},
   created: function() {

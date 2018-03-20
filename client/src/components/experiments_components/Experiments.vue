@@ -38,6 +38,7 @@ import VModal from 'vue-js-modal';
 import ExperimentDialog from './ExperimentDialog.vue';
 import moment from 'moment'
 import ExperimentMetrics from '../common_components/ExperimentMetrics.vue'
+import HelpModal from '../common_components/help_modal.vue';
 import ToggleButton from 'vue-js-toggle-button'
 import {ClientTable} from 'vue-tables-2';
 let tableOptions = {};
@@ -58,7 +59,10 @@ var now = moment().unix();
 var noDuration = "00 00:00:00.000";
 
 export default {
-  components: {ExperimentMetrics},
+  components: {
+    ExperimentMetrics,
+    HelpModal,
+  },
   data: function () {
     return {
       experimentData: {fileTxt : ""},
@@ -97,6 +101,17 @@ export default {
           sortable: ['start_time', 'name', 'owner', 'project', 'run_duration', 'status'],
           filterable: ['start_time', 'name', 'owner', 'project', 'run_duration', 'status'],
           orderBy: {column: 'start_time'},
+          headings: {notify: function (h) { 
+            return <div style="display: table;">
+                     <div style="display: table-cell; float: left; vertical-align: bottom;">Notify</div>
+                     <div style="display: table-cell; float: left; vertical-align: bottom;">
+                       <button type="button" class="btn btn-default btn-sm" style="float: right;" on-click={ () => this.showHelp() } >
+                         <span class="glyphicon glyphicon-question-sign" style="font-size:15px;"></span> 
+                       </button>
+                     </div>
+                   </div>
+           }
+          }, 
       }
     }
   },
@@ -107,9 +122,16 @@ export default {
     show(){
       console.log(this.experimentData);
       this.$modal.show(ExperimentDialog,{experimentData: this.experimentData}, {name:"first",clickToClose: false,height:"auto", width:"50%"});
-    } 
+    },
+    showHelp: function () {
+      this.$modal.show(HelpModal, {header_text:"Experiment Notifications", help_text:notify_explanation, clickToClose: false, height:"auto", width:"50%"});
+    },
   }
 } 
+
+var notify_explanation = `This slider allows you to set which experiments you want to be notified of when they complete running. By default you are already set
+to be notified when your own experiments complete but this allows you to opt in to watch experiments you find important. More notificatin options can be found
+in Settings`;
 </script>
 
 <style lang="scss">

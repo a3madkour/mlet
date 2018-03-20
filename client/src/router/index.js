@@ -34,7 +34,7 @@ export default new Router({
       component: Experiments
     },
     {
-      path: '/experiments/details',
+      path: '/experiments/:id',
       name: 'ExperimentDetails',
       component: ExperimentDetails
     },
@@ -44,7 +44,7 @@ export default new Router({
       component: Projects
     },
     {
-      path: '/projects/details',
+      path: '/projects/:id',
       name: 'ProjectDetails',
       component: ProjectDetails
     },

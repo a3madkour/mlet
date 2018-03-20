@@ -15,28 +15,12 @@ router.post('/', (req, res) => {
   var name = req.body.name;
   var description = req.body.description;
   var owner = req.body.owner;
-  var project = req.body.project;
-  var project_id = req.body.project_id;
-  var status = req.body.status;
-  var tags = req.body.tags;
-  var parameterFile = req.body.parameterFile;
-  var notes = req.body.notes;
-  var users = req.body.users;
-  var start_time = req.body.start_time;
-  var run_duration = req.body.run_duration;
+  var date_of_creation = req.body.date_of_creation;
   var new_project = new Project({
     name: name,
     description: description,
     owner: owner,
-    project: project,
-    project_id: project_id,
-    status: status,
-    tags : tags,
-    parameterFile : parameterFile,
-    notes: notes,
-    users : users,
-    start_time: start_time,
-    run_duration: run_duration
+    date_of_creation: date_of_creation
   })
 
   new_project.save(function (error) {
@@ -76,15 +60,7 @@ router.put('/:id', (req, res) => {
     project.name = req.body.name
     project.description = req.body.description
     project.owner = req.body.owner;
-    project.project = req.body.project;
-    project.project_id = req.body.project_id;
-    project.status = req.body.status;
-    project.tags = req.body.tags;
-    project.parameterFile = req.body.parameterFile;
-    project.notes = req.body.notes;
-    project.users = req.body.users;
-    project.start_time = req.body.start_time;
-    project.run_duration = req.body.run_duration;
+    project.date_of_creation = req.body.date_of_creation;
     project.save(function (error) {
       if (error) {
         console.log(error)

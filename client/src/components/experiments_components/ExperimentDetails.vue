@@ -67,6 +67,7 @@ import { mixin as clickaway } from 'vue-clickaway';
 
 export default {
   mixins: [ clickaway ],
+  name: 'ExperimentDetails',
   components: {Icon, swiper, swiperSlide},
   data: function () {
     return {

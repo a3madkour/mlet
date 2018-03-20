@@ -14,5 +14,5 @@ app.use(cors())
 
 app.use('/posts',posts)
 app.use('/experiments',experiments)
-// app.use('/projects',projects)
+app.use('/projects',projects)
 app.listen(process.env.PORT || 8081)

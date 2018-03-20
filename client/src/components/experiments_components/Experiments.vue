@@ -8,9 +8,9 @@
     <div class="row">
       <div class="col-12">
         <v-client-table class="e-table" :columns="columns" :data="tableData" :options="options">
-          <a slot="name" slot-scope="props" href="#/experiments/details">
-            <p >{{ props.row.name}}</p>
-          </a>
+          <router-link v-bind:to="{name: 'ExperimentDetails', params: {id : props.row.id}}" slot="name" slot-scope="props">
+            <p >Experiment {{ props.row.id}}</p>
+          </router-link>
           <toggle-button slot="notify" 
                          slot-scope="props"
                          :value="false" 
@@ -26,7 +26,7 @@
          <span class="glyphicon glyphicon-plus" style="font-size:30px;"></span> 
        </button>
     </div>
-    <modals-container @before-open="dialogClosed"/>
+    <modals-container/>
   </div>
 </template>
 

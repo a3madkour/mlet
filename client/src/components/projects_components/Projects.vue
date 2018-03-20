@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-12">
         <v-client-table class="p-table" :columns="columns" :data="tableData" :options="options">
-          <a slot="name" slot-scope="props" href="#/projects/details">Project #{{ props.row.id }}</a>
+          <router-link slot="name" slot-scope="props" v-bind:to= "{name: 'ProjectDetails', params: {id:props.row._id}}" >{{ props.row.name }}</router-link>
         </v-client-table>
       </div>
     </div>
@@ -23,6 +23,7 @@ import VModal from 'vue-js-modal';
 import ProjectDialog from './ProjectDialog.vue';
 import moment from 'moment'
 import {ClientTable} from 'vue-tables-2';
+import ProjectsService from '@/services/ProjectsService'
 let tableOptions = {};
 Vue.use(ClientTable, tableOptions);
 Vue.use(VModal, {dynamic: true});
@@ -65,11 +66,18 @@ export default {
   created: function() {
     EventBus.$emit('activate_element', 2);
   },
+  mounted(){
+    this.getProjects();
+  },
   methods:{
     show(){
       console.log(this.projectData);
       this.$modal.show(ProjectDialog,{projectData: this.projectData}, {name:"first",clickToClose: false,height:"auto", width:"50%"});
-    } 
+    },
+    async getProjects(){
+      const response = await ProjectsService.fetchProjects()
+      this.tableData = response.data.projects
+    }
   }
 } 
 </script>

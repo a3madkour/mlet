@@ -7,16 +7,16 @@
       </a>
     </div>
     <div class="col">
-      <h1 class="float-left">SSB_detector</h1>
+      <h1 class="float-left">{{this.name}}</h1>
     </div>
   </div>
   <div class="row">
     <div class="col-8">
       <div class="card" align="left">
         <div class="card-body">
-          <p class="card-text-1"><b>Owner:</b> User #1</p>
-          <p class="card-text-2"><b>Created On:</b> February 15, 2018</p>
-          <p class="card-text-3"><b>Description:</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean consequat sapien sit amet justo molestie, eu fermentum massa iaculis. Vestibulum faucibus fermentum odio ut faucibus. Nullam ut erat vestibulum, congue tortor eu, ornare lorem. Mauris efficitur vestibulum purus, sed commodo metus sollicitudin vitae. Ut id orci mi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
+          <p class="card-text-1"><b>Owner:</b> {{this.owner}} </p>
+          <p class="card-text-2"><b>Created On:</b> {{this.date_of_creation}}</p>
+          <p class="card-text-3"><b>Description:</b> {{this.description}} </p>
         </div>
       </div>
     </div>
@@ -27,10 +27,10 @@
   <div class="row top-buffer">
     <div class="col-12">
         <v-client-table class="e-table" :columns="columns" :data="tableData" :options="options">
-          <a slot="name" slot-scope="props" href="#/experiments/details">
+          <router-link slot="name" vbind:to = "{name: 'ExperimentDetails', params: {id: props.row.id}}"slot-scope="props">
             <p v-if="props.row.id!=1">Experiment #{{ props.row.id }}</p>
             <p v-else>my_first_exp</p>
-          </a>
+          </router-link>
           <toggle-button slot="notify" 
                          slot-scope="props"
                          :value="false" 
@@ -60,6 +60,7 @@ import ExperimentMetrics from '../common_components/ExperimentMetrics.vue'
 import HelpModal from '../common_components/help_modal.vue';
 import ExperimentDialog from '../experiments_components/ExperimentDialog.vue';
 import ToggleButton from 'vue-js-toggle-button'
+import ProjectsService from '@/services/ProjectsService'
 import {ClientTable} from 'vue-tables-2';
 Vue.use(VModal, {dynamic: true});
 let tableOptions = {};
@@ -80,6 +81,7 @@ var now = moment().unix();
 var noDuration = "00 00:00:00.000";
 
 export default {
+  name: 'ProjectDetails',
   components: {
     Icon, 
     ExperimentMetrics,
@@ -88,6 +90,10 @@ export default {
   data: function () {
     return {
       experimentData: {fileTxt : ""},
+      name: 'SSB_Detector',
+      owner: 'User #1',
+      description: '',
+      date_of_creation: now ,
       metricData: [{queued: '4', running: '10', completed: '8', failed: '4'}],
       columns: ['start_time', 'name', 'owner', 'project', 'run_duration', 'status', 'notify'],
       tableData: [
@@ -141,6 +147,10 @@ export default {
   created: function() {
     EventBus.$emit('activate_element', 2);
   },
+  mounted(){
+    console.log(this.$route)
+    this.getProject(); 
+  },
   methods:{
     show(){
       console.log(this.experimentData);
@@ -149,6 +159,16 @@ export default {
     showHelp: function () {
       this.$modal.show(HelpModal, {header_text:"Experiment Notifications", help_text:notify_explanation, clickToClose: false, height:"auto", width:"50%"});
     },
+    async getProject(){
+      console.log(this.$route.params.id)
+      const response = await ProjectsService.getProject({
+          id: this.$route.params.id
+      })
+      this.name = response.data.name;
+      this.owner = response.data.owner;
+      this.description = response.data.description;
+      this.date_of_creation = response.data.date_of_creation;
+    }
   }
 }
 

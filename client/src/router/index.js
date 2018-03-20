@@ -8,6 +8,7 @@ import Experiments from '@/components/experiments_components/Experiments.vue'
 import ExperimentDetails from '@/components/experiments_components/ExperimentDetails.vue'
 import Projects from '@/components/projects_components/Projects.vue'
 import ProjectDetails from '@/components/projects_components/ProjectDetails.vue'
+import Notifications from '@/components/notification_components/Notifications.vue'
 import Settings from '@/components/settings_components/Settings.vue'
 import Search from '@/components/search_components/Search.vue'
 import Welcome from '@/components/Welcome.vue'
@@ -21,6 +22,12 @@ export default new Router({
       name: 'Dashboard',
       component: Dashboard
     },
+    {
+      path: '/notifications',
+      name: 'Notifications',
+      component: Notifications
+    },
+
     {
       path: '/experiments',
       name: 'Experiments',

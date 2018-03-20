@@ -9,8 +9,7 @@
       <div class="col-12">
         <v-client-table class="e-table" :columns="columns" :data="tableData" :options="options">
           <a slot="name" slot-scope="props" href="#/experiments/details">
-            <p v-if="props.row.id!=1">Experiment #{{ props.row.id }}</p>
-            <p v-else>my_first_exp</p>
+            <p >{{ props.row.name}}</p>
           </a>
           <toggle-button slot="notify" 
                          slot-scope="props"
@@ -27,7 +26,7 @@
          <span class="glyphicon glyphicon-plus" style="font-size:30px;"></span> 
        </button>
     </div>
-    <modals-container/>
+    <modals-container @before-open="dialogClosed"/>
   </div>
 </template>
 
@@ -38,6 +37,7 @@ import VModal from 'vue-js-modal';
 import ExperimentDialog from './ExperimentDialog.vue';
 import moment from 'moment'
 import ExperimentMetrics from '../common_components/ExperimentMetrics.vue'
+import ExperimentsService from '@/services/ExperimentsService'
 import HelpModal from '../common_components/help_modal.vue';
 import ToggleButton from 'vue-js-toggle-button'
 import {ClientTable} from 'vue-tables-2';
@@ -117,15 +117,32 @@ export default {
   },
   created: function() {
     EventBus.$emit('activate_element', 3);
+    EventBus.$on('experiment_dialog_close', this.dialogClosed);
+  },
+  mounted(){
+      //this.getExperiments();     
+  },
+  beforeDestroy: function() {
+    EventBus.$off('experiment_dialog_close', this.activate_el);
   },
   methods:{
     show(){
-      console.log(this.experimentData);
-      this.$modal.show(ExperimentDialog,{experimentData: this.experimentData}, {name:"first",clickToClose: false,height:"auto", width:"50%"});
+      this.$modal.show(ExperimentDialog,{}, {name:"first",clickToClose: false,height:"auto", width:"50%"});
+      this.$on('close',this.dialogClosed);
+    },
+     async getExperiments () {
+      const response = await ExperimentsService.fetchExperiments()
+      this.tableData = response.data.experiments
     },
     showHelp: function () {
-      this.$modal.show(HelpModal, {header_text:"Experiment Notifications", help_text:notify_explanation, clickToClose: false, height:"auto", width:"50%"});
+      this.$modal.show(HelpModal, {header_text:"Experiment Notifications", help_text:notify_explanation},{ clickToClose: false,height:"auto"});
+
     },
+    dialogClosed: function(event){
+      //this.getExperiments();
+      console.log("T")
+      
+    }
   }
 } 
 

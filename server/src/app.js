@@ -7,11 +7,12 @@ var mongoose = require('mongoose')
 
 var posts = require('./routes/posts')
 var experiments = require('./routes/experiments')
-
+var projects = require('./routes/projects')
 app.use(morgan('combined'))
 app.use(bodyParser.json())
 app.use(cors())
 
 app.use('/posts',posts)
 app.use('/experiments',experiments)
+// app.use('/projects',projects)
 app.listen(process.env.PORT || 8081)

@@ -1,8 +1,8 @@
 var express = require('express')
 var router = express.Router();
 var mongoose = require('mongoose');
-var Experiment = require('../models/experiment')
-mongoose.connect('mongodb://localhost:27017/experiments');
+var Project = require('../models/project')
+mongoose.connect('mongodb://localhost:27017/projects');
 var db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error"));
 db.once("open", function(callback){
@@ -24,7 +24,7 @@ router.post('/', (req, res) => {
   var users = req.body.users;
   var start_time = req.body.start_time;
   var run_duration = req.body.run_duration;
-  var new_experiment = new Experiment({
+  var new_project = new Project({
     name: name,
     description: description,
     owner: owner,
@@ -39,7 +39,7 @@ router.post('/', (req, res) => {
     run_duration: run_duration
   })
 
-  new_experiment.save(function (error) {
+  new_project.save(function (error) {
     if (error) {
       console.log(error)
     }
@@ -51,41 +51,41 @@ router.post('/', (req, res) => {
 })
 // Fetch all posts
 router.get('/', (req, res) => {
-  Experiment.find({}, function (error, experiments) {
+  Project.find({}, function (error, projects) {
     if (error) { console.error(error); }
     res.send({
-      experiments: experiments
+      projects: projects
     })
   }).sort({_id:-1})
 })
 // Fetch single post
 router.get('/:id', (req, res) => {
   var db = req.db;
-  Experiment.findById(req.params.id, function (error, experiment) {
+  Project.findById(req.params.id, function (error, project) {
     if (error) { console.error(error); }
-    res.send(experiment)
+    res.send(project)
   })
 })
 
 // Update a post
 router.put('/:id', (req, res) => {
   var db = req.db;
-  Experiment.findById(req.params.id, function (error, experiment) {
+  Project.findById(req.params.id, function (error, project) {
     if (error) { console.error(error); }
 
-    experiment.name = req.body.name
-    experiment.description = req.body.description
-    experiment.owner = req.body.owner;
-    experiment.project = req.body.project;
-    experiment.project_id = req.body.project_id;
-    experiment.status = req.body.status;
-    experiment.tags = req.body.tags;
-    experiment.parameterFile = req.body.parameterFile;
-    experiment.notes = req.body.notes;
-    experiment.users = req.body.users;
-    experiment.start_time = req.body.start_time;
-    experiment.run_duration = req.body.run_duration;
-    experiment.save(function (error) {
+    project.name = req.body.name
+    project.description = req.body.description
+    project.owner = req.body.owner;
+    project.project = req.body.project;
+    project.project_id = req.body.project_id;
+    project.status = req.body.status;
+    project.tags = req.body.tags;
+    project.parameterFile = req.body.parameterFile;
+    project.notes = req.body.notes;
+    project.users = req.body.users;
+    project.start_time = req.body.start_time;
+    project.run_duration = req.body.run_duration;
+    project.save(function (error) {
       if (error) {
         console.log(error)
       }
@@ -98,9 +98,9 @@ router.put('/:id', (req, res) => {
 // Delete a post
 router.delete('/:id', (req, res) => {
   var db = req.db;
-  Experiment.remove({
+  Project.remove({
     _id: req.params.id
-  }, function(err, experiment){
+  }, function(err, project){
     if (err)
       res.send(err)
     res.send({

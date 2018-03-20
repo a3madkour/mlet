@@ -8,23 +8,24 @@
     <div v-if='currentScreen === 0'>
         <div>
           <label for="experimentName">Please select the project for the experiment:</label>
-        </div>
-        <select class="custom-select" multiple>
+        </div class="form-group">
+        <select v-model="project" class="form-control" >
           <option selected>Sample Project</option>
+          <option >Sample Project2</option>
         </select>
     </div>
     <div v-if='currentScreen === 1'>
       <div class="form-group" >
         <label for="experimentName">Please enter in a name for the experiment:</label>
-        <input type="address" class="form-control" id="experimentName" placeholder="My experiment"v-model="experimentData.name" required>
+        <input type="address" class="form-control" id="experimentName" placeholder="My experiment"v-model="name" required>
       </div>
       <div class="form-group">
         <label for="experimentDescription">Please enter a brief description of the experiment:</label>
-        <textarea  rows="4" cols="50" type="experimentDescription" class="form-control" id="experimentDescription" v-model="experimentData.description"></textarea>
+        <textarea  rows="4" cols="50" type="experimentDescription" class="form-control" id="experimentDescription" v-model="description"></textarea>
       </div>
       <div class="form-group">
         <label for="experimentTags">Please enter in comma seprated tags for the experiment:</label>
-        <input type="experimentTags" class="form-control" id="experimentTags" v-model="experimentData.tagString">
+        <input type="experimentTags" class="form-control" id="experimentTags" v-model="tagString">
       </div>
     </div>
     <div v-if='currentScreen === 2'>
@@ -33,11 +34,10 @@
         <input type="file" @change="onFileChange"> 
       </div>
       <div class="form-group" >
-        <textarea  type="fileTxt" class="form-control" id="fileTxt" placeholder=" " v-model="experimentData.fileTxt"></textarea>
+        <textarea  type="fileTxt" class="form-control" id="fileTxt" placeholder=" " v-model="parameterFile"></textarea>
       </div>
     </div>
     <div v-if='currentScreen === 3'>
-          users
           <label for="repo">Please assign users to the experiment:</label>
           <div class = "userContainer">
           <div :class = "{active: user.active, ind:true, assigned: user.assigned}"  v-for = "user in users" @click="userClick(user)">
@@ -73,6 +73,7 @@
 </template>
 <script>
 import Icon from 'vue-awesome/components/Icon'
+import ExperimentsService from '@/services/ExperimentsService'
 export default {
   components: {Icon},
   name: 'experimentDialog',
@@ -100,23 +101,48 @@ export default {
       reader.readAsText(file);
     },
     endDialog(){
-      this.$emit('close')
+      this.addExperiment();
+      this.$emit('close');
       this.$notify({group: 'experiment-created', type:'success', title: 'Experiment created!'});
+    },
+    async addExperiment(){
+      this.tags = this.tagString.split(',')
+      await ExperimentsService.addExperiment({
+        name: this.name,
+        description: this.description,
+        owner: this.owner,
+        project: this.project,
+        status: this.status,
+        tags: this.tags,
+        parameterFule: this.parameterFile,
+        notes: this.notes,
+        users: this.userNames
+      })
+      this.$router.push({name: 'Experiments'});
     },
     userClick(user){  
         this.users[this.users.indexOf(user)].active = !this.users[this.users.indexOf(user)].active;
-        if(this.selected.indexOf(user.name) <0 ){
-            this.selected.push(user.name);
+        if(this.userNames.indexOf(user.name) <0 ){
+            this.userNames.push(user.name);
         }else{
-            this.selected.splice(this.selected.indexOf(user.name));
+            this.userNames.splice(this.userNames.indexOf(user.name));
         }
-        console.log(this.selected);
+        console.log(this.userNames);
     }
   },
   data (){
     return{currentScreen : 0,
     users: [{name:"Jack", active:false,assigned:false, permissions : []},{name:"User", active:false,assigned:false, permissions : []}, {name:"Jill", active:false, assigned:false,permissions : []}], 
-    selected:[]
+    name: '',
+    owner: '',
+    project: '',
+    status: '',
+    description: '',
+    tags : [],
+    tagString: '',
+    parameterFile: '',
+    notes: '',
+    userNames: []
     }
   }
 }

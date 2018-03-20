@@ -1,78 +1,90 @@
 <template>
   <div class="posts">
-   <label for="repo">Please assign users to the project:</label>
-    <div class = "userContainer">
-      <div :class = "{active: user.active, ind:true}"  v-for = "user in users" @click="userClick(user)">
-        <icon name="user" scale="2.5"></icon>
-        <span :class = "{active: user.active, text:true}" >{{user.name}}</span>
+    <h1>Posts</h1>
+    <div v-if="posts.length > 0" class="table-wrap">
+      <div>
+        <router-link v-bind:to="{ name: 'NewPost' }" class="">Add Post</router-link>
       </div>
+      <table>
+        <tr>
+          <td>Title</td>
+          <td width="550">Description</td>
+          <td width="100" align="center">Action</td>
+        </tr>
+        <tr v-for="post in posts">
+          <td>{{ post.title }}</td>
+          <td>{{ post.description }}</td>
+          <td align="center">
+            <router-link v-bind:to="{ name: 'EditPost', params: { id: post._id } }">Edit</router-link> |
+            <a href="#" @click="deletePost(post._id)">Delete</a>
+          </td>
+        </tr>
+      </table>
     </div>
-    <div class ="buttons"> 
-      <button class="btn btn-info" style="float:right;"> Assign </button>
+    <div v-else>
+      There are no posts.. Lets add one now <br /><br />
+      <router-link v-bind:to="{ name: 'NewPost' }" class="add_post_link">Add Post</router-link>
     </div>
   </div>
-
 </template>
 
 <script>
-import Vue from 'vue';
-import Icon from 'vue-awesome/components/Icon'
+import PostsService from '@/services/PostsService'
 export default {
   name: 'posts',
-  props : ["userName"],
-  components: { Icon
-  },
   data () {
     return {
-      users: [{name:"Charlie", active:false},{name:"User", active:false}, {name:"Sam", active:false}],
-      selected : []
-    }  
+      posts: []
+    }
+  },
+  mounted () {
+    this.getPosts()
   },
   methods: {
-    userClick(user){
-        
-        this.users[this.users.indexOf(user)].active = !this.users[this.users.indexOf(user)].active;
-        if(this.selected.indexOf(user.name) <0 ){
-            this.selected.push(user.name);
-        }else{
-            this.selected.splice(this.selected.indexOf(user.name));
-        }
-        console.log(this.selected);
+    async getPosts () {
+      const response = await PostsService.fetchPosts()
+      this.posts = response.data.posts
+    },
+    async deletePost (id) {
+      await PostsService.deletePost(id)
+      this.$router.push({ name: 'Posts' })
+      this.getPosts()
     }
   }
 }
 </script>
-<style>
-.userContainer {
-  align:center;
-  display:flex;
-  border-style:solid;
-  background-color: #DCDCDC;
-  border-color: #555;
-  border-radius: 10px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
-  border-bottom-left-radius: 10px;
+<style type="text/css">
+.table-wrap {
+  width: 60%;
+  margin: 0 auto;
   text-align: center;
 }
-.ind{
-  float:left;
-  padding-left: 1%;
-  padding-right: 1%;
-  text-align: center;
-  color: black;
-  font-size: 20px;
+table th, table tr {
+  text-align: left;
 }
-.text{
-  padding-left: 1%;
-  padding-right: 1%;
-  text-align: center;
-  color: black;
-  font-size: 20px;
-  display: block;
+table thead {
+  background: #f2f2f2;
 }
-.active{
-  color: #4CAF50;
+table tr td {
+  padding: 10px;
+}
+table tr:nth-child(odd) {
+  background: #f2f2f2;
+}
+table tr:nth-child(1) {
+  background: #4d7ef7;
+  color: #fff;
+}
+a {
+  color: #4d7ef7;
+  text-decoration: none;
+}
+a.add_post_link {
+  background: #4d7ef7;
+  color: #fff;
+  padding: 10px 80px;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: bold;
 }
 </style>

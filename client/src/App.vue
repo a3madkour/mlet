@@ -4,6 +4,14 @@
                  position="bottom right"
                  :speed="500"
                  :duration="1000"/>
+  <notifications group="experiment-created"
+                 position="bottom right"
+                 :speed="500"
+                 :duration="1000"/>
+  <notifications group="project-created"
+                 position="bottom right"
+                 :speed="500"
+                 :duration="1000"/>
 
     <div class="container-fluid"">
       <div class="row full-width-row">

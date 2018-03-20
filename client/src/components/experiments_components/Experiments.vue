@@ -22,12 +22,10 @@
         </v-client-table>
       </div>
     </div>
-    <div class="row justify-content-end">
-      <div class="col-1">
-        <button type="button" class="btn btn-default btn-lg rounded-circle border-dark" @click="show">
-            <span class="glyphicon glyphicon-plus" style="font-size:30px;"></span> 
-         </button>
-      </div>
+    <div class="add-button">
+      <button type="button" class="btn btn-default btn-lg rounded-circle border-dark" @click="show">
+         <span class="glyphicon glyphicon-plus" style="font-size:30px;"></span> 
+       </button>
     </div>
     <modals-container/>
   </div>
@@ -127,5 +125,11 @@ export default {
 
 .e-table tr tf:nth-child(n+7) {
   width: 25px;
+}
+
+.add-button {
+ position: fixed;
+ bottom: 10px;
+ right: 10px;
 }
 </style>

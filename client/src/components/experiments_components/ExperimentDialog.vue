@@ -101,6 +101,7 @@ export default {
     },
     endDialog(){
       this.$emit('close')
+      this.$notify({group: 'experiment-created', type:'success', title: 'Experiment created!'});
     },
     userClick(user){  
         this.users[this.users.indexOf(user)].active = !this.users[this.users.indexOf(user)].active;

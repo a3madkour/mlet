@@ -109,6 +109,7 @@
     </div>
   </div>
 </template>
+
 <script>
 import Vue from 'vue';
 import VModal from 'vue-js-modal';
@@ -143,6 +144,7 @@ export default {
     },
     endDialog(){
       this.$emit('close')
+      this.$notify({group: 'project-created', type:'success', title: 'Project created!'});
     },
     userPermission(){
       if(this.selected.length > 0){
@@ -171,6 +173,7 @@ export default {
   }
 }
 </script>
+
 <style>
 .userContainer {
   align:center;

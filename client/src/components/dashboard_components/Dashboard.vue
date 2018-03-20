@@ -17,16 +17,9 @@
           </a>
         </v-client-table>
       </div>
-
-      <div class="col-2">
-
-      </div>
-
-      <div class="col-7">
+      <div class="col-9">
         <h2 class='text-left'>System Info</h2>
         <SystemInfo></SystemInfo>
-        <!--<img src="./systems_info.png" class="rounded img-fluid">-->
-        <p><b>Note:</b> This is a temp image for the prototype</p>
       </div>
     </div>
   </div>

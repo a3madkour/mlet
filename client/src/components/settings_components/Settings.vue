@@ -11,7 +11,7 @@ import EventBus from '../../event-bus';
 export default {
   components: {},
   created: function() {
-    EventBus.$emit('activate_element', 4);
+    EventBus.$emit('activate_element', 5);
   },
 }
 </script>

@@ -85,7 +85,7 @@ export default {
 	  }
   },
   created: function() {
-    EventBus.$emit('activate_element', 2);
+    EventBus.$emit('activate_element', 3);
   },
   methods: {
     editingNotes: function() {

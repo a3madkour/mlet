@@ -1,21 +1,27 @@
 <template>
   <div class="py-3 container-fluid">
-    <p> TODO: Search stuff </p>
+    <p> test </p>
   </div>
 </template>
 
 <script>
 import Vue from 'vue';
 import EventBus from '../../event-bus';
+import {ClientTable} from 'vue-tables-2';
+let tableOptions = {};
+Vue.use(ClientTable, tableOptions);
 
 export default {
   components: {},
+  data: function () {
+    return {}
+  },
   created: function() {
-    EventBus.$emit('activate_element', 4);
+    EventBus.$emit('activate_element', 1);
   },
 }
 </script>
 
-<style lang="scss">
-@import '../../../node_modules/bootstrap/scss/bootstrap.scss';
+<style>
+
 </style>

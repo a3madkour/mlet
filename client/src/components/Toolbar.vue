@@ -4,18 +4,21 @@
       <a v-bind:class="{active: active_el == 0}" href="#/dashboard" title="Dashboard">
         <icon name="home" scale="2.5"></icon><span>Dashboard</span>
       </a>
-      <a v-bind:class="{active: active_el == 1}" href="#/projects" title="Projects">
+      <a v-bind:class="{active: active_el == 1}" href="#/notifications" title="Notifications">
+        <icon name="bell" scale="2.5"></icon><span>Notifications</span>
+      </a>
+      <a v-bind:class="{active: active_el == 2}" href="#/projects" title="Projects">
         <icon name="folder-open" scale="2.5"></icon><span>Projects</span>
-        </a>
-      <a v-bind:class="{active: active_el == 2}" href="#/experiments" title="Experiments">
+      </a>
+      <a v-bind:class="{active: active_el == 3}" href="#/experiments" title="Experiments">
         <icon name="flask" scale="2.5"></icon><span>Experiments</span>
       </a>
     </div>
     <div class="bottom">
-      <a v-bind:class="{active: active_el == 3}" href="#/search" title="Search">
+      <a v-bind:class="{active: active_el == 4}" href="#/search" title="Search">
         <icon name="search" scale="2.5"></icon><span>Search</span>
       </a>
-      <a v-bind:class="{active: active_el == 4}" href="#/settings" title="Settings">
+      <a v-bind:class="{active: active_el == 5}" href="#/settings" title="Settings">
         <icon name="cog" scale="2.5"></icon><span>Settings</span>
       </a>
     </div>

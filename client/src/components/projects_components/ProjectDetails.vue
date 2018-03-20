@@ -123,7 +123,7 @@ export default {
 	 }
   }, 
   created: function() {
-    EventBus.$emit('activate_element', 1);
+    EventBus.$emit('activate_element', 2);
   },
   methods:{
     show(){

@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-12">
         <v-client-table class="p-table" :columns="columns" :data="tableData" :options="options">
-          <router-link slot="name" slot-scope="props" v-bind:to= "{name: 'ProjectDetails', params: {id:props.row._id}}" >{{ props.row.name }}</router-link>
+          <router-link slot="name" slot-scope="props" v-bind:to= "{name: 'ProjectDetails', params: {id:props.row._id}}" >Project #{{ props.row.id }}</router-link>
         </v-client-table>
       </div>
     </div>

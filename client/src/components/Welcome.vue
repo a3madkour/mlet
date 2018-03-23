@@ -1,5 +1,6 @@
 <template>
-  <div class = "welcome col-sm-6" style="margin: 280px">
+<div class="row justify-content-center top-buffer">
+  <div class = "welcome col-6">
     <h1>
       WELCOME!
     </h1>
@@ -71,6 +72,7 @@
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -94,4 +96,7 @@ export default {
 </script>
 
 <style >
+.top-buffer {
+  margin-top: 50px
+}
 </style>

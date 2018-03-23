@@ -9,7 +9,7 @@
       </div>
       <div class="col-4">
         <div class="chart">
-          <h3>Experiment Status</h3>
+          <h3>My Experiments</h3>
           <pie-chart ref="experimentPlot" :data="experimentData" :options="experimentOptions"></pie-chart>
         </div>
       </div>

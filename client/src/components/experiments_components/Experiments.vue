@@ -1,11 +1,7 @@
 <template>
   <div class="py-3 container-fluid">
-    <div class="row justify-content-end">
-      <div class="col-4">
-        <ExperimentMetrics :data="metricData"></ExperimentMetrics>
-      </div>
-    </div>
-    <div class="row">
+    <ExperimentMetrics></ExperimentMetrics> 
+    <div class="row table-buffer">
       <div class="col-12">
         <v-client-table class="e-table" :columns="columns" :data="tableData" :options="options">
           <router-link v-bind:to="{name: 'ExperimentDetails', params: {id : props.row._id}}" slot="name" slot-scope="props">
@@ -36,7 +32,7 @@ import EventBus from '../../event-bus';
 import VModal from 'vue-js-modal';
 import ExperimentDialog from './ExperimentDialog.vue';
 import moment from 'moment'
-import ExperimentMetrics from '../common_components/ExperimentMetrics.vue'
+import ExperimentMetrics from './ExperimentMetrics.vue'
 import ExperimentsService from '@/services/ExperimentsService'
 import HelpModal from '../common_components/help_modal.vue';
 import ToggleButton from 'vue-js-toggle-button'
@@ -66,7 +62,6 @@ export default {
   data: function () {
     return {
       experimentData: {fileTxt : ""},
-      metricData: [{queued: '4', running: '10', completed: '8', failed: '4'}],
       columns: ['start_time', 'name', 'owner', 'project', 'run_duration', 'status', 'notify'],
       tableData: [
       //   {id:25, start_time:unixToDate(1368457233),  owner:'User', project:'Project #1', run_duration:durationFrom(1368457233), status:'Running'},
@@ -96,8 +91,8 @@ export default {
       //   {id:1, start_time:unixToDate(1368457233),  owner:'User', project:'Project #1', run_duration:durationFrom(1368457233), status:'Failed'},
       ],
       options: {
-          perPage:10,
-          perPageValues: [10, 20, 50],
+          perPage:5,
+          perPageValues: [5, 10, 20, 50],
           sortable: ['start_time', 'name', 'owner', 'project', 'run_duration', 'status'],
           filterable: ['start_time', 'name', 'owner', 'project', 'run_duration', 'status'],
           orderBy: {column: 'start_time'},
@@ -169,5 +164,9 @@ in Settings`;
  position: fixed;
  bottom: 10px;
  right: 10px;
+}
+
+.table-buffer {
+  margin-top: 75px;
 }
 </style>

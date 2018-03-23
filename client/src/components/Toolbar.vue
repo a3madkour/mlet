@@ -5,6 +5,11 @@
         <icon name="home" scale="2.5"></icon><span>Dashboard</span>
       </a>
       <a v-bind:class="{active: active_el == 1}" href="#/notifications" title="Notifications">
+        <Popper v-if="num_new_notifications > 0" force-show='true' :options="{placement: 'right'}">
+          <div class="popper">
+            {{ num_new_notifications }}
+          </div>
+        </Popper>
         <icon name="bell" scale="2.5"></icon><span>Notifications</span>
       </a>
       <a v-bind:class="{active: active_el == 2}" href="#/projects" title="Projects">
@@ -26,16 +31,20 @@
 </template>
 
 <script>
-import Icon from 'vue-awesome/components/Icon'
+import Icon from 'vue-awesome/components/Icon';
+import Popper from 'vue-popperjs';
 import EventBus from '../event-bus';
+import 'vue-popperjs/dist/css/vue-popper.css';
 
 export default {
   components: {
+    Popper,
     Icon
   },
   data: function() {
     return {
       active_el: 0,
+      num_new_notifications: 1,
     }
   }, 
   created: function() {
@@ -117,4 +126,12 @@ export default {
   border-left: none;
   border-width: 4px;
 }
+
+.popper {
+  background: #FF0000;
+  border-color: #FF0000;
+  color: #FFFFFF;
+  text-align: center;
+}
+
 </style>

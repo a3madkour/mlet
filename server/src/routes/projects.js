@@ -56,11 +56,19 @@ router.put('/:id', (req, res) => {
   var db = req.db;
   Project.findById(req.params.id, function (error, project) {
     if (error) { console.error(error); }
-
-    project.name = req.body.name
-    project.description = req.body.description
-    project.owner = req.body.owner;
-    project.date_of_creation = req.body.date_of_creation;
+    
+    if(req.body.name !=null){
+      project.name = req.body.name
+    }
+    if(req.body.description !=null){
+      project.description = req.body.description
+    }
+    if(req.body.owner !=null){
+      project.owner = req.body.owner;
+    }
+    if(req.body.date_of_creation !=null){
+      project.date_of_creation = req.body.date_of_creation;
+    }
     project.save(function (error) {
       if (error) {
         console.log(error)

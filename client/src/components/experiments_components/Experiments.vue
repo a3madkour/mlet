@@ -8,8 +8,8 @@
     <div class="row">
       <div class="col-12">
         <v-client-table class="e-table" :columns="columns" :data="tableData" :options="options">
-          <router-link v-bind:to="{name: 'ExperimentDetails', params: {id : props.row.id}}" slot="name" slot-scope="props">
-            <p >Experiment {{ props.row.id}}</p>
+          <router-link v-bind:to="{name: 'ExperimentDetails', params: {id : props.row._id}}" slot="name" slot-scope="props">
+            <p >{{ props.row.name}}</p>
           </router-link>
           <toggle-button slot="notify" 
                          slot-scope="props"
@@ -69,31 +69,31 @@ export default {
       metricData: [{queued: '4', running: '10', completed: '8', failed: '4'}],
       columns: ['start_time', 'name', 'owner', 'project', 'run_duration', 'status', 'notify'],
       tableData: [
-        {id:25, start_time:unixToDate(1368457233),  owner:'User', project:'Project #1', run_duration:durationFrom(1368457233), status:'Running'},
-        {id:24, start_time:unixToDate(1368457233),  owner:'User', project:'Project #1', run_duration:durationFrom(1368457233), status:'Running'},
-        {id:23, start_time:unixToDate(now),         owner:'User', project:'Project #1', run_duration:noDuration,               status:'Queued'},
-        {id:22, start_time:unixToDate(1368457233),  owner:'Jill', project:'Project #1', run_duration:durationFrom(1368457233), status:'Completed'},
-        {id:21, start_time:unixToDate(1368457233),  owner:'User', project:'Project #1', run_duration:durationFrom(1368457233), status:'Running'},
-        {id:20, start_time:unixToDate(1368457233),  owner:'John', project:'Project #1', run_duration:durationFrom(1368457233), status:'Running'},
-        {id:19, start_time:unixToDate(now),         owner:'User', project:'Project #1', run_duration:noDuration,               status:'Queued'},
-        {id:18, start_time:unixToDate(1368457233),  owner:'User', project:'Project #1', run_duration:durationFrom(1368457233), status:'Running'},
-        {id:17, start_time:unixToDate(1368457233),  owner:'John', project:'Project #1', run_duration:durationFrom(1368457233), status:'Running'},
-        {id:16, start_time:unixToDate(now),         owner:'Jill', project:'Project #1', run_duration:noDuration,               status:'Queued'},
-        {id:15, start_time:unixToDate(now),         owner:'User', project:'Project #1', run_duration:noDuration,               status:'Queued'},
-        {id:14, start_time:unixToDate(1368457233),  owner:'John', project:'Project #1', run_duration:durationFrom(1368457233), status:'Running'},
-        {id:13, start_time:unixToDate(1368457233),  owner:'John', project:'Project #1', run_duration:durationFrom(1368457233), status:'Running'},
-        {id:12, start_time:unixToDate(1368457233),  owner:'John', project:'Project #1', run_duration:durationFrom(1368457233), status:'Running'},
-        {id:11, start_time:unixToDate(1368457233),  owner:'User', project:'Project #1', run_duration:durationFrom(1368457233), status:'Completed'},
-        {id:10, start_time:unixToDate(1368457233),  owner:'User', project:'Project #1', run_duration:durationFrom(1368457233), status:'Completed'},
-        {id:9, start_time:unixToDate(1368457233),  owner:'User', project:'Project #1', run_duration:durationFrom(1368457233), status:'Completed'},
-        {id:8, start_time:unixToDate(1368457233),  owner:'Jill', project:'Project #1', run_duration:durationFrom(1368457233), status:'Failed'},
-        {id:7, start_time:unixToDate(1368457233),  owner:'Kill', project:'Project #1', run_duration:durationFrom(1368457233), status:'Failed'},
-        {id:6, start_time:unixToDate(1368457233),  owner:'Jill', project:'Project #1', run_duration:durationFrom(1368457233), status:'Completed'},
-        {id:5, start_time:unixToDate(1368457233),  owner:'User', project:'Project #1', run_duration:durationFrom(1368457233), status:'Completed'},
-        {id:4, start_time:unixToDate(1368457233),  owner:'John', project:'Project #1', run_duration:durationFrom(1368457233), status:'Failed'},
-        {id:3, start_time:unixToDate(1368457233),  owner:'User', project:'Project #1', run_duration:durationFrom(1368457233), status:'Completed'},
-        {id:2, start_time:unixToDate(1368457233),  owner:'John', project:'Project #1', run_duration:durationFrom(1368457233), status:'Completed'},
-        {id:1, start_time:unixToDate(1368457233),  owner:'User', project:'Project #1', run_duration:durationFrom(1368457233), status:'Failed'},
+      //   {id:25, start_time:unixToDate(1368457233),  owner:'User', project:'Project #1', run_duration:durationFrom(1368457233), status:'Running'},
+      //   {id:24, start_time:unixToDate(1368457233),  owner:'User', project:'Project #1', run_duration:durationFrom(1368457233), status:'Running'},
+      //   {id:23, start_time:unixToDate(now),         owner:'User', project:'Project #1', run_duration:noDuration,               status:'Queued'},
+      //   {id:22, start_time:unixToDate(1368457233),  owner:'Jill', project:'Project #1', run_duration:durationFrom(1368457233), status:'Completed'},
+      //   {id:21, start_time:unixToDate(1368457233),  owner:'User', project:'Project #1', run_duration:durationFrom(1368457233), status:'Running'},
+      //   {id:20, start_time:unixToDate(1368457233),  owner:'John', project:'Project #1', run_duration:durationFrom(1368457233), status:'Running'},
+      //   {id:19, start_time:unixToDate(now),         owner:'User', project:'Project #1', run_duration:noDuration,               status:'Queued'},
+      //   {id:18, start_time:unixToDate(1368457233),  owner:'User', project:'Project #1', run_duration:durationFrom(1368457233), status:'Running'},
+      //   {id:17, start_time:unixToDate(1368457233),  owner:'John', project:'Project #1', run_duration:durationFrom(1368457233), status:'Running'},
+      //   {id:16, start_time:unixToDate(now),         owner:'Jill', project:'Project #1', run_duration:noDuration,               status:'Queued'},
+      //   {id:15, start_time:unixToDate(now),         owner:'User', project:'Project #1', run_duration:noDuration,               status:'Queued'},
+      //   {id:14, start_time:unixToDate(1368457233),  owner:'John', project:'Project #1', run_duration:durationFrom(1368457233), status:'Running'},
+      //   {id:13, start_time:unixToDate(1368457233),  owner:'John', project:'Project #1', run_duration:durationFrom(1368457233), status:'Running'},
+      //   {id:12, start_time:unixToDate(1368457233),  owner:'John', project:'Project #1', run_duration:durationFrom(1368457233), status:'Running'},
+      //   {id:11, start_time:unixToDate(1368457233),  owner:'User', project:'Project #1', run_duration:durationFrom(1368457233), status:'Completed'},
+      //   {id:10, start_time:unixToDate(1368457233),  owner:'User', project:'Project #1', run_duration:durationFrom(1368457233), status:'Completed'},
+      //   {id:9, start_time:unixToDate(1368457233),  owner:'User', project:'Project #1', run_duration:durationFrom(1368457233), status:'Completed'},
+      //   {id:8, start_time:unixToDate(1368457233),  owner:'Jill', project:'Project #1', run_duration:durationFrom(1368457233), status:'Failed'},
+      //   {id:7, start_time:unixToDate(1368457233),  owner:'Kill', project:'Project #1', run_duration:durationFrom(1368457233), status:'Failed'},
+      //   {id:6, start_time:unixToDate(1368457233),  owner:'Jill', project:'Project #1', run_duration:durationFrom(1368457233), status:'Completed'},
+      //   {id:5, start_time:unixToDate(1368457233),  owner:'User', project:'Project #1', run_duration:durationFrom(1368457233), status:'Completed'},
+      //   {id:4, start_time:unixToDate(1368457233),  owner:'John', project:'Project #1', run_duration:durationFrom(1368457233), status:'Failed'},
+      //   {id:3, start_time:unixToDate(1368457233),  owner:'User', project:'Project #1', run_duration:durationFrom(1368457233), status:'Completed'},
+      //   {id:2, start_time:unixToDate(1368457233),  owner:'John', project:'Project #1', run_duration:durationFrom(1368457233), status:'Completed'},
+      //   {id:1, start_time:unixToDate(1368457233),  owner:'User', project:'Project #1', run_duration:durationFrom(1368457233), status:'Failed'},
       ],
       options: {
           perPage:10,
@@ -120,7 +120,7 @@ export default {
     EventBus.$on('experiment_dialog_close', this.dialogClosed);
   },
   mounted(){
-      //this.getExperiments();     
+      this.getExperiments();     
   },
   beforeDestroy: function() {
     EventBus.$off('experiment_dialog_close', this.activate_el);
@@ -139,8 +139,7 @@ export default {
 
     },
     dialogClosed: function(event){
-      //this.getExperiments();
-      console.log("T")
+      this.getExperiments();
       
     }
   }

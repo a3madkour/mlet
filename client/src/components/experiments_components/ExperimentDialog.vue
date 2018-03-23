@@ -6,13 +6,12 @@
       </button>
     </div>
     <div v-if='currentScreen === 0'>
-        <div>
-          <label for="experimentName">Please select the project for the experiment:</label>
-        </div class="form-group">
-        <select v-model="project" class="form-control" >
-          <option selected>Sample Project</option>
-          <option >Sample Project2</option>
-        </select>
+      <div>
+        <label for="experimentName">Please select the project for the experiment:</label>
+      </div class="form-group">
+      <select v-model="selectedProject" class="form-control" >
+        <option v-for="project in projects" :value="project" >{{project.name}}</option>
+      </select>
     </div>
     <div v-if='currentScreen === 1'>
       <div class="form-group" >
@@ -31,50 +30,53 @@
     <div v-if='currentScreen === 2'>
       <div class="form-group" >
         <label for="parametersFile">Please select file for parameters:</label>
-        <input type="file" @change="onFileChange"> 
+        <input type="file" @change="onFileChange">
       </div>
       <div class="form-group" >
         <textarea  type="fileTxt" class="form-control" id="fileTxt" placeholder=" " v-model="parameterFile"></textarea>
       </div>
     </div>
     <div v-if='currentScreen === 3'>
-          <label for="repo">Please assign users to the experiment:</label>
-          <div class = "userContainer">
-          <div :class = "{active: user.active, ind:true, assigned: user.assigned}"  v-for = "user in users" @click="userClick(user)">
-            <icon name="user" scale="2.5"></icon>
-            <span :class = "{active: user.active, text:true}" >{{user.name}}</span>
-          </div>
+      <label for="repo">Please assign users to the experiment:</label>
+      <div class = "userContainer">
+        <div :class = "{active: user.active, ind:true, assigned: user.assigned}"  v-for = "user in users" @click="userClick(user)">
+          <icon name="user" scale="2.5"></icon>
+          <span :class = "{active: user.active, text:true}" >{{user.name}}</span>
         </div>
+      </div>
     </div>
-        <div class = 'buttons'>
+    <div class = 'buttons'>
       <div v-if='currentScreen === 0'style="float:left;" >
         <button type="button" class="btn btn-danger" @click="closeDialog" >
-          Cancel 
+          Cancel
         </button>
       </div>
-      <div v-if='currentScreen != 0'style="float:left;" >
-        <button type="button" class="btn btn-primary" @click="previousDialog" >
-          Back
-        </button>
-      </div>
-      <div v-if='currentScreen != 3' style="float:right;" >
-        <button type="button" class="btn btn-primary" @click=nextDialog >
-          Next 
-        </button>
-      </div>
-      <div v-if='currentScreen === 3'style="float:right;" >
-        <button type="button" class="btn btn-success" @click=endDialog>
-          Confirm
-        </button>
-      </div>
+        <div v-if='currentScreen != 0'style="float:left;" >
+          <button type="button" class="btn btn-primary" @click="previousDialog" >
+            Back
+          </button>
+        </div>
+          <div v-if='currentScreen != 3' style="float:right;" >
+            <button type="button" class="btn btn-primary" @click=nextDialog >
+              Next
+            </button>
+          </div>
+            <div v-if='currentScreen === 3'style="float:right;" >
+              <button type="button" class="btn btn-success" @click=endDialog>
+                Confirm
+              </button>
+            </div>
     </div>
-    </div>
+  </div>
   </div>
 </template>
 <script>
 import Icon from 'vue-awesome/components/Icon'
 import ExperimentsService from '@/services/ExperimentsService'
 import EventBus from '../../event-bus';
+import moment from 'moment'
+
+
 export default {
   components: {Icon},
   name: 'experimentDialog',
@@ -115,45 +117,47 @@ export default {
         name: this.name,
         description: this.description,
         owner: this.owner,
-        project: this.project,
+        project: this.selectedProject.name,
+        project_id: this.selectedProject._id,
         status: this.status,
         tags: this.tags,
-        parameterFule: this.parameterFile,
+        parameterFile: this.parameterFile,
         notes: this.notes,
         users: this.userNames,
-        start_time: Date(),
-        run_duration: Date()
+        start_time: moment().format('MMMM Do YYYY, h:mm:ss a'),
+        run_duration: moment().format('MMMM Do YYYY, h:mm:ss a')
       })
       this.$router.push({name: 'Experiments'});
       EventBus.$emit('experiment_dialog_close');
     },
-    userClick(user){  
-        this.users[this.users.indexOf(user)].active = !this.users[this.users.indexOf(user)].active;
-        if(this.userNames.indexOf(user.name) <0 ){
-            this.userNames.push(user.name);
-        }else{
-            this.userNames.splice(this.userNames.indexOf(user.name));
-        }
+    userClick(user){
+      this.users[this.users.indexOf(user)].active = !this.users[this.users.indexOf(user)].active;
+      if(this.userNames.indexOf(user.name) <0 ){
+        this.userNames.push(user.name);
+      }else{
+        this.userNames.splice(this.userNames.indexOf(user.name));
+      }
     }
   },
   data (){
     return{currentScreen : 0,
-    users: [{name:"Jack", active:false,assigned:false, permissions : []},{name:"User", active:false,assigned:false, permissions : []}, {name:"Jill", active:false, assigned:false,permissions : []}], 
-    name: '',
-    owner: '',
-    project: '',
-    status: 'Running',
-    description: '',
-    tags : [],
-    tagString: '',
-    parameterFile: '',
-    notes: '',
-    userNames: [],
+      users: [{name:"Jack", active:false,assigned:false, permissions : []},{name:"User", active:false,assigned:false, permissions : []}, {name:"Jill", active:false, assigned:false,permissions : []}],
+      name: '',
+      owner: 'User',
+      status: 'Running',
+      description: '',
+      tags : [],
+      tagString: '',
+      parameterFile: '',
+      notes: '',
+      userNames: [],
+      selectedProject :null,
+      projects:[{name: 'Sample Project', _id:1231321},{name: 'Sample Project2', _id:123112312321}]
     }
   }
 }
 </script>
-<style>
+      <style>
 .userContainer {
   align:center;
   display:flex;

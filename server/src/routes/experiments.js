@@ -72,19 +72,42 @@ router.put('/:id', (req, res) => {
   var db = req.db;
   Experiment.findById(req.params.id, function (error, experiment) {
     if (error) { console.error(error); }
-
-    experiment.name = req.body.name
-    experiment.description = req.body.description
-    experiment.owner = req.body.owner;
-    experiment.project = req.body.project;
-    experiment.project_id = req.body.project_id;
-    experiment.status = req.body.status;
-    experiment.tags = req.body.tags;
-    experiment.parameterFile = req.body.parameterFile;
-    experiment.notes = req.body.notes;
-    experiment.users = req.body.users;
-    experiment.start_time = req.body.start_time;
-    experiment.run_duration = req.body.run_duration;
+    if(req.body.name != null){
+      experiment.name = req.body.name
+    }
+    if(req.body.description != null){
+      experiment.description = req.body.description
+    }
+    if(req.body.owner != null){
+      experiment.owner = req.body.owner;
+    }
+    if(req.body.project != null){
+      experiment.project = req.body.project;
+    }
+    if(req.body.project_id != null){
+      experiment.project_id = req.body.project_id;
+    }
+    if(req.body.status != null){
+      experiment.status = req.body.status;
+    }
+    if(req.body.tags != null){
+      experiment.tags = req.body.tags;
+    }
+    if(req.body.parameterFile != null){
+      experiment.parameterFile = req.body.parameterFile;
+    }
+    if(req.body.notes != null){
+      experiment.notes = req.body.notes;
+    }
+    if(req.body.users != null){
+      experiment.users = req.body.users;
+    }
+    if(req.body.start_time != null){
+      experiment.start_time = req.body.start_time;
+    }
+    if(req.body.run_duration != null){
+      experiment.run_duration = req.body.run_duration;
+    }
     experiment.save(function (error) {
       if (error) {
         console.log(error)

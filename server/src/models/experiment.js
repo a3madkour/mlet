@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 var ExperimentSchema = new Schema({
   name: {type:String, required:true},
   owner: {type:String, required:true},
-  project:{type:String, required:true}, 
+  project:{type:String, required:true},
   project_id:{type:String, required:true},
   status: String,
   description: String,
@@ -12,8 +12,8 @@ var ExperimentSchema = new Schema({
   parameterFile: String,
   notes:String,
   users: [String],
-  start_time: {type:Date, required:true},
-  run_duration: Date
+  start_time: {type:String, required:true},
+  end_time: String
 });
 
 var Experiment = mongoose.model("Experiment", ExperimentSchema);

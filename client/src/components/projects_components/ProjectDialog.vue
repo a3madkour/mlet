@@ -8,15 +8,15 @@
     <div v-if='currentScreen === 0'>
       <div class="form-group" >
         <label for="projectName">Please enter in a name for the project:</label>
-        <input type="address" class="form-control" id="projectName" placeholder="My Project"v-model="projectData.name" required>
+        <input type="address" class="form-control" id="name" placeholder="My Project"v-model="name" required>
       </div>
       <div class="form-group">
         <label for="projectDescription">Please enter a brief description of the project:</label>
-        <textarea  rows="4" cols="50" type="projectDescription" class="form-control" id="projectDescription" placeholder="..." v-model="projectData.description"></textarea>
+        <textarea  rows="4" cols="50" type="projectDescription" class="form-control" id="projectDescription" placeholder="..." v-model="description"></textarea>
       </div>
       <div class="form-group">
         <label for="projectTags">Please enter in comma seprated tags for the project:</label>
-        <input type="projectTags" class="form-control" id="projectTags" placeholder="CNNs"v-model="projectData.tagString">
+        <input type="projectTags" class="form-control" id="projectTags" placeholder="CNNs"v-model="tagString">
       </div>
     </div>
     <div v-if='currentScreen === 1'>
@@ -34,11 +34,11 @@
     <div v-if='currentScreen === 2'>
       <div class="form-group" >
         <label for="repo">Please enter in the git repository for the project:</label>
-        <input type="repo" class="form-control" id="repo" placeholder=" "v-model="projectData.repo">
+        <input type="repo" class="form-control" id="repo" placeholder=" "v-model="repo">
       </div>
       <div class="form-group" >
         <label for="executable">Please enter in the git executable to be run:</label>
-        <input type="executable" class="form-control" id="executable" placeholder=" "v-model="projectData.executable">
+        <input type="executable" class="form-control" id="executable" placeholder=" "v-model="executable">
 
       </div>
     </div>
@@ -49,7 +49,7 @@
         <input type="file" @change="onFileChange"> 
       </div>
       <div class="form-group" >
-        <textarea  type="fileTxt" class="form-control" id="fileTxt" placeholder=" " v-model="projectData.fileTxt"></textarea>
+        <textarea  type="fileTxt" class="form-control" id="fileTxt" placeholder=" " v-model="parameterFile"></textarea>
       </div>
     </div>
 
@@ -60,11 +60,11 @@
       </div>
       <div class="form-group">
         <label for="projectDescription">Description:</label>
-        <textarea  rows="4" cols="50" type="projectDescription" class="form-control" id="projectDescription" placeholder="" v-model="projectData.description"></textarea>
+        <textarea  rows="4" cols="50" type="projectDescription" class="form-control" id="projectDescription" placeholder="" v-model="description"></textarea>
       </div>
       <div class="form-group">
         <label for="projectTags">Tags:</label>
-        <input type="projectTags"id="projectTags" class="form-control" v-model="projectData.tagString">
+        <input type="projectTags"id="projectTags" class="form-control" v-model="tagString">
       </div>
       <div class="form-group">
         <label for="projectTags">Users:</label>
@@ -76,12 +76,12 @@
           </div>
       </div>
       <div class="form-group">
-        <label for="fileName" >Input Spec:</label>
-        <input type="fileName"id="projectTags" class="form-control" v-model="projectData.fileName">
+        <label for="parameterFile" >Input Spec:</label>
+        <input type="parameterFile"id="projectTags" class="form-control" v-model="parameterFile">
       </div>
       <div class="form-group" >
         <label for="executable">Executable path:</label>
-        <input type="executable" class="form-control" id="executable" placeholder=" "v-model="projectData.executable">
+        <input type="executable" class="form-control" id="executable" placeholder=" "v-model="executable">
       </div>
     </div>
         <div class = 'buttons'>
@@ -151,6 +151,14 @@ export default {
           this.$modal.show(UserPermissions,{users: this.selected, name:"second"}, {name:"second",clickToClose: false,height:"auto", width:"50%"});
       }
     },
+    async addProject(){
+      this.tags = this.tagString.split(',')
+      await ProjectsService.addProject({
+          name:this.name,
+          description: this.description,
+          
+      })
+    },
     userClick(user){
         
         this.users[this.users.indexOf(user)].active = !this.users[this.users.indexOf(user)].active;
@@ -168,7 +176,14 @@ export default {
     return{currentScreen : 0, 
     users: [{name:"Jack", active:false,assigned:false, permissions : []},{name:"User", active:false,assigned:false, permissions : []}, {name:"Jill", active:false, assigned:false,permissions : []}], 
     selected:[],
-    selectedAll:[]
+    selectedAll:[],
+    name : '',
+    repo: '',
+    executable:'',
+    tagString: '',
+    tags: [],
+    description: '',
+    parameterFile: ''
     }
   }
 }

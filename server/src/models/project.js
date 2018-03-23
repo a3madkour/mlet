@@ -5,7 +5,7 @@ var ProjectSchema = new Schema({
   name: {type: String, required:true},
   owner: {type: String, required:true},
   description: {type: String, required:false},
-  date_of_creation: {type: Date, required:true}
+  date_of_creation: {type: String, required:true}
 });
 
 var Project = mongoose.model("Project", ProjectSchema);

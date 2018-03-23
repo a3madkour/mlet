@@ -1,13 +1,16 @@
 <template>
-  <div class="help-modal">
-    <button type="button" class="close" aria-label="Close" @click="$emit('close')" >
-      <span aria-hidden="true"> &times; </span>
-    </button>
+<Popper tigger='click' :options="{placement: 'bottom-start', positionFix, modifiers: {preventOverflow: {enabled: false, boundariesElement: 'window'}, offset: {enabled: true, offset: '0,0'}}}">
+  <div class="popper">
     <h3 class="text-center"> {{ header_text }} </h3>
     <div class="help-body">
       <p> {{ help_text }} </p>
     </div>
   </div>
+
+  <button type="button" class="btn btn-default btn-sm" slot="reference" style="float: right;">
+    <span class="glyphicon glyphicon-question-sign" style="font-size:15px;"></span> 
+  </button>
+</Popper>
 </template>
 
 <script>
@@ -16,9 +19,9 @@ import Popper from 'vue-popperjs';
 import 'vue-popperjs/dist/css/vue-popper.css';
 
 export default {
-  name: 'helpPopup',
+  name: 'HelpPopper',
   props : ["header_text", "help_text"],
-  components: {},
+  components: {Popper},
   data: function () {
     return {}  
   },
@@ -26,28 +29,14 @@ export default {
 </script>
 
 <style>
-
-.help-modal {
+.help-popper {
   margin:auto; 
   padding-top: 2%;
   padding-left: 2%;
   padding-right: 2%;
 }
 
-.close {
-  line-height: 12px;
-  width: 18px;
-  font-size: 20pt;
-  font-family: tahoma;
-  margin-top: 1px;
-  margin-right: 2px;
-  position:absolute;
-  top:10px;
-  right:10px;
-}
-
 .help-body {
   text-align: center;
 }
-
 </style>

@@ -1,6 +1,7 @@
 <template>
   <div class="py-3 container-fluid">
-    <div class="row">
+    <ProjectMetrics></ProjectMetrics>
+    <div class="row table-buffer">
       <div class="col-12">
         <v-client-table class="p-table" :columns="columns" :data="tableData" :options="options">
           <router-link slot="name" slot-scope="props" v-bind:to= "{name: 'ProjectDetails', params: {id:props.row._id}}" >Project #{{ props.row.id }}</router-link>
@@ -21,6 +22,7 @@ import Vue from 'vue';
 import EventBus from '../../event-bus';
 import VModal from 'vue-js-modal';
 import ProjectDialog from './ProjectDialog.vue';
+import ProjectMetrics from './ProjectMetrics.vue'
 import moment from 'moment'
 import {ClientTable} from 'vue-tables-2';
 import ProjectsService from '@/services/ProjectsService'
@@ -35,7 +37,9 @@ var unixToDate = function (t) {
 var lorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean consequat sapien sit amet justo molestie, eu fermentum massa iaculis. Vestibulum faucibus fermentum odio ut faucibus. Nullam ut erat vestibulum, congue tortor eu, ornare lorem. Mauris efficitur vestibulum purus, sed commodo metus sollicitudin vitae. Ut id orci mi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.";
 
 export default {
-  components: {},
+  components: {
+    ProjectMetrics,
+  },
   data: function () {
     return {
       projectData: {fileTxt:""},
@@ -56,7 +60,7 @@ export default {
       ],
       options: {
           perPage:5,
-          perPageValues: [5, 10, 20],
+          perPageValues: [5, 10, 20, 50],
           sortable: ['name', 'owner', 'date_of_creation'],
           filterable: ['name', 'owner', 'date_of_creation'],
           orderBy: {column: 'date_of_creation'},
@@ -95,4 +99,7 @@ export default {
  right: 10px;
 }
 
+.table-buffer {
+  margin-top: 75px;
+}
 </style>

@@ -20,7 +20,7 @@
       </div>
     </div>
     <div v-if='currentScreen === 1'>
-       <label for="repo">Please assign users to the project:</label>
+       <label for="users">Please assign users to the project:</label>
         <div class = "userContainer">
           <div :class = "{active: user.active, ind:true, assigned: user.assigned}"  v-for = "user in users" @click="userClick(user)">
             <icon name="user" scale="2.5"></icon>
@@ -56,7 +56,7 @@
     <div v-if='currentScreen === 4'>
       <div class="form-group" >
         <label for="projectName">Name:</label>
-        <input type="address" class="form-control"  id="projectName" placeholder="My Project"v-model="projectData.name">
+        <input type="address" class="form-control"  id="projectName" placeholder="My Project"v-model="name">
       </div>
       <div class="form-group">
         <label for="projectDescription">Description:</label>
@@ -115,6 +115,9 @@ import Vue from 'vue';
 import VModal from 'vue-js-modal';
 import UserPermissions from './UserPermissions.vue';
 import Icon from 'vue-awesome/components/Icon'
+import ProjectsService from '@/services/ProjectsService';
+import EventBus from '../../event-bus';
+import moment from 'moment';
 Vue.use(VModal, {dynamic: true});
 export default {
   components: {Icon},
@@ -143,6 +146,7 @@ export default {
       reader.readAsText(file);
     },
     endDialog(){
+      this.addProject()
       this.$emit('close')
       this.$notify({group: 'project-created', type:'success', title: 'Project created!'});
     },
@@ -156,8 +160,10 @@ export default {
       await ProjectsService.addProject({
           name:this.name,
           description: this.description,
-          
+          owner: this.owner,
+          date_of_creation: moment().format('MMMM Do YYYY, h:mm:ss a')
       })
+      EventBus.$emit('project_dialog_close'); 
     },
     userClick(user){
         
@@ -169,7 +175,6 @@ export default {
             this.selected.splice(this.selected.indexOf(user.name));
             this.selectedAll.splice(this.selected.indexOf(user));
         }
-        console.log(this.selected);
     }
   },
   data (){
@@ -178,6 +183,7 @@ export default {
     selected:[],
     selectedAll:[],
     name : '',
+    owner : 'User',
     repo: '',
     executable:'',
     tagString: '',

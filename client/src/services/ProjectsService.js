@@ -5,19 +5,19 @@ export default {
     return Api().get('projects')
   },
 
-  addProjects (params) {
+  addProject (params) {
     return Api().post('projects', params)
   },
   
-  updateProjects (params) {
+  updateProject (params) {
     return Api().put('projects/' + params.id, params)
   },
 
-  getProjects (params) {
+  getProject (params) {
     return Api().get('projects/' + params.id)
   },
 
-  deleteProjects (id) {
+  deleteProject (id) {
     return Api().delete('projects/' + id)
   }
 }

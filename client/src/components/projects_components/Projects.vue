@@ -4,7 +4,7 @@
     <div class="row table-buffer">
       <div class="col-12">
         <v-client-table class="p-table" :columns="columns" :data="tableData" :options="options">
-          <router-link slot="name" slot-scope="props" v-bind:to= "{name: 'ProjectDetails', params: {id:props.row._id}}" >Project #{{ props.row.id }}</router-link>
+          <router-link slot="name" slot-scope="props" v-bind:to= "{name: 'ProjectDetails', params: {id:props.row._id}}" >{{ props.row.name }}</router-link>
         </v-client-table>
       </div>
     </div>
@@ -45,18 +45,18 @@ export default {
       projectData: {fileTxt:""},
       columns: ['name', 'owner', 'date_of_creation', 'description'],
       tableData: [
-        {id:12, owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
-        {id:11, owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
-        {id:10, owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
-        {id:9,  owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
-        {id:8,  owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
-        {id:7,  owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
-        {id:6,  owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
-        {id:5,  owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
-        {id:4,  owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
-        {id:3,  owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
-        {id:2,  owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
-        {id:1,  owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
+        // {id:12, owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
+        // {id:11, owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
+        // {id:10, owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
+        // {id:9,  owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
+        // {id:8,  owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
+        // {id:7,  owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
+        // {id:6,  owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
+        // {id:5,  owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
+        // {id:4,  owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
+        // {id:3,  owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
+        // {id:2,  owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
+        // {id:1,  owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
       ],
       options: {
           perPage:5,
@@ -69,18 +69,21 @@ export default {
   },
   created: function() {
     EventBus.$emit('activate_element', 2);
+    EventBus.$on('project_dialog_close', this.dialogClosed);
   },
   mounted(){
     this.getProjects();
   },
   methods:{
     show(){
-      console.log(this.projectData);
       this.$modal.show(ProjectDialog,{projectData: this.projectData}, {name:"first",clickToClose: false,height:"auto", width:"50%"});
     },
     async getProjects(){
       const response = await ProjectsService.fetchProjects()
       this.tableData = response.data.projects
+    },
+    dialogClosed(event){
+      this.getProjects(); 
     }
   }
 } 

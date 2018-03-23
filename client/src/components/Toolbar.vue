@@ -5,7 +5,7 @@
         <icon name="home" scale="2.5"></icon><span>Dashboard</span>
       </a>
       <a v-bind:class="{active: active_el == 1}" href="#/notifications" title="Notifications">
-        <Popper v-if="num_new_notifications > 0" force-show='true' :options="{placement: 'right'}">
+        <Popper v-if="num_new_notifications > 0" force-show=true :options="{placement: 'right'}">
           <div class="popper">
             {{ num_new_notifications }}
           </div>

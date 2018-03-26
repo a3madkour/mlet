@@ -143,6 +143,7 @@ export default {
     },
     async addExperiment(){
       this.tags = this.tagString.split(',')
+      console.log(this.userNames)
       await ExperimentsService.addExperiment({
         name: this.name,
         description: this.description,

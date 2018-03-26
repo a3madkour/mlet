@@ -32,7 +32,6 @@
       </form>
     </div>
     <div v-if='currentScreen === 1'>
-      <form class="form-group" @submit='nextDialog' >
          <label for="users">Please assign users to the project:</label>
           <div class = "userContainer">
             <div :class = "{active: user.active, ind:true, assigned: user.assigned}"  v-for = "user in users" @click="userClick(user)">
@@ -45,7 +44,7 @@
           </div>
         <div class = 'buttons'>
           <div style="float:right;" >
-              <input type="submit" value="Next" class="btn btn-primary"  >
+              <input type="submit" value="Next" class="btn btn-primary" @click='nextDialog'  >
           </div>
           <div style="float:left;" >
             <button type="button" class="btn btn-primary" @click="previousDialog" >
@@ -53,7 +52,6 @@
             </button>
           </div>
         </div>
-      </form>
     </div>
     <div v-if='currentScreen === 2'>
       <form class="form-group" @submit='nextDialog' >
@@ -189,7 +187,7 @@ export default {
     },
     userPermission(){
       if(this.selected.length > 0){
-          this.$modal.show(UserPermissions,{users: this.selected, name:"second"}, {name:"second",clickToClose: false,height:"auto", width:"50%"});
+          this.$modal.show(UserPermissions,{users: this.selected, name:"second",selectedUsers:this.selectedUsers}, {name:"second",clickToClose: false,height:"auto", width:"50%"});
       }
     },
     async addProject(){
@@ -198,7 +196,8 @@ export default {
           name:this.name,
           description: this.description,
           owner: this.owner,
-          date_of_creation: moment().format('MMMM Do YYYY, h:mm:ss a')
+          date_of_creation: moment().format('MMMM Do YYYY, h:mm:ss a'),
+          users: this.selectedUsers
       })
       EventBus.$emit('project_dialog_close'); 
     },
@@ -208,9 +207,11 @@ export default {
         if(this.selected.indexOf(user.name) <0 ){
             this.selected.push(user.name);
             this.selectedAll.push(user);
+            this.selectedUsers.push({name: user.name, permissions: user.permissions});
         }else{
             this.selected.splice(this.selected.indexOf(user.name));
             this.selectedAll.splice(this.selected.indexOf(user));
+            this.selectedUsers.splice(this.selectedUsers.indexOf({name: user.name, permissions: user.permissions}));
         }
     }
   },
@@ -218,6 +219,7 @@ export default {
     return{currentScreen : 0, 
     users: [{name:"Jack", active:false,assigned:false, permissions : []},{name:"User", active:false,assigned:false, permissions : []}, {name:"Jill", active:false, assigned:false,permissions : []}], 
     selected:[],
+    selectedUsers:[],
     selectedAll:[],
     name : '',
     owner : 'User',

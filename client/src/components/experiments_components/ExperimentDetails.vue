@@ -24,13 +24,8 @@
       </div>
       <div class="col-6">
         <div class="card" align="left">
-          <div class="card-body">
-            <p class="card-text-1"><b>batch_size:</b> 128</p>
-            <p class="card-text-2"><b>epochs:</b> 100</p>
-            <p class="card-text-3"><b>learning_rate:</b> 0.01</p>
-            <p class="card-text-4"><b>model:</b> CNN_v1</p>
-            <p class="card-text-5"><b>optimizer:</b> SGD</p>
-          </div>
+            <textarea rows="10" cols="50" placeholder="Parameters..." class="form-control" v-on-clickaway="saveParameters" @click="editingParameters" v-model="parameterFile">
+            </textarea>
         </div>
       </div>
     </div>
@@ -80,6 +75,8 @@ export default {
       editting_notes: false,
       oldNotes: '',
       notes: '',
+      parameterFile: '',
+      oldParameter: '',
       swiperOption: {
         spaceBetween: 50,
         pagination: {
@@ -104,6 +101,10 @@ export default {
       this.editing_notes = true;
       this.oldNotes = this.notes;
     },
+    editingParameters: function() {
+      this.editing_parameters = true;
+      this.oldParameter = this.parameterFile;
+    },
     async getExperiment(){
       const response = await ExperimentsService.getExperiment({
           id: this.$route.params.id
@@ -113,9 +114,11 @@ export default {
       this.owner = response.data.owner;
       this.project = response.data.project;
       this.project_id = response.data.project_id;
-      this.start_time = response.data.start_time
+      this.start_time = response.data.start_time;
+      this.parameterFile = response.data.parameterFile;
       this.notes = response.data.notes;
       this.oldNotes = this.notes;
+      this.oldParameter = this.parameterFile;
     },
     async saveNotes() {
       if (this.editing_notes) {
@@ -125,6 +128,18 @@ export default {
           await ExperimentsService.updateExperiment({
             id:this.$route.params.id,
             notes:this.notes
+          })
+        }
+      }
+    },
+    async saveParameters() {
+      if (this.editing_parameters) {
+        this.editing_parameters = false;
+        if(this.oldParameter !== this.parameterFile){
+          this.$notify({group: 'experiment-saved', type:'success', title: 'Experiment notes have been saved!'});
+          await ExperimentsService.updateExperiment({
+            id:this.$route.params.id,
+            parameterFile:this.parameterFile
           })
         }
       }

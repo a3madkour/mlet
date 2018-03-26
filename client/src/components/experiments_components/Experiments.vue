@@ -126,7 +126,7 @@ export default {
       this.$on('close',this.dialogClosed);
     },
      async getExperiments () {
-      const response = await ExperimentsService.fetchExperiments()
+       const response = await ExperimentsService.fetchExperiments()
       this.tableData = response.data.experiments
     },
     showHelp: function () {

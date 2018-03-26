@@ -1,8 +1,8 @@
 import Api from '@/services/Api'
 
 export default {
-  fetchExperiments () {
-    return Api().get('experiments')
+  fetchExperiments (Params) {
+    return Api().get('experiments', {params : Params})
   },
 
   addExperiment (params) {
@@ -16,7 +16,6 @@ export default {
   getExperiment (params) {
     return Api().get('experiments/' + params.id)
   },
-
   deleteExperiment (id) {
     return Api().delete('experiments/' + id)
   }

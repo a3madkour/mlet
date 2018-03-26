@@ -51,12 +51,21 @@ router.post('/', (req, res) => {
 })
 // Fetch all posts
 router.get('/', (req, res) => {
-  Experiment.find({}, function (error, experiments) {
-    if (error) { console.error(error); }
-    res.send({
-      experiments: experiments
-    })
-  }).sort({_id:-1})
+  if(req.query.project_id == null){
+    Experiment.find({}, function (error, experiments) {
+      if (error) { console.error(error); }
+      res.send({
+        experiments: experiments
+      })
+    }).sort({_id:-1})
+  }else{
+    Experiment.find({'project_id':req.query.project_id}, function (error, experiments) {
+      if (error) { console.error(error); }
+      res.send({
+        experiments: experiments
+      })
+    }).sort({_id:-1})
+  }
 })
 // Fetch single post
 router.get('/:id', (req, res) => {

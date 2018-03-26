@@ -73,6 +73,7 @@
 <script>
 import Icon from 'vue-awesome/components/Icon'
 import ExperimentsService from '@/services/ExperimentsService'
+import ProjectsService from '@/services/ProjectsService'
 import EventBus from '../../event-bus';
 import moment from 'moment'
 
@@ -81,6 +82,9 @@ export default {
   components: {Icon},
   name: 'experimentDialog',
   props: [],
+  mounted(){
+    this.getProjects();
+  },
   methods: {
     nextDialog : function(){
       this.currentScreen += 1;
@@ -129,6 +133,10 @@ export default {
       })
       this.$router.push({name: 'Experiments'});
       EventBus.$emit('experiment_dialog_close');
+    },
+    async getProjects(){
+      const response = await ProjectsService.fetchProjects()
+      this.projects = response.data.projects
     },
     userClick(user){
       this.users[this.users.indexOf(user)].active = !this.users[this.users.indexOf(user)].active;

@@ -98,7 +98,6 @@ export default {
   },
   mounted() {
     this.getExperiment();
-    console.log(this.$route.params.id);
   },
   methods: {
     editingNotes: function() {
@@ -121,7 +120,6 @@ export default {
     async saveNotes() {
       if (this.editing_notes) {
         this.editing_notes = false;
-        console.log(this.oldNotes, this.notes)
         if(this.oldNotes !== this.notes){
           this.$notify({group: 'experiment-saved', type:'success', title: 'Experiment notes have been saved!'});
           await ExperimentsService.updateExperiment({

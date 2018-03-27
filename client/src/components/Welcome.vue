@@ -1,6 +1,7 @@
 <template>
-<div class="row justify-content-center top-buffer">
-  <div class = "welcome col-6">
+<div class="row top-buffer">
+  <div class = "col-3"></div>
+  <div class = "col-6">
     <h1>
       WELCOME!
     </h1>
@@ -72,6 +73,7 @@
       </div>
     </div>
   </div>
+  <div class = "col-3"></div>
 </div>
 </template>
 

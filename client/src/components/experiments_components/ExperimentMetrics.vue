@@ -11,7 +11,7 @@
   <div class="col-4">
     <div class="chart">
       <h3>All Experiments</h3>
-      <ExperimentsPieChart :data="metricData"></ExperimentsPieChart>
+      <ExperimentsPieChart></ExperimentsPieChart>
     </div>
   </div>
 </div>
@@ -31,7 +31,6 @@ export default {
   data: function () {
     return {
       expProjectData: [1, 7, 5, 8],
-      metricData: [4, 10, 8, 4],
     }
   },
   created: function() {

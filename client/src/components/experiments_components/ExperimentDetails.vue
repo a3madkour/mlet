@@ -2,7 +2,7 @@
   <div class="py-3 project-details container-fluid">
     <div class="row">
       <div class="col-1">
-        <a class="back" href="#/experiments" title="Back">
+        <a class="back" href="javascript:history.back()" title="Back">
           <icon name="caret-left" scale="5.0"></icon>
         </a>
       </div>

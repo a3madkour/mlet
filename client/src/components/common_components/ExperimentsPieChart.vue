@@ -1,5 +1,5 @@
 <template>
-<pie-chart ref="experimentPlot" :data="experimentData" :options="experimentOptions"></pie-chart>
+<pie-chart ref="experimentsPlot" :data="experimentData" :options="experimentOptions"></pie-chart>
 </template>
 
 <script>
@@ -10,7 +10,6 @@ export default {
   components: {
     PieChart,
   },
-  props: ['data'],
   data: function () {
     return {
       experimentData: null,
@@ -23,7 +22,7 @@ export default {
   },
   created: function() {
     this.initDatasets();
-    this.timer = setInterval(this.fetchData, 5000)
+    this.timer = setInterval(this.fetchData, 5000);
   },
   methods: {
     initDatasets: function() {
@@ -32,15 +31,18 @@ export default {
         datasets: [
           {
             backgroundColor: ['#41B883', '#E46651', '#00D8FF', '#DD1B16'],
-            data: this.data
+            data: [1,1,1,1]
           }
         ]
       };
     },
     fetchData: function () { 
-      //this.experimentData.datasets[0].data[i] += this.getRandomInt(1,-1,1)[0];
+      //const response = await ExperimentsService.fetchExperiments();
+      //num_running_experiments = response.data.experiments.length;
+      num_running_experiments = 5;
 
-      //this.$refs.experimentPlot.update();
+      this.experimentData.datasets[0].data[0] = num_running_experiments;
+      this.$refs.experimentsPlot.update();
     },
     cancelAutoUpdate: function () {
       clearInterval(this.timer);

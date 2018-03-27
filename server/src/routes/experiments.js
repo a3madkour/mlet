@@ -51,7 +51,14 @@ router.post('/', (req, res) => {
 })
 // Fetch all posts
 router.get('/', (req, res) => {
-  if(req.query.project_id == null){
+  if(req.query.status != null){
+    Experiment.find({'status':req.query.status}, function (error, experiments) {
+      if (error) { console.error(error); }
+      res.send({
+        experiments: experiments
+      })
+    }).sort({_id:-1})
+  } else if(req.query.project_id == null){
     Experiment.find({}, function (error, experiments) {
       if (error) { console.error(error); }
       res.send({

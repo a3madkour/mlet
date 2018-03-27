@@ -6,106 +6,141 @@
       </button>
     </div>
     <div v-if='currentScreen === 0'>
-      <div class="form-group" >
-        <label for="projectName">Please enter in a name for the project:</label>
-        <input type="address" class="form-control" id="name" placeholder="My Project"v-model="name" required>
-      </div>
-      <div class="form-group">
-        <label for="projectDescription">Please enter a brief description of the project:</label>
-        <textarea  rows="4" cols="50" type="projectDescription" class="form-control" id="projectDescription" placeholder="..." v-model="description"></textarea>
-      </div>
-      <div class="form-group">
-        <label for="projectTags">Please enter in comma seprated tags for the project:</label>
-        <input type="projectTags" class="form-control" id="projectTags" placeholder="CNNs"v-model="tagString">
-      </div>
-    </div>
-    <div v-if='currentScreen === 1'>
-       <label for="users">Please assign users to the project:</label>
-        <div class = "userContainer">
-          <div :class = "{active: user.active, ind:true, assigned: user.assigned}"  v-for = "user in users" @click="userClick(user)">
-            <icon name="user" scale="2.5"></icon>
-            <span :class = "{active: user.active, text:true}" >{{user.name}}</span>
+      <form class="form-group" @submit='nextDialog' >
+        <div class="form-group" >
+          <label for="projectName">Please enter in a name for the project:</label>
+          <input type="address" class="form-control" id="name" placeholder="My Project"v-model="name" required>
+        </div>
+        <div class="form-group">
+          <label for="projectDescription">Please enter a brief description of the project:</label>
+          <textarea  rows="4" cols="50" type="projectDescription" class="form-control" id="projectDescription" placeholder="..." v-model="description"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="projectTags">Please enter in comma seprated tags for the project:</label>
+          <input type="projectTags" class="form-control" id="projectTags" placeholder="CNNs"v-model="tagString">
+        </div>
+        <div class = 'buttons'>
+          <div style="float:right;" >
+              <input type="submit" value="Next" class="btn btn-primary"  >
+          </div>
+          <div style="float:left;" >
+            <button type="button" class="btn btn-danger" @click="$emit('close')" >
+              Cancel
+            </button>
           </div>
         </div>
-        <div class ="buttons"> 
-          <button class="btn btn-info" style="float:right;" @click="userPermission"> Assign </button>
+      </form>
+    </div>
+    <div v-if='currentScreen === 1'>
+         <label for="users">Please assign users to the project:</label>
+          <div class = "userContainer">
+            <div :class = "{active: user.active, ind:true, assigned: user.assigned}"  v-for = "user in users" @click="userClick(user)">
+              <icon name="user" scale="2.5"></icon>
+              <span :class = "{active: user.active, text:true}" >{{user.name}}</span>
+            </div>
+          </div>
+          <div class ="buttons"> 
+            <button class="btn btn-info" style="float:right;" @click="userPermission"> Assign </button>
+          </div>
+        <div class = 'buttons'>
+          <div style="float:right;" >
+              <input type="submit" value="Next" class="btn btn-primary" @click='nextDialog'  >
+          </div>
+          <div style="float:left;" >
+            <button type="button" class="btn btn-primary" @click="previousDialog" >
+              Back
+            </button>
+          </div>
         </div>
     </div>
     <div v-if='currentScreen === 2'>
-      <div class="form-group" >
-        <label for="repo">Please enter in the git repository for the project:</label>
-        <input type="repo" class="form-control" id="repo" placeholder=" "v-model="repo">
-      </div>
-      <div class="form-group" >
-        <label for="executable">Please enter in the git executable to be run:</label>
-        <input type="executable" class="form-control" id="executable" placeholder=" "v-model="executable">
+      <form class="form-group" @submit='nextDialog' >
+        <div class="form-group" >
+          <label for="repo">Please enter in the git repository for the project:</label>
+          <input type="repo" class="form-control" id="repo" placeholder=" "v-model="repo" required>
+        </div>
+        <div class="form-group" >
+          <label for="executable">Please enter in the git executable to be run:</label>
+          <input type="executable" class="form-control" id="executable" placeholder=" "v-model="executable" required>
 
-      </div>
+        </div>
+        <div class = 'buttons'>
+          <div style="float:right;" >
+              <input type="submit" value="Next" class="btn btn-primary"  >
+          </div>
+          <div style="float:left;" >
+            <button type="button" class="btn btn-primary" @click="previousDialog" >
+              Back
+            </button>
+          </div>
+        </div>
+      </form>
     </div>
 
     <div v-if='currentScreen === 3'>
-      <div class="form-group" >
-        <label for="parametersFile">Please select a file for parameter format:</label>
-        <input type="file" @change="onFileChange"> 
-      </div>
-      <div class="form-group" >
-        <textarea  type="fileTxt" class="form-control" id="fileTxt" placeholder=" " v-model="parameterFile"></textarea>
-      </div>
+      <form class="form-group" @submit='nextDialog' >
+        <div class="form-group" >
+          <label for="parametersFile">Please select a file for parameter format:</label>
+          <input type="file" @change="onFileChange"> 
+        </div>
+        <div class="form-group" >
+          <textarea  type="parameterFile" class="form-control" id="parameterFile" placeholder=" " v-model="parameterFile" required></textarea>
+        </div>
+        <div class = 'buttons'>
+          <div style="float:right;" >
+              <input type="submit" value="Next" class="btn btn-primary"  >
+          </div>
+          <div style="float:left;" >
+            <button type="button" class="btn btn-primary" @click="previousDialog" >
+              Back
+            </button>
+          </div>
+        </div>
+      </form>
     </div>
 
     <div v-if='currentScreen === 4'>
-      <div class="form-group" >
-        <label for="projectName">Name:</label>
-        <input type="address" class="form-control"  id="projectName" placeholder="My Project"v-model="name">
-      </div>
-      <div class="form-group">
-        <label for="projectDescription">Description:</label>
-        <textarea  rows="4" cols="50" type="projectDescription" class="form-control" id="projectDescription" placeholder="" v-model="description"></textarea>
-      </div>
-      <div class="form-group">
-        <label for="projectTags">Tags:</label>
-        <input type="projectTags"id="projectTags" class="form-control" v-model="tagString">
-      </div>
-      <div class="form-group">
-        <label for="projectTags">Users:</label>
-          <div class = "userContainer">
-            <div class = "ind"  v-for = "user in selectedAll" >
-              <icon name="user" scale="2.5"></icon>
-              <span class ="text" >{{user.name}}</span>
+      <form class="form-group" @submit='endDialog' >
+        <div class="form-group" >
+          <label for="projectName">Name:</label>
+          <input type="address" class="form-control"  id="projectName" placeholder="My Project"v-model="name" required>
+        </div>
+        <div class="form-group">
+          <label for="projectDescription">Description:</label>
+          <textarea  rows="4" cols="50" type="projectDescription" class="form-control" id="projectDescription" placeholder="" v-model="description"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="projectTags">Tags:</label>
+          <input type="projectTags"id="projectTags" class="form-control" v-model="tagString">
+        </div>
+        <div class="form-group">
+          <label for="projectTags">Users:</label>
+            <div class = "userContainer">
+              <div class = "ind"  v-for = "user in selectedAll" >
+                <icon name="user" scale="2.5"></icon>
+                <span class ="text" >{{user.name}}</span>
+              </div>
             </div>
-          </div>
-      </div>
-      <div class="form-group">
-        <label for="parameterFile" >Input Spec:</label>
-        <input type="parameterFile"id="projectTags" class="form-control" v-model="parameterFile">
-      </div>
-      <div class="form-group" >
-        <label for="executable">Executable path:</label>
-        <input type="executable" class="form-control" id="executable" placeholder=" "v-model="executable">
-      </div>
-    </div>
+        </div>
+        <div class="form-group">
+          <label for="parameterFile" >Input Spec:</label>
+          <input type="parameterFile"id="projectTags" class="form-control" v-model="parameterFile" required>
+        </div>
+        <div class="form-group" >
+          <label for="executable">Executable path:</label>
+          <input type="executable" class="form-control" id="executable" placeholder=" "v-model="executable" required>
+        </div>
         <div class = 'buttons'>
-      <div v-if='currentScreen === 0'style="float:left;" >
-        <button type="button" class="btn btn-danger" @click="$emit('close')" >
-          Cancel 
-        </button>
-      </div>
-      <div v-if='currentScreen != 0'style="float:left;" >
-        <button type="button" class="btn btn-primary" @click="previousDialog" >
-          Back
-        </button>
-      </div>
-      <div v-if='currentScreen != 4' style="float:right;" >
-        <button type="button" class="btn btn-primary" @click=nextDialog >
-          Next 
-        </button>
-      </div>
-      <div v-if='currentScreen === 4'style="float:right;" >
-        <button type="button" class="btn btn-success" @click=endDialog>
-          Confirm
-        </button>
-      </div>
-    </div>
+          <div style="float:right;" >
+              <input type="submit" value="Confirm" class="btn btn-success"  >
+          </div>
+          <div style="float:left;" >
+            <button type="button" class="btn btn-primary" @click="previousDialog" >
+              Back
+            </button>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
 </template>
@@ -141,7 +176,7 @@ export default {
       var vm = this;
 
       reader.onload = (e) => {
-        vm.projectData.fileTxt = e.target.result;
+        vm.parameterFile = e.target.result;
       };
       reader.readAsText(file);
     },
@@ -152,7 +187,7 @@ export default {
     },
     userPermission(){
       if(this.selected.length > 0){
-          this.$modal.show(UserPermissions,{users: this.selected, name:"second"}, {name:"second",clickToClose: false,height:"auto", width:"50%"});
+          this.$modal.show(UserPermissions,{users: this.selected, name:"second",selectedUsers:this.selectedUsers}, {name:"second",clickToClose: false,height:"auto", width:"50%"});
       }
     },
     async addProject(){
@@ -161,7 +196,8 @@ export default {
           name:this.name,
           description: this.description,
           owner: this.owner,
-          date_of_creation: moment().format('MMMM Do YYYY, h:mm:ss a')
+          date_of_creation: moment().format('MMMM Do YYYY, h:mm:ss a'),
+          users: this.selectedUsers
       })
       EventBus.$emit('project_dialog_close'); 
     },
@@ -171,9 +207,11 @@ export default {
         if(this.selected.indexOf(user.name) <0 ){
             this.selected.push(user.name);
             this.selectedAll.push(user);
+            this.selectedUsers.push({name: user.name, permissions: user.permissions});
         }else{
             this.selected.splice(this.selected.indexOf(user.name));
             this.selectedAll.splice(this.selected.indexOf(user));
+            this.selectedUsers.splice(this.selectedUsers.indexOf({name: user.name, permissions: user.permissions}));
         }
     }
   },
@@ -181,6 +219,7 @@ export default {
     return{currentScreen : 0, 
     users: [{name:"Jack", active:false,assigned:false, permissions : []},{name:"User", active:false,assigned:false, permissions : []}, {name:"Jill", active:false, assigned:false,permissions : []}], 
     selected:[],
+    selectedUsers:[],
     selectedAll:[],
     name : '',
     owner : 'User',

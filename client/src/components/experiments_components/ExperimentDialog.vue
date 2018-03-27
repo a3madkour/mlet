@@ -6,35 +6,71 @@
       </button>
     </div>
     <div v-if='currentScreen === 0'>
-      <div>
-        <label for="experimentName">Please select the project for the experiment:</label>
-      </div class="form-group">
-      <select v-model="selectedProject" class="form-control" >
-        <option v-for="project in projects" :value="project" >{{project.name}}</option>
-      </select>
+      <form class="form-group" @submit='nextDialog' >
+        <div class="form-group">
+          <label for="experimentName">Please select the project for the experiment:</label>
+        </div >
+        <select v-model="selectedProject" class="form-control" required >
+          <option v-for="project in projects" :value="project" >{{project.name}}</option>
+        </select>
+        <div class = 'buttons'>
+          <div style="float:right;" >
+              <input type="submit" value="Next" class="btn btn-primary"  >
+          </div>
+          <div style="float:left;" >
+            <button type="button" class="btn btn-danger" @click="closeDialog" >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </form>
     </div>
     <div v-if='currentScreen === 1'>
-      <div class="form-group" >
-        <label for="experimentName">Please enter in a name for the experiment:</label>
-        <input type="address" class="form-control" id="experimentName" placeholder="My experiment"v-model="name" required>
-      </div>
-      <div class="form-group">
-        <label for="experimentDescription">Please enter a brief description of the experiment:</label>
-        <textarea  rows="4" cols="50" type="experimentDescription" class="form-control" id="experimentDescription" v-model="description"></textarea>
-      </div>
-      <div class="form-group">
-        <label for="experimentTags">Please enter in comma seprated tags for the experiment:</label>
-        <input type="experimentTags" class="form-control" id="experimentTags" v-model="tagString">
-      </div>
+      <form class="form-group" @submit='nextDialog' >
+        <div class="form-group">
+          <label for="experimentName">Please enter in a name for the experiment:</label>
+          <input type="address" class="form-control" id="experimentName" placeholder="My experiment"v-model="name" required>
+        </div>
+        <div class="form-group">
+          <label for="experimentDescription">Please enter a brief description of the experiment:</label>
+          <textarea  rows="4" cols="50" type="experimentDescription" class="form-control" id="experimentDescription" v-model="description"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="experimentTags">Please enter in comma seprated tags for the experiment:</label>
+          <input type="experimentTags" class="form-control" id="experimentTags" v-model="tagString">
+        </div>
+        <div class = 'buttons'>
+          <div style="float:right;" >
+              <input type="submit" value="Next" class="btn btn-primary"  >
+          </div>
+          <div style="float:left;" >
+            <button type="button" class="btn btn-primary" @click="previousDialog" >
+              Back
+            </button>
+          </div>
+        </div>
+      </form>
     </div>
     <div v-if='currentScreen === 2'>
-      <div class="form-group" >
-        <label for="parametersFile">Please select file for parameters:</label>
-        <input type="file" @change="onFileChange">
-      </div>
-      <div class="form-group" >
-        <textarea  type="fileTxt" class="form-control" id="fileTxt" placeholder=" " v-model="parameterFile"></textarea>
-      </div>
+      <form class="form-group" @submit='nextDialog' >
+        <div class="form-group" >
+          <label for="parametersFile">Please select file for parameters:</label>
+          <input type="file" @change="onFileChange">
+        </div>
+        <div class="form-group" >
+          <textarea  type="fileTxt" class="form-control" id="fileTxt" placeholder=" " v-model="parameterFile" required></textarea>
+        </div>
+        <div class = 'buttons'>
+          <div style="float:right;" >
+              <input type="submit" value="Next" class="btn btn-primary"  >
+          </div>
+          <div style="float:left;" >
+            <button type="button" class="btn btn-primary" @click="previousDialog" >
+              Back
+            </button>
+          </div>
+        </div>
+      </form>
     </div>
     <div v-if='currentScreen === 3'>
       <label for="repo">Please assign users to the experiment:</label>
@@ -44,28 +80,18 @@
           <span :class = "{active: user.active, text:true}" >{{user.name}}</span>
         </div>
       </div>
-    </div>
-    <div class = 'buttons'>
-      <div v-if='currentScreen === 0'style="float:left;" >
-        <button type="button" class="btn btn-danger" @click="closeDialog" >
-          Cancel
-        </button>
-      </div>
-        <div v-if='currentScreen != 0'style="float:left;" >
-          <button type="button" class="btn btn-primary" @click="previousDialog" >
-            Back
-          </button>
-        </div>
-          <div v-if='currentScreen != 3' style="float:right;" >
-            <button type="button" class="btn btn-primary" @click=nextDialog >
-              Next
+        <div class = 'buttons'>
+          <div style="float:right;" >
+            <button type="button" class="btn btn-success" @click=endDialog>
+              Confirm
             </button>
           </div>
-            <div v-if='currentScreen === 3'style="float:right;" >
-              <button type="button" class="btn btn-success" @click=endDialog>
-                Confirm
-              </button>
-            </div>
+          <div style="float:left;" >
+            <button type="button" class="btn btn-primary" @click="previousDialog" >
+              Back
+            </button>
+          </div>
+        </div>
     </div>
   </div>
   </div>
@@ -103,7 +129,7 @@ export default {
       var vm = this;
 
       reader.onload = (e) => {
-        vm.experimentData.fileTxt = e.target.result;
+        vm.parameterFile = e.target.result;
       };
       reader.readAsText(file);
     },
@@ -117,6 +143,7 @@ export default {
     },
     async addExperiment(){
       this.tags = this.tagString.split(',')
+      console.log(this.userNames)
       await ExperimentsService.addExperiment({
         name: this.name,
         description: this.description,
@@ -148,7 +175,8 @@ export default {
     }
   },
   data (){
-    return{currentScreen : 0,
+    return{
+      currentScreen : 0,
       users: [{name:"Jack", active:false,assigned:false, permissions : []},{name:"User", active:false,assigned:false, permissions : []}, {name:"Jill", active:false, assigned:false,permissions : []}],
       name: '',
       owner: 'User',

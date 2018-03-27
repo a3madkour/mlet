@@ -11,11 +11,11 @@
         <p> <b>User(s):</b> {{users.join()}} </p>
       </div>
       <div id='example-3'>
-        <input type="checkbox" id="Read" value="Read">
+        <input type="checkbox" id="Read" value="Read" v-model='permissions'>
         <label for="Read">Read</label>
-        <input type="checkbox" id="Write" value="Write" >
+        <input type="checkbox" id="Write" value="Write" v-model='permissions'>
         <label for="Write">Write</label>
-        <input type="checkbox" id="Execute" value="Execute" >
+        <input type="checkbox" id="Execute" value="Execute" v-model='permissions'>
         <label for="Execute">Execute</label>
       </div>
       <div class = "buttons">
@@ -47,18 +47,27 @@ run from.`;
 
 export default {
   name: 'userPermissions',
-  props : ["users", "name"],
+  props : ["users", "name", "selectedUsers"],
   components: {
     Icon,
     HelpModal,
   },
+  mounted(){
+    if(this.selectedUsers[0].permissions !== undefined){
+       this.permissions = this.selectedUsers[0].permissions; 
+    }
+  },
   data () {
     return {
-      selected: [], // Must be an array reference!
+      permissions: [], // Must be an array reference!
     }  
   },
   methods: {
     addUser(){
+      console.log(this.selectedUsers)
+      for(var i =0; i<this.selectedUsers.length;i++){
+        this.selectedUsers[i].permissions = this.permissions;
+      }
       this.$modal.hide(this.name)
     },
 

@@ -2,7 +2,7 @@ var express = require('express')
 var router = express.Router();
 var mongoose = require('mongoose');
 var Experiment = require('../models/experiment')
-mongoose.connect('mongodb://localhost:27017/experiments');
+mongoose.connect('mongodb://localhost:27017/mlet');
 var db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error"));
 db.once("open", function(callback){

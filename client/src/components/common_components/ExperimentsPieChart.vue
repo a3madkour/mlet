@@ -13,10 +13,7 @@ export default {
   },
   data: function () {
     return {
-      runningExperiments: null,
-      queuedExperiments: null,
-      completedExperiments: null,
-      failedExperiments: null,
+      experiments: null,
       experimentData: null,
       experimentOptions: {
         responsive: true,
@@ -27,7 +24,7 @@ export default {
   },
   created: function() {
     this.initDatasets();
-    this.timer = setInterval(this.fetchData, 5000);
+    this.timer = setInterval(this.fetchData, 5000)
   },
   methods: {
     initDatasets: function() {
@@ -43,26 +40,17 @@ export default {
     },
     fetchData: function () { 
       this.getExperiments();
-      var num_running_experiments = this.runningExperiments.length;
-      var num_queued_experiments = this.queuedExperiments.length;
-      var num_completed_experiments = this.completedExperiments.length;
-      var num_failed_experiments = this.failedExperiments.length;
+      var num_running_experiments = this.experiments.filter(item => item.status == "Running").length;
+      var num_queued_experiments = this.experiments.filter(item => item.status == "Queued").length;
+      var num_completed_experiments = this.experiments.filter(item => item.status == "Completed").length;
+      var num_failed_experiments = this.experiments.filter(item => item.status == "Failed").length;
+      num_running_experiments = this.experiments.length;
       this.experimentData.datasets[0].data = [num_running_experiments,num_queued_experiments,num_completed_experiments,num_failed_experiments];
       this.$refs.experimentsPlot.update();
     },
-    //TODO: There is probably a better way to do this
     getExperiments: async function () {
-      const runningResponse = await ExperimentsService.fetchExperiments({status: 'Running'});
-      this.runningExperiments = runningResponse.data.experiments;
-
-      const queuedResponse = await ExperimentsService.fetchExperiments({status: 'Queued'});
-      this.queuedExperiments = queuedResponse.data.experiments;
-
-      const completedResponse = await ExperimentsService.fetchExperiments({status: 'Completed'});
-      this.completedExperiments = completedResponse.data.experiments;
-
-      const failedResponse = await ExperimentsService.fetchExperiments({status: 'Failed'});
-      this.failedExperiments = failedResponse.data.experiments;
+      const response = await ExperimentsService.fetchExperiments();
+      this.experiments = response.data.experiments;
     },
     cancelAutoUpdate: function () {
       clearInterval(this.timer);

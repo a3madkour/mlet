@@ -1,18 +1,21 @@
 <template>
-<bar-plot ref="experimentProjectPlot" :data="experimentProjectData" :options="experimentProjectOptions"></bar-plot>
+<bar-plot ref="experimentsProjectPlot" :data="experimentProjectData" :options="experimentProjectOptions"></bar-plot>
 </template>
 
 <script>
 import Vue from 'vue';
 import BarPlot from './BarPlot';
+import ExperimentsService from '@/services/ExperimentsService'
+import ProjectsService from '@/services/ProjectsService'
 
 export default {
   components: {
     BarPlot
   },
-  props: ['data'],
   data: function () {
     return {
+      experiments: null,
+      projects: null,
       experimentProjectData: null,
       experimentProjectOptions: {
         responsive: true,
@@ -31,28 +34,44 @@ export default {
     }
   },
   created: function() {
+    this.getProjects();
+    this.getExperiments()
+
     this.initDatasets();
     this.timer = setInterval(this.fetchData, 5000)
   },
   methods: {
     initDatasets: function() {
       this.experimentProjectData = {
-        labels: ['Project1', 'Project2', 'Project3', 'Project4'],
+        labels: null,
         datasets: [
           {
             label: '# of Experiments',
             borderColor: '#36495d',
             borderWidth: 2,
             backgroundColor: 'rgba(54,73,93,.5)',
-            data: this.data
+            data: null
           }
         ]
       };
     },
     fetchData: function () { 
-      //this.experimentProjectData.datasets[0].data[i] += this.getRandomInt(1,-1,1)[0];
-
-      //this.$refs.experimentProjectPlot.update();
+      this.getProjects();
+      this.getExperiments()
+     
+      var projectNames = this.projects.map(item => item.name);
+      this.experimentProjectData.labels = projectNames;
+      var numExperimentsPerProject = projectNames.map(pname => this.experiments.filter(item => item.project == pname).length);
+      this.experimentProjectData.datasets[0].data = numExperimentsPerProject;
+      this.$refs.experimentsProjectPlot.update();
+    },
+    getProjects: async function () {
+      const response = await ProjectsService.fetchProjects()
+      this.projects = response.data.projects;
+    },
+    getExperiments: async function () {
+      const response = await ExperimentsService.fetchExperiments();
+      this.experiments = response.data.experiments;
     },
     cancelAutoUpdate: function () {
       clearInterval(this.timer);

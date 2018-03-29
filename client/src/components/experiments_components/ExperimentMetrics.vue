@@ -3,7 +3,7 @@
   <div class="col-6">
     <div class="chart">
       <h3>Experiments Per Project</h3>
-      <ExperimentsPerProjectBarPlot :data="expProjectData"></ExperimentsPerProjectBarPlot>
+      <ExperimentsPerProjectBarPlot></ExperimentsPerProjectBarPlot>
     </div>
   </div>
   <div class="col-2">
@@ -30,7 +30,6 @@ export default {
   },
   data: function () {
     return {
-      expProjectData: [1, 7, 5, 8],
     }
   },
   created: function() {

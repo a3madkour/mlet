@@ -18,7 +18,7 @@
             <p class="card-text-2"><b>Project:</b> <router-link v-bind:to="{name: 'ProjectDetails', params: {id:this.project_id}}">{{this.project}}</router-link></p>
             <p class="card-text-3"><b>Owner:</b> {{this.owner}} </p>
             <p class="card-text-4"><b>Started:</b> {{this.start_time}} </p>
-            <p class="card-text-5"><b>Finished:</b> February 15, 2018 16:22:45</p>
+            <p class="card-text-5"><b>Finished:</b> {{this.finished_time}}</p>
           </div>
         </div>
       </div>
@@ -67,11 +67,12 @@ export default {
   components: {Icon, swiper, swiperSlide},
   data: function () {
     return {
-      name: 'my_first_exp',
-      status: 'Complete',
-      project: 'Project #1',
-      owner: 'User #1',
-      start_time: 1323333,
+      name: '',
+      status: '',
+      project: '',
+      owner: '',
+      start_time: null,
+      finished_time: null,
       editting_notes: false,
       oldNotes: '',
       notes: '',

@@ -23,18 +23,11 @@ import EventBus from '../../event-bus';
 import VModal from 'vue-js-modal';
 import ProjectDialog from './ProjectDialog.vue';
 import ProjectMetrics from './ProjectMetrics.vue'
-import moment from 'moment'
 import {ClientTable} from 'vue-tables-2';
 import ProjectsService from '@/services/ProjectsService'
 let tableOptions = {};
 Vue.use(ClientTable, tableOptions);
 Vue.use(VModal, {dynamic: true});
-
-var unixToDate = function (t) {
-  return moment.unix(t).format("YYYY-MM-DD HH:mm");
-}
-
-var lorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean consequat sapien sit amet justo molestie, eu fermentum massa iaculis. Vestibulum faucibus fermentum odio ut faucibus. Nullam ut erat vestibulum, congue tortor eu, ornare lorem. Mauris efficitur vestibulum purus, sed commodo metus sollicitudin vitae. Ut id orci mi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.";
 
 export default {
   components: {
@@ -44,20 +37,7 @@ export default {
     return {
       projectData: {fileTxt:""},
       columns: ['name', 'owner', 'date_of_creation', 'description'],
-      tableData: [
-        // {id:12, owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
-        // {id:11, owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
-        // {id:10, owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
-        // {id:9,  owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
-        // {id:8,  owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
-        // {id:7,  owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
-        // {id:6,  owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
-        // {id:5,  owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
-        // {id:4,  owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
-        // {id:3,  owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
-        // {id:2,  owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
-        // {id:1,  owner:'User #1', date_of_creation:unixToDate(1368457233), description:lorem},
-      ],
+      tableData: [],
       options: {
           perPage:5,
           perPageValues: [5, 10, 20, 50],

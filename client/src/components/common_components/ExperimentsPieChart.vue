@@ -24,7 +24,7 @@ export default {
   },
   created: function() {
     this.initDatasets();
-    this.timer = setInterval(this.fetchData, 5000)
+    this.timer = setInterval(this.fetchData, 1000)
   },
   methods: {
     initDatasets: function() {

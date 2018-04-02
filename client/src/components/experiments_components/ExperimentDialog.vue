@@ -75,7 +75,7 @@
     <div v-if='currentScreen === 3'>
       <label for="repo">Please assign users to the experiment:</label>
       <div class = "userContainer">
-        <div :class = "{active: user.active, ind:true, assigned: user.assigned}"  v-for = "user in users" @click="userClick(user)">
+        <div v-for = "user in users" :class = "{active: user.active, ind:true}"  @click="userClick(user)">
           <icon name="user" scale="2.5"></icon>
           <span :class = "{active: user.active, text:true}" >{{user.name}}</span>
         </div>
@@ -100,6 +100,7 @@
 import Icon from 'vue-awesome/components/Icon'
 import ExperimentsService from '@/services/ExperimentsService'
 import ProjectsService from '@/services/ProjectsService'
+import UsersService from '@/services/UsersService'
 import EventBus from '../../event-bus';
 import moment from 'moment'
 
@@ -114,6 +115,9 @@ export default {
   methods: {
     nextDialog : function(){
       this.currentScreen += 1;
+      if(this.currentScreen == 3){
+        this.getUsers();
+      }
     },
     previousDialog : function(){
       this.currentScreen -= 1;
@@ -143,7 +147,7 @@ export default {
     },
     async addExperiment(){
       this.tags = this.tagString.split(',')
-      console.log(this.userNames)
+      console.log(this.users)
       await ExperimentsService.addExperiment({
         name: this.name,
         description: this.description,
@@ -154,41 +158,54 @@ export default {
         tags: this.tags,
         parameterFile: this.parameterFile,
         notes: this.notes,
-        users: this.userNames,
+        users: this.selectedUsers,
         start_time: moment().format('MMMM Do YYYY, h:mm:ss a'),
         run_duration: moment().format('MMMM Do YYYY, h:mm:ss a')
       })
       this.$router.push({name: 'Experiments'});
       EventBus.$emit('experiment_dialog_close');
     },
+    async getUsers(){
+      const response = await UsersService.fetchUsers({'project_id':this.selectedProject._id});
+      var users = []
+      for(var i = 0 ; i<response.data.users.length;i++){
+        var user = {};
+        user.name = response.data.users[i].name;
+        user._id = response.data.users[i]._id;
+        user.active = false;
+        user.assigned = false;
+        users.push(user)
+      }
+      this.users = users;
+    },
     async getProjects(){
       const response = await ProjectsService.fetchProjects()
       this.projects = response.data.projects
     },
     userClick(user){
-      this.users[this.users.indexOf(user)].active = !this.users[this.users.indexOf(user)].active;
-      if(this.userNames.indexOf(user.name) <0 ){
-        this.userNames.push(user.name);
+      user.active = !user.active
+      if(this.selectedUsers.indexOf(user) <0 ){
+        this.selectedUsers.push(user);
       }else{
-        this.userNames.splice(this.userNames.indexOf(user.name));
+        this.selectedUsers = this.selected.filter(item => item !== user)
       }
     }
   },
   data (){
     return{
       currentScreen : 0,
-      users: [{name:"Jack", active:false,assigned:false, permissions : []},{name:"User", active:false,assigned:false, permissions : []}, {name:"Jill", active:false, assigned:false,permissions : []}],
+      users: [], 
+      selectedUsers: [],
       name: '',
       owner: 'User',
-      status: 'Running',
+      status: 'Queued',
       description: '',
       tags : [],
       tagString: '',
       parameterFile: '',
       notes: '',
-      userNames: [],
-      selectedProject :null,
-      projects:[{name: 'Sample Project', _id:1231321},{name: 'Sample Project2', _id:123112312321}]
+      selectedProject :{name: '', _id:''},
+      projects:[]
     }
   }
 }

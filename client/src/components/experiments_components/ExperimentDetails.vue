@@ -22,9 +22,15 @@
           </div>
         </div>
       </div>
-      <div class="col-6">
+      <div class="col-6" v-if='this.status != "Running"'>
         <div class="card" align="left">
             <textarea rows="10" cols="50" placeholder="Parameters..." class="form-control" v-on-clickaway="saveParameters" @click="editingParameters" v-model="parameterFile">
+            </textarea>
+        </div>
+      </div>
+      <div class="col-6" v-if='this.status === "Running"'>
+        <div class="card" align="left">
+            <textarea rows="10" cols="50" placeholder="Parameters..." class="form-control" v-on-clickaway="saveParameters" @click="editingParameters" v-model="parameterFile" readonly>
             </textarea>
         </div>
       </div>

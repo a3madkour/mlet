@@ -151,6 +151,7 @@ import VModal from 'vue-js-modal';
 import UserPermissions from './UserPermissions.vue';
 import Icon from 'vue-awesome/components/Icon'
 import ProjectsService from '@/services/ProjectsService';
+import UsersService from '@/services/UsersService';
 import EventBus from '../../event-bus';
 import moment from 'moment';
 Vue.use(VModal, {dynamic: true});
@@ -161,6 +162,9 @@ export default {
   methods: {
     nextDialog : function(){
       this.currentScreen += 1;
+      if(this.currentScreen == 1){
+        this.getUsers();
+      }
     },
     previousDialog : function(){
       this.currentScreen -= 1;
@@ -201,6 +205,19 @@ export default {
       })
       EventBus.$emit('project_dialog_close'); 
     },
+    async getUsers(){
+      const response = await UsersService.fetchUsers();
+      var users = []
+      for(var i = 0 ; i<response.data.users.length;i++){
+        var user = {};
+        user.name = response.data.users[i].name;
+        user._id = response.data.users[i]._id;
+        user.active = false;
+        user.assigned = false;
+        users.push(user)
+      }
+      this.users = users;
+    },
     userClick(user){
         
         this.users[this.users.indexOf(user)].active = !this.users[this.users.indexOf(user)].active;
@@ -209,15 +226,15 @@ export default {
             this.selectedAll.push(user);
             this.selectedUsers.push({name: user.name, permissions: user.permissions});
         }else{
-            this.selected.splice(this.selected.indexOf(user.name));
-            this.selectedAll.splice(this.selected.indexOf(user));
-            this.selectedUsers.splice(this.selectedUsers.indexOf({name: user.name, permissions: user.permissions}));
+            this.selected = this.selected.filter(item => item !== user.name)
+            this.selectedAll = this.selectedAll.filter(item => item !== user)
+            this.selectedUsers = this.selectedUsers.filter(item => item !== {name: user.name, permissions: user.permissions})
         }
     }
   },
   data (){
     return{currentScreen : 0, 
-    users: [{name:"Jack", active:false,assigned:false, permissions : []},{name:"User", active:false,assigned:false, permissions : []}, {name:"Jill", active:false, assigned:false,permissions : []}], 
+    users: [], 
     selected:[],
     selectedUsers:[],
     selectedAll:[],

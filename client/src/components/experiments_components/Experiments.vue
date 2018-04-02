@@ -97,7 +97,6 @@ export default {
   methods:{
     show(){
       this.$modal.show(ExperimentDialog,{}, {name:"first",clickToClose: false,height:"auto", width:"50%"});
-      this.$on('close',this.dialogClosed);
     },
     async getExperiments () {
       const response = await ExperimentsService.fetchExperiments()

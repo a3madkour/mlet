@@ -8,8 +8,9 @@ var ProjectSchema = new Schema({
   date_of_creation: {type: String, required:true},
   users: [{
     name: String,
+    _id : String,
     permissions:  [String]
-  }]
+  }],
 });
 
 var Project = mongoose.model("Project", ProjectSchema);

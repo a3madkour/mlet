@@ -15,7 +15,7 @@
       </div>
       <div class="form-group">
         <label for="username">Username</label>
-        <input type="username" class="form-control" id="username" placeholder="sWalker"  v-model="welcomeScreen.username">
+        <input type="username" class="form-control" id="username" placeholder="sWalker"  v-model="name">
       </div>
       <div class="form-group">
         <label for="password">Password</label>
@@ -29,7 +29,7 @@
         </div>
         <div class="form-group">
           <label for="username">Username</label>
-          <input type="username" class="form-control" id="username" placeholder="sWalker" v-model="welcomeScreen.username">
+          <input type="username" class="form-control" id="username" placeholder="sWalker" v-model="name">
         </div>
         <div class="form-group">
           <label for="password">Password</label>
@@ -37,7 +37,7 @@
         </div>
         <div class="form-group">
           <label for="name">Name</label>
-          <input type="name" class="form-control" id="name" placeholder="Samantha Walker" v-model="welcomeScreen.name">
+          <input type="name" class="form-control" id="name" placeholder="Samantha Walker" v-model="Actualname">
         </div>
         <div class="form-group">
           <label for="email">Email address</label>
@@ -50,7 +50,7 @@
           <p id="db" class="form-text text-muted">Please select the projects you wish to be added to.</p>
         </div>
         <select class="custom-select" multiple>
-          <option selected>Sample Project</option>
+          <option v-for="project in projects" >{{project.name}}</option>
         </select>
       </div>
       <div class='buttons'>
@@ -66,7 +66,7 @@
         </div>
         <div style = 'float:right;' v-if = "currentScreen === 2">
           <a href="#/dashboard" >
-            <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
+            <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off" @click=endDialog>
               Done
             </button>
           </a>
@@ -78,8 +78,12 @@
 </template>
 
 <script>
+import ProjectsService from '@/services/ProjectsService'
 export default {
     name: "welcome",
+    mounted(){
+      this.getProjects();
+    },
     methods: {
       nextDialog: function(){
         this.currentScreen +=1;
@@ -88,11 +92,20 @@ export default {
         this.currentScreen -=1;
       },
       endDialog: function(){
-
+        this.$user =  this.name
+        console.log(this.$user)
+      },
+      async getProjects(){
+        const response = await ProjectsService.fetchProjects();
+        this.projects = response.data.projects
       }
     },
     data(){
-        return {currentScreen: 0, welcomeScreen:{}}
+        return {
+          currentScreen: 0,
+          name: '',
+          projects:[],
+          welcomeScreen:{}}
     }
 }
 </script>

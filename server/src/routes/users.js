@@ -58,8 +58,10 @@ router.get('/', (req, res) => {
 })
 // Fetch single post
 router.get('/:id', (req, res) => {
+  var arr = req.params.id.split(",")
+  var name = arr[1]
   var db = req.db;
-  User.findById(req.params.id, function (error, user) {
+  User.find({'name':name}, function (error, user) {
     if (error) { console.error(error); }
     res.send(user)
   })

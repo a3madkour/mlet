@@ -13,6 +13,7 @@
 import Vue from 'vue';
 import EventBus from '../../event-bus';
 import moment from 'moment'
+import UsersService from '@/services/UsersService'
 import {ClientTable} from 'vue-tables-2';
 let tableOptions = {};
 Vue.use(ClientTable, tableOptions);
@@ -45,6 +46,18 @@ export default {
   created: function() {
     EventBus.$emit('activate_element', 1);
   },
+  methods:{
+    async getUser(){
+      const response = await UsersService.getUser({
+        id : 111,
+        name: this.$user
+      })
+      this.tableData = response.data[0].notifications
+    }
+  },
+  mounted: function(){
+    this.getUser();
+  }
 }
 
 </script>

@@ -5,7 +5,7 @@ import 'vue-awesome/icons'
 import router from './router'
 
 Vue.use(Notifications)
-
+Vue.prototype.$user = 'User'
 new Vue({
   el: '#app',
   router,

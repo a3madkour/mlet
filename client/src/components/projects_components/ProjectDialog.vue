@@ -239,7 +239,7 @@ export default {
     selectedUsers:[],
     selectedAll:[],
     name : '',
-    owner : 'User',
+    owner : this.$user ,
     repo: '',
     executable:'',
     tagString: '',

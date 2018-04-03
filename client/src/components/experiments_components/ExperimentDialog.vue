@@ -197,7 +197,7 @@ export default {
       users: [], 
       selectedUsers: [],
       name: '',
-      owner: 'User',
+      owner: this.$user ,
       status: 'Queued',
       description: '',
       tags : [],

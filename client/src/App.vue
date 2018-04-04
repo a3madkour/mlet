@@ -12,6 +12,14 @@
                  position="bottom right"
                  :speed="500"
                  :duration="1000"/>
+  <notifications group="user-created"
+                 position="bottom right"
+                 :speed="500"
+                 :duration="1000"/>
+  <notifications group="password-changed"
+                 position="bottom right"
+                 :speed="500"
+                 :duration="1000"/>
 
     <div class="container-fluid"">
       <div class="row full-width-row">

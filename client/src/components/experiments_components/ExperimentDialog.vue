@@ -104,7 +104,6 @@ import UsersService from '@/services/UsersService'
 import EventBus from '../../event-bus';
 import moment from 'moment'
 
-
 export default {
   components: {Icon},
   name: 'experimentDialog',

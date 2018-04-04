@@ -57,7 +57,7 @@ import Icon from 'vue-awesome/components/Icon'
 import ProjectsService from '@/services/ProjectsService';
 import UsersService from '@/services/UsersService';
 import EventBus from '../../event-bus';
-import moment from 'moment';
+
 Vue.use(VModal, {dynamic: true});
 export default {
   components: {Icon},

@@ -14,7 +14,7 @@
       <div class="col-6">
         <div class="card" align="left">
           <div class="card-body">
-            <p class="card-text-1"><b>Status:</b> {{this.status}}</p>
+            <p class="card-text-1"><b>Status:</b> {{this.status}} <button v-if='this.status === "On Hold"'>Run Experiment</button></p>
             <p class="card-text-2"><b>Project:</b> <router-link v-bind:to="{name: 'ProjectDetails', params: {id:this.project_id}}">{{this.project}}</router-link></p>
             <p class="card-text-3"><b>Owner:</b> {{this.owner}} </p>
             <p class="card-text-4"><b>Started:</b> {{this.start_time}} </p>
@@ -24,13 +24,13 @@
       </div>
       <div class="col-6" v-if='this.status != "Running"'>
         <div class="card" align="left">
-            <textarea rows="10" cols="50" placeholder="Parameters..." class="form-control" v-on-clickaway="saveParameters" @click="editingParameters" v-model="parameterFile">
+            <textarea rows="9" cols="50" placeholder="Parameters..." class="form-control" v-on-clickaway="saveParameters" @click="editingParameters" v-model="parameterFile">
             </textarea>
         </div>
       </div>
       <div class="col-6" v-if='this.status === "Running"'>
         <div class="card" align="left">
-            <textarea rows="10" cols="50" placeholder="Parameters..." class="form-control" v-on-clickaway="saveParameters" @click="editingParameters" v-model="parameterFile" readonly>
+            <textarea rows="9" cols="50" placeholder="Parameters..." class="form-control" v-on-clickaway="saveParameters" @click="editingParameters" v-model="parameterFile" readonly>
             </textarea>
         </div>
       </div>
@@ -53,6 +53,16 @@
             </swiper>
           </md-card-media>
         </md-card>
+      </div>
+    </div>
+    <div class="row top-buffer">
+      <div class="col-12">
+        <h3>Terminal Output</h3>
+      </div>
+      <div class="col-12">
+        <div class="card" align="left">
+            <textarea rows="25" cols="50" class="form-control" v-model="terminal_out" readonly></textarea>
+        </div>
       </div>
     </div>
   </div>
@@ -143,7 +153,7 @@ export default {
       if (this.editing_parameters) {
         this.editing_parameters = false;
         if(this.oldParameter !== this.parameterFile){
-          this.$notify({group: 'experiment-saved', type:'success', title: 'Experiment notes have been saved!'});
+          this.$notify({group: 'experiment-saved', type:'success', title: 'Experiment parameters have been saved!'});
           await ExperimentsService.updateExperiment({
             id:this.$route.params.id,
             parameterFile:this.parameterFile

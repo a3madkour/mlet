@@ -94,7 +94,6 @@
         </div>
     </div>
   </div>
-  </div>
 </template>
 <script>
 import Icon from 'vue-awesome/components/Icon'

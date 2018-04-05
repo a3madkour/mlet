@@ -10,7 +10,7 @@
       <div class="col-4">
         <div class="chart">
           <h3>My Experiments</h3>
-          <pie-chart ref="experimentPlot" :data="experimentData" :options="experimentOptions"></pie-chart>
+          <MyExperimentsPieChart></MyExperimentsPieChart>
         </div>
       </div>
     </div>
@@ -21,7 +21,7 @@
 import Vue from 'vue';
 import EventBus from '../../event-bus';
 import LinePlot from '../common_components/LinePlot';
-import PieChart from '../common_components/PieChart';
+import MyExperimentsPieChart from '../common_components/MyExperimentsPieChart.vue'
 import {ClientTable} from 'vue-tables-2';
 let tableOptions = {};
 Vue.use(ClientTable, tableOptions);
@@ -29,8 +29,8 @@ let os = require('os');
 
 export default {
   components: {
+    MyExperimentsPieChart,
     LinePlot,	
-    PieChart,
   },
   data: function () {
     return {
@@ -47,11 +47,6 @@ export default {
             }
           }]
         }
-      },
-      experimentData: null,
-      experimentOptions: {
-        responsive: true,
-        maintainAspectRatio: false, 
       },
       timer: '',
     }
@@ -82,16 +77,6 @@ export default {
           }
         ]
       };
-
-      this.experimentData = {
-        labels: ['Running', 'Queued', 'Completed', 'Failed'],
-        datasets: [
-          {
-            backgroundColor: ['#41B883', '#E46651', '#00D8FF', '#DD1B16'],
-            data: [4, 10, 8, 4]
-          }
-        ]
-      };
     },
     fetchData: function () { 
       this.systemData.datasets[0].data.shift();
@@ -99,11 +84,7 @@ export default {
       this.systemData.datasets[0].data = this.systemData.datasets[0].data.concat(this.getRandomInt(1));
       this.systemData.datasets[1].data = this.systemData.datasets[1].data.concat(this.getRandomInt(1));
 
-      var i = this.getRandomInt(1,0,3)[0];
-      this.experimentData.datasets[0].data[i] += this.getRandomInt(1,-1,1)[0];
-
       this.$refs.systemPlot.update();
-      this.$refs.experimentPlot.update();
     },
     cancelAutoUpdate: function () {
       clearInterval(this.timer);

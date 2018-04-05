@@ -50,7 +50,7 @@ export default {
       this.$refs.experimentsPlot.update();
     },
     getExperiments: async function () {
-      const response = await ExperimentsService.fetchExperiments();
+      const response = await ExperimentsService.fetchExperiments({owner: this.$user});
       this.experiments = response.data.experiments;
     },
     cancelAutoUpdate: function () {

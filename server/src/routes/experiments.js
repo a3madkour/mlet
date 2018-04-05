@@ -58,6 +58,13 @@ router.get('/', (req, res) => {
         experiments: experiments
       })
     }).sort({_id:-1})
+  } else if(req.query.owner != null) {
+    Experiment.find({'owner':req.query.owner}, function (error, experiments) {
+      if (error) { console.error(error); }
+      res.send({
+        experiments: experiments
+      })
+    }).sort({_id:-1})
   } else if(req.query.project_id == null){
     Experiment.find({}, function (error, experiments) {
       if (error) { console.error(error); }

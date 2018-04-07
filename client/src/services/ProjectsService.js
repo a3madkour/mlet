@@ -1,8 +1,8 @@
 import Api from '@/services/Api'
 
 export default {
-  fetchProjects () {
-    return Api().get('projects')
+  fetchProjects (Params) {
+    return Api().get('projects',{params:Params})
   },
 
   addProject (params) {

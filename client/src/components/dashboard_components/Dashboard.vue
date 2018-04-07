@@ -11,10 +11,7 @@
       <div class="col-3">
         <h2 class='text-left'>My Projects</h2>
         <v-client-table class="dp-table" :columns="pColumns" :data="pTableData" :options="pOptions">
-          <a slot="name" slot-scope="props" href="#/projects/details">
-            <p v-if="props.row.id!=1">Project #{{ props.row.id }}</p>
-            <p v-else>SSB_detector</p>
-          </a>
+          <router-link slot="name" slot-scope="props" v-bind:to= "{name: 'ProjectDetails', params: {id:props.row._id}}" >{{ props.row.name }}</router-link>
         </v-client-table>
       </div>
       <div class="col-9">
@@ -29,6 +26,8 @@
 import Vue from 'vue';
 import EventBus from '../../event-bus';
 import SystemInfo from './SystemInfo';
+import UsersService from '@/services/UsersService'
+import ProjectsService from '@/services/ProjectsService'
 import {ClientTable} from 'vue-tables-2';
 let tableOptions = {};
 Vue.use(ClientTable, tableOptions);
@@ -38,48 +37,48 @@ export default {
     SystemInfo,  
   },
   data: function () {
-    return Object.assign({}, getNTableData(), getPTableData())
+    return{
+      nColumns: ['description', 'type', 'time'],
+      nTableData: [],
+      nOptions: {
+        filterable: false,
+        perPage:5,
+        orderBy: {column: 'time'},
+      },
+      pColumns: ['name'],
+      pTableData: [
+        {id:2, name:'Project #2'},
+        {id:1, name:'Project #1'},
+      ],
+      pOptions: {
+          filterable: false,
+          perPage:5,
+          orderBy: {column: 'name'},
+      }
+    } 
   },
   created: function() {
     EventBus.$emit('activate_element', 0);
   },
-}
-
-// Get the data and options for the Notifications table
-var getNTableData = function() {
-  return {
-	nColumns: ['description', 'type', 'time'],
-    nTableData: [
-      {description:'Experiment  #1 succeeded', type:'Experiment',            time:'Febuary 25, 15:11:04'},
-      {description:'Person #1 reuests access to Project #1', type:'Project', time:'Febuary 25, 15:11:04'},
-      {description:'Experiment  #2 failed', type:'Experiment',               time:'Febuary 25, 15:11:04'},
-      {description:'Experiment  #3 failed', type:'Experiment',               time:'Febuary 25, 15:11:04'},
-      {description:'Experiment  #4 failed', type:'Experiment',               time:'Febuary 25, 15:11:04'},
-      {description:'Experiment  #5 failed', type:'Experiment',               time:'Febuary 25, 15:11:04'}
-    ],
-    nOptions: {
-        filterable: false,
-        perPage:5,
-        orderBy: {column: 'time'},
+  methods: {
+    async getProjects(){
+      const response = await ProjectsService.fetchProjects({'user_name':this.$user});
+        this.pTableData = response.data.projects;
+    },
+    async getUser(){
+      const response = await UsersService.getUser({
+        id : 111,
+        name: this.$user
+      })
+      this.nTableData = response.data[0].notifications
     }
+  },
+  mounted: function(){
+    this.getUser();
+    this.getProjects();
   }
 }
 
-// Get the data and options for the Project table
-var getPTableData = function() {
-  return {
-    pColumns: ['name'],
-    pTableData: [
-      {id:2, name:'Project #2'},
-      {id:1, name:'Project #1'},
-    ],
-    pOptions: {
-        filterable: false,
-        perPage:5,
-        orderBy: {column: 'name'},
-    }
-  }
-}
 
 </script>
 

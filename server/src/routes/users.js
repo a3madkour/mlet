@@ -61,7 +61,7 @@ router.get('/:id', (req, res) => {
   var arr = req.params.id.split(",")
   var name = arr[1]
   var db = req.db;
-  User.find({'name':name}, function (error, user) {
+  User.findById(req.params.id, function (error, user) {
     if (error) { console.error(error); }
     res.send(user)
   })

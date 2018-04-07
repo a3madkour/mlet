@@ -28,14 +28,7 @@ export default {
   data: function () {
     return {
       columns: ['description', 'type', 'time'],
-      tableData: [
-        {description:'Experiment  #1 succeeded', type:'Experiment',            time:'Febuary 25, 15:11:04'},
-        {description:'Person #1 reuests access to Project #1', type:'Project', time:'Febuary 25, 15:11:04'},
-        {description:'Experiment  #2 failed', type:'Experiment',               time:'Febuary 25, 15:11:04'},
-        {description:'Experiment  #3 failed', type:'Experiment',               time:'Febuary 25, 15:11:04'},
-        {description:'Experiment  #4 failed', type:'Experiment',               time:'Febuary 25, 15:11:04'},
-        {description:'Experiment  #5 failed', type:'Experiment',               time:'Febuary 25, 15:11:04'}
-      ],
+      tableData: [],
       nOptions: {
           filterable: false,
           perPage:5,

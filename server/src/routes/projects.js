@@ -37,12 +37,27 @@ router.post('/', (req, res) => {
 })
 // Fetch all posts
 router.get('/', (req, res) => {
-  Project.find({}, function (error, projects) {
-    if (error) { console.error(error); }
-    res.send({
-      projects: projects
-    })
-  }).sort({_id:-1})
+  if(req.query.user_name == null){
+    Project.find({}, function (error, projects) {
+      if (error) { console.error(error); }
+      res.send({
+        projects: projects
+      })
+    }).sort({_id:-1})
+  }else{
+    console.log("asa")
+    Project.
+      find({}).
+      where('users').
+      elemMatch({"name":req.query.user_name}).
+      sort({_id:-1}).
+      exec(function(error,projects){
+        if (error) { console.error(error); }
+        res.send({
+          projects: projects
+        })
+      });
+  }
 })
 // Fetch single post
 router.get('/:id', (req, res) => {

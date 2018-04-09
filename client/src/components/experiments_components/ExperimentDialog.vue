@@ -82,8 +82,11 @@
       </div>
         <div class = 'buttons'>
           <div style="float:right;" >
-            <button type="button" class="btn btn-primary" @click=nextDialog>
+            <button v-if='selected.includes(this.$user)' type="button" class="btn btn-primary" @click=nextDialog>
               Next
+            </button>
+            <button v-if='!selected.includes(this.$user)' type="button" class="btn btn-success" @click=endDialog>
+              Confirm
             </button>
           </div>
           <div style="float:left;" >
@@ -93,7 +96,7 @@
           </div>
         </div>
     </div>
-    <div v-if='currentScreen === 4 && users.includes(this.$user)'>
+    <div v-if='currentScreen === 4 && selected.includes(this.$user)'>
       <form class="form-group" @submit='nextDialog' >
         <div class="form-group">
           <label for="repo">Please select when you would like to run this experiment:</label>
@@ -189,10 +192,8 @@ export default {
       EventBus.$emit('experiment_dialog_close');
     },
     async getUsers(){
-      console.log(this.selectedProject._id)
       const response = await UsersService.fetchUsers({'project_id':this.selectedProject._id});
       var users = []
-      console.log(response.data.users)
       for(var i = 0 ; i<response.data.users.length;i++){
         var user = {};
         user.name = response.data.users[i].name;
@@ -213,8 +214,10 @@ export default {
     userClick(user){
       user.active = !user.active
       if(this.selectedUsers.indexOf(user) <0 ){
+        this.selected.push(user.name);
         this.selectedUsers.push(user);
       }else{
+        this.selected = this.selected.filter(item => item !== user.name)
         this.selectedUsers = this.selected.filter(item => item !== user)
       }
     }
@@ -224,6 +227,7 @@ export default {
       currentScreen : 0,
       users: [], 
       selectedUsers: [],
+      selected: [],
       name: '',
       owner: this.$user ,
       status: 'On Hold',

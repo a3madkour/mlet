@@ -52,10 +52,7 @@ router.get('/', (req, res) => {
   }else if(req.query.project_name != null){
     console.log(req.query.project_name)
     Project.
-      find({}).
-      where('projects').
-      elemMatch({"name":req.query.project_name}).
-      sort({_id:-1}).
+      findOne({'name': req.query.project_name}).
       exec(function(error,projects){
         if (error) { console.error(error); }
         res.send({

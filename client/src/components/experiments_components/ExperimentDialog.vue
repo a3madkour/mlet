@@ -144,6 +144,7 @@ export default {
       this.currentScreen += 1;
       if(this.currentScreen == 3){
         this.getUsers();
+        this.selected = []
       }
     },
     previousDialog : function(){
@@ -165,6 +166,9 @@ export default {
       reader.readAsText(file);
     },
     endDialog(){
+      if(this.selected.includes(this.$user)){
+          this.notify = true; 
+      }
       this.addExperiment();
       this.$notify({group: 'experiment-created', type:'success', title: 'Experiment created!'});
       this.$emit('close');
@@ -182,6 +186,7 @@ export default {
         project_id: this.selectedProject._id,
         status: this.status,
         tags: this.tags,
+        notify: this.notify,
         parameterFile: this.parameterFile,
         notes: this.notes,
         users: this.selectedUsers,
@@ -229,6 +234,7 @@ export default {
       selectedUsers: [],
       selected: [],
       name: '',
+      notify: false,
       owner: this.$user ,
       status: 'On Hold',
       description: '',

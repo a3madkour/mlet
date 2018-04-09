@@ -9,11 +9,11 @@
           </router-link>
           <toggle-button slot="notify" 
                          slot-scope="props"
-                         :value="false" 
+                         v-model="tableData[props.index-1].notify"
                          color="#82C7EB" 
                          :sync="true" 
                          :labels="true"
-                         class="toggle"/>
+                         class="toggle" @change="toggleChange" />
         </v-client-table>
       </div>
     </div>
@@ -61,6 +61,7 @@ export default {
   },
   data: function () {
     return {
+      index : 0,
       experimentData: {fileTxt : ""},
       columns: ['start_time', 'name', 'owner', 'project', 'run_duration', 'status', 'notify'],
       tableData: [],
@@ -95,6 +96,19 @@ export default {
     EventBus.$off('experiment_dialog_close', this.activate_el);
   },
   methods:{
+    toggleChange(e){
+      this.updateExperiment();
+    },
+    async updateExperiment(){
+      for(var i = 0; this.tableData.length;i++){
+        this.index = i
+        await ExperimentsService.updateExperiment({
+          id:this.tableData[this.index]._id,
+          notify: this.tableData[this.index].notify
+        });
+      }
+      this.index = 0
+    },
     show(){
       this.$modal.show(ExperimentDialog,{}, {name:"first",clickToClose: false,height:"auto", width:"50%"});
     },
@@ -114,7 +128,7 @@ export default {
 } 
 
 var notify_explanation = `This slider allows you to set which experiments you want to be notified of when they complete running. By default you are already set
-to be notified when your own experiments complete but this allows you to opt in to watch experiments you find important. More notificatin options can be found
+to be notified when your own experiments complete but this allows you to opt in to watch experiments you find important. More notification options can be found
 in Settings`;
 </script>
 

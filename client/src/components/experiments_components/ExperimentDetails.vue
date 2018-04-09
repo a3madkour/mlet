@@ -93,6 +93,7 @@ export default {
       oldNotes: '',
       notes: '',
       parameterFile: '',
+      terminal_out: '',
       oldParameter: '',
       swiperOption: {
         spaceBetween: 50,
@@ -134,6 +135,7 @@ export default {
       this.start_time = response.data.start_time;
       this.parameterFile = response.data.parameterFile;
       this.notes = response.data.notes;
+      this.terminal_out = response.data.terminal_out;
       this.oldNotes = this.notes;
       this.oldParameter = this.parameterFile;
     },

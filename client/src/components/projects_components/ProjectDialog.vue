@@ -196,13 +196,14 @@ export default {
     },
     async addProject(){
       this.tags = this.tagString.split(',')
-      await ProjectsService.addProject({
+      const response = await ProjectsService.addProject({
           name:this.name,
           description: this.description,
           owner: this.owner,
           date_of_creation: moment().format('MMMM Do YYYY, h:mm:ss a'),
           users: this.selectedUsers
       })
+      console.log(response)
       EventBus.$emit('project_dialog_close'); 
     },
     async getUsers(){
@@ -217,6 +218,16 @@ export default {
         users.push(user)
       }
       this.users = users;
+    },
+    async updateUser(){
+      for (var i = 0 ; this.selectedUsers.length;i++){
+        this.selectedUsers[i].projects.push({'name':this.name,'_id':this._id})
+        await UsersService.updateUser({
+          id: this.selectedUsers[i]._id,
+          projects: this.selectedUsers[i].projects
+        });
+      }
+        
     },
     userClick(user){
         

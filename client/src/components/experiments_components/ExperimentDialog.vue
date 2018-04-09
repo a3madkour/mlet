@@ -82,8 +82,8 @@
       </div>
         <div class = 'buttons'>
           <div style="float:right;" >
-            <button type="button" class="btn btn-success" @click=endDialog>
-              Confirm
+            <button type="button" class="btn btn-primary" @click=nextDialog>
+              Next
             </button>
           </div>
           <div style="float:left;" >
@@ -92,6 +92,22 @@
             </button>
           </div>
         </div>
+    </div>
+    <div v-if='currentScreen === 4'>
+      <form class="form-group" @submit='endDialog' >
+        <div class="form-group" >
+        </div>
+        <div class = 'buttons'>
+          <div style="float:right;" >
+              <input type="submit" value="Confirm" class="btn btn-success"  >
+          </div>
+          <div style="float:left;" >
+            <button type="button" class="btn btn-primary" @click="previousDialog" >
+              Back
+            </button>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
 </template>
@@ -145,7 +161,6 @@ export default {
     },
     async addExperiment(){
       this.tags = this.tagString.split(',')
-      console.log(this.users)
       await ExperimentsService.addExperiment({
         name: this.name,
         description: this.description,
@@ -164,8 +179,10 @@ export default {
       EventBus.$emit('experiment_dialog_close');
     },
     async getUsers(){
+      console.log(this.selectedProject._id)
       const response = await UsersService.fetchUsers({'project_id':this.selectedProject._id});
       var users = []
+      console.log(response.data.users)
       for(var i = 0 ; i<response.data.users.length;i++){
         var user = {};
         user.name = response.data.users[i].name;
@@ -179,6 +196,9 @@ export default {
     async getProjects(){
       const response = await ProjectsService.fetchProjects()
       this.projects = response.data.projects
+    },
+    async updateUser(){
+
     },
     userClick(user){
       user.active = !user.active

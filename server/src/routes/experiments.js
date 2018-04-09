@@ -20,6 +20,7 @@ router.post('/', (req, res) => {
   var status = req.body.status;
   var tags = req.body.tags;
   var parameterFile = req.body.parameterFile;
+  var terminal_out = req.body.terminal_out;
   var notes = req.body.notes;
   var users = req.body.users;
   var start_time = req.body.start_time;
@@ -33,6 +34,7 @@ router.post('/', (req, res) => {
     status: status,
     tags : tags,
     parameterFile : parameterFile,
+    terminal_out : terminal_out,
     notes: notes,
     users : users,
     start_time: start_time,
@@ -118,6 +120,9 @@ router.put('/:id', (req, res) => {
     }
     if(req.body.parameterFile != null){
       experiment.parameterFile = req.body.parameterFile;
+    }
+    if(req.body.terminal_out != null){
+      experiment.terminal_out = req.body.terminal_out;
     }
     if(req.body.notes != null){
       experiment.notes = req.body.notes;

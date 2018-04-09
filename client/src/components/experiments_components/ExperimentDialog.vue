@@ -93,13 +93,23 @@
           </div>
         </div>
     </div>
-    <div v-if='currentScreen === 4'>
-      <form class="form-group" @submit='endDialog' >
-        <div class="form-group" >
+    <div v-if='currentScreen === 4 && users.includes(this.$user)'>
+      <form class="form-group" @submit='nextDialog' >
+        <div class="form-group">
+          <label for="repo">Please select when you would like to run this experiment:</label>
+        </div>
+        <div> 
+          <input type="radio" id="run" value="Running" v-model="status">
+          <label for="run">Run experiment when resources are available.</label>
+          <br>
+          <input type="radio" id="hold" value="On Hold" v-model="status">
+          <label for="hold">Save experiment for later.</label>
         </div>
         <div class = 'buttons'>
           <div style="float:right;" >
-              <input type="submit" value="Confirm" class="btn btn-success"  >
+            <button type="button" class="btn btn-success" @click=endDialog>
+              Confirm
+            </button>
           </div>
           <div style="float:left;" >
             <button type="button" class="btn btn-primary" @click="previousDialog" >
@@ -216,7 +226,7 @@ export default {
       selectedUsers: [],
       name: '',
       owner: this.$user ,
-      status: 'Queued',
+      status: 'On Hold',
       description: '',
       tags : [],
       tagString: '',

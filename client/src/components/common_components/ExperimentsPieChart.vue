@@ -45,8 +45,11 @@ export default {
       var num_not_queued_experiments = this.experiments.filter(item => item.status == "On Hold").length;
       var num_completed_experiments = this.experiments.filter(item => item.status == "Completed").length;
       var num_failed_experiments = this.experiments.filter(item => item.status == "Failed").length;
-      num_running_experiments = this.experiments.length;
-      this.experimentData.datasets[0].data = [num_running_experiments,num_queued_experiments,num_not_queued_experiments,num_completed_experiments,num_failed_experiments];
+      this.experimentData.datasets[0].data = [num_running_experiments,
+                                              num_queued_experiments,
+                                              num_not_queued_experiments,
+                                              num_completed_experiments,
+                                              num_failed_experiments];
       this.$refs.experimentsPlot.update();
     },
     getExperiments: async function () {

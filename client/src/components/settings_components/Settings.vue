@@ -2,170 +2,176 @@
 <div class="py-3 container-fluid">
   <form class="form-group" @submit='saveChanges' >
     <div class="row">
-      <div class="col-12">
-        <h2 class="pull-left">Account</h2>
-      </div>
-    </div>
-    <div class="row settings-item-buffer">
-      <div class="col-2">
-        <label class="pull-right">Username:</label> 
-      </div>
-      <div class="col-10">
-        <input v-model="username" placeholder="">
-      </div>
-    </div>
-    <div class="row settings-item-buffer">
-      <div class="col-2">
-        <label class="pull-right">Password:</label> 
-      </div>
-      <div class="col-10">
-        <button type="button" @click="show_change_password_dialog">Change your password</button>
-      </div>
-    </div>
-    <div class="row settings-item-buffer">
-      <div class="col-2">
-        <label class="pull-right">Email:</label> 
-      </div>
-      <div class="col-10">
-        <input v-model="email" placeholder="">
-      </div>
-    </div>
-    <div class="row settings-item-buffer">
-      <div class="col-2">
-        <label class="pull-right">Language:</label>
-      </div>
-      <div class="col-10">
-        <select v-model="language">
-          <option value="english">English</option>
-          <option value="spanish">Spanish</option>
-          <option value="french">French</option>
-          <option value="mandarin">Mandarin</option>
-        </select>
-      </div>
-    </div>
-    <div class="row settings-item-buffer">
-      <div class="col-2">
-        <label class="pull-right">Time zone:</label>
-      </div>
-      <div class="col-10">
-        <select v-model="time_zone">
-          <option value="est">EST</option>
-          <option value="cst">CST</option>
-          <option value="mst">MST</option>
-          <option value="pst">PST</option>
-        </select>
-      </div>
-    </div>
+      <div class="col-6">
+        <div class="row">
+          <div class="col-12">
+            <h2 class="pull-left">Account</h2>
+          </div>
+        </div>
+        <div class="row settings-item-buffer">
+          <div class="col-2">
+            <label class="pull-right">Username:</label> 
+          </div>
+          <div class="col-10">
+            <input v-model="username" placeholder="">
+          </div>
+        </div>
+        <div class="row settings-item-buffer">
+          <div class="col-2">
+            <label class="pull-right">Password:</label> 
+          </div>
+          <div class="col-10">
+            <button type="button" @click="show_change_password_dialog">Change your password</button>
+          </div>
+        </div>
+        <div class="row settings-item-buffer">
+          <div class="col-2">
+            <label class="pull-right">Email:</label> 
+          </div>
+          <div class="col-10">
+            <input v-model="email" placeholder="">
+          </div>
+        </div>
+        <div class="row settings-item-buffer">
+          <div class="col-2">
+            <label class="pull-right">Language:</label>
+          </div>
+          <div class="col-10">
+            <select v-model="language">
+              <option value="english">English</option>
+              <option value="spanish">Spanish</option>
+              <option value="french">French</option>
+              <option value="mandarin">Mandarin</option>
+            </select>
+          </div>
+        </div>
+        <div class="row settings-item-buffer">
+          <div class="col-2">
+            <label class="pull-right">Time zone:</label>
+          </div>
+          <div class="col-10">
+            <select v-model="time_zone">
+              <option value="est">EST</option>
+              <option value="cst">CST</option>
+              <option value="mst">MST</option>
+              <option value="pst">PST</option>
+            </select>
+          </div>
+        </div>
 
-    <div class="row settings-header-buffer">
-      <div class="col-12">
-        <h2 class="pull-left">System</h2>
-      </div>
-    </div>
-    <div class="row settings-item-buffer">
-      <div class="col-2">
-        <label class="pull-right">CPU cores:</label> 
-      </div>
-      <div class="col-10">
-        <input v-model="cpu_cores" placeholder="">
-      </div>
-    </div>
-    <div class="row settings-item-buffer settings-item-buffeo">
+        <div class="row settings-header-buffer">
+          <div class="col-12">
+            <h2 class="pull-left">System</h2>
+          </div>
+        </div>
+        <div class="row settings-item-buffer">
+          <div class="col-2">
+            <label class="pull-right">CPU cores:</label> 
+          </div>
+          <div class="col-10">
+            <input v-model="cpu_cores" placeholder="">
+          </div>
+        </div>
+        <div class="row settings-item-buffer settings-item-buffeo">
 
-      <div class="col-2">
-        <label class="pull-right">GPUs:</label> 
-      </div>
-      <div class="col-10">
-        <select v-model="gpu">
-          <option value="gpu_all">All available GPUs</option>
-          <option value="gpu_one">(1) NVIDIA GeForce GTX 1080 Ti</option>
-          <option value="gpu_two">(2) NVIDIA GeForce GTX 1080 Ti</option>
-        </select>
-      </div>
-    </div>
+          <div class="col-2">
+            <label class="pull-right">GPUs:</label> 
+          </div>
+          <div class="col-10">
+            <select v-model="gpu">
+              <option value="gpu_all">All available GPUs</option>
+              <option value="gpu_one">(1) NVIDIA GeForce GTX 1080 Ti</option>
+              <option value="gpu_two">(2) NVIDIA GeForce GTX 1080 Ti</option>
+            </select>
+          </div>
+        </div>
 
-    <div class="row settings-header-buffer">
-      <div class="col-12">
-        <h2 class="pull-left">Database</h2>
+        <div class="row settings-header-buffer">
+          <div class="col-12">
+            <h2 class="pull-left">Database</h2>
+          </div>
+        </div>
+        <div class="row settings-item-buffer">
+          <div class="col-2">
+            <label class="pull-right">Database IP:</label> 
+          </div>
+          <div class="col-10">
+            <input v-model="db_ip" placeholder="">
+          </div>
+        </div>
+        <div class="row settings-item-buffer">
+          <div class="col-2">
+            <label class="pull-right">Add user:</label> 
+          </div>
+          <div class="col-10">
+            <button type="button" @click="show_create_user_dialog">Create a new user </button>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="row settings-item-buffer">
-      <div class="col-2">
-        <label class="pull-right">Database IP:</label> 
-      </div>
-      <div class="col-10">
-        <input v-model="db_ip" placeholder="">
-      </div>
-    </div>
-    <div class="row settings-item-buffer">
-      <div class="col-2">
-        <label class="pull-right">Add user:</label> 
-      </div>
-      <div class="col-10">
-        <button type="button" @click="show_create_user_dialog">Create a new user </button>
-      </div>
-    </div>
 
-    <div class="row settings-header-buffer">
-      <div class="col-12">
-        <h2 class="pull-left">Notifications</h2>
-      </div>
-    </div>
-    <div class="row settings-item-buffer">
-      <div class="col-2">
-        <label class="pull-right">Email notifications:</label> 
-      </div>
-      <div class="col-10">
-        <input v-model="email_notificaitons" type="checkbox">
-      </div>
-    </div>
-    <div class="row settings-item-buffer">
-      <div class="col-2">
-        <label class="pull-right">System notifications:</label> 
-      </div>
-      <div class="col-10">
-        <input v-model="system_notificaitons" type="checkbox">
-      </div>
-    </div>
-    <div class="row settings-item-buffer">
-      <div class="col-12">
-        <label class="pull-left">Receive type of notifications:</label> 
-      </div>
-    </div>
-    <div class="row settings-item-buffer">
-      <div class="col-1"></div>
-      <div class="col-2">
-        <label class="pull-right">Experiment Completed:</label> 
-      </div>
-      <div class="col-9">
-        <input v-model="notify_exp_complete" type="checkbox">
-      </div>
-    </div>
-    <div class="row settings-item-buffer">
-      <div class="col-1"></div>
-      <div class="col-2">
-        <label class="pull-right">Experiment created for your project:</label> 
-      </div>
-      <div class="col-9">
-        <input v-model="notify_exp_create" type="checkbox">
-      </div>
-    </div>
-    <div class="row settings-item-buffer">
-      <div class="col-1"></div>
-      <div class="col-2">
-        <label class="pull-right">Experiment assigned to you:</label> 
-      </div>
-      <div class="col-9">
-        <input v-model="notify_exp_assigned" type="checkbox">
-      </div>
-    </div>
-    <div class="row settings-item-buffer">
-      <div class="col-1"></div>
-      <div class="col-2">
-        <label class="pull-right">Project Created:</label> 
-      </div>
-      <div class="col-9">
-        <input v-model="notify_project_create" type="checkbox">
+      <div class="col-6">
+        <div class="row settings-header-buffer">
+          <div class="col-12">
+            <h2 class="pull-left">Notifications</h2>
+          </div>
+        </div>
+        <div class="row settings-item-buffer">
+          <div class="col-2">
+            <label class="pull-right">Email notifications:</label> 
+          </div>
+          <div class="col-10">
+            <input v-model="email_notificaitons" type="checkbox">
+          </div>
+        </div>
+        <div class="row settings-item-buffer">
+          <div class="col-2">
+            <label class="pull-right">System notifications:</label> 
+          </div>
+          <div class="col-10">
+            <input v-model="system_notificaitons" type="checkbox">
+          </div>
+        </div>
+        <div class="row settings-item-buffer">
+          <div class="col-12">
+            <label class="pull-left">Receive type of notifications:</label> 
+          </div>
+        </div>
+        <div class="row settings-item-buffer">
+          <div class="col-1"></div>
+          <div class="col-2">
+            <label class="pull-right">Experiment Completed:</label> 
+          </div>
+          <div class="col-9">
+            <input v-model="notify_exp_complete" type="checkbox">
+          </div>
+        </div>
+        <div class="row settings-item-buffer">
+          <div class="col-1"></div>
+          <div class="col-2">
+            <label class="pull-right">Experiment created for your project:</label> 
+          </div>
+          <div class="col-9">
+            <input v-model="notify_exp_create" type="checkbox">
+          </div>
+        </div>
+        <div class="row settings-item-buffer">
+          <div class="col-1"></div>
+          <div class="col-2">
+            <label class="pull-right">Experiment assigned to you:</label> 
+          </div>
+          <div class="col-9">
+            <input v-model="notify_exp_assigned" type="checkbox">
+          </div>
+        </div>
+        <div class="row settings-item-buffer">
+          <div class="col-1"></div>
+          <div class="col-2">
+            <label class="pull-right">Project Created:</label> 
+          </div>
+          <div class="col-9">
+            <input v-model="notify_project_create" type="checkbox">
+          </div>
+        </div>
       </div>
     </div>
 

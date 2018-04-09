@@ -44,9 +44,10 @@
         <md-card>
           <md-card-media>
             <swiper :options="swiperOption">
-            <swiper-slide><img src="./placeholder.png" height=200 width=200></swiper-slide>
-            <swiper-slide><img src="./placeholder.png" height=200 width=200></swiper-slide>
-            <swiper-slide><img src="./placeholder.png" height=200 width=200></swiper-slide>
+            <swiper-slide>
+              <img v-if='this.status == Finished' src="./loss.jpeg" height=400 width=400>
+              <img v-else src="./placeholder.png" height=400 width=400>
+            </swiper-slide>
             <div class="swiper-pagination" slot="pagination"></div>
             <div class="swiper-button-prev" slot="button-prev"></div>
             <div class="swiper-button-next" slot="button-next"></div>
@@ -188,8 +189,8 @@ export default {
 }
 
 .swiper-container {
-  height: 320px;
-  width: 300px!important;
-  padding: 50px!important;
+  height: 420px;
+  width: 500px!important;
+  padding: 40px!important;
 }
 </style>

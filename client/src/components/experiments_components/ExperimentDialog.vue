@@ -93,6 +93,29 @@
           </div>
         </div>
     </div>
+    <div v-if='currentScreen === 4 && users.includes(this.$user)'>
+      <label for="repo">Please select when you would like to run this experiment:</label>
+      <div> 
+        <input type="radio" id="run" value="run" v-model="picked">
+        <label for="run">Run experiment when resources are available.</label>
+        <br>
+        <input type="radio" id="hold" value="hold" v-model="picked">
+        <label for="hold">Save experiment for later.</label>
+      </div>
+      <div class = 'buttons'>
+        <div style="float:right;" >
+          <button type="button" class="btn btn-success" @click=endDialog>
+            Confirm
+          </button>
+        </div>
+        <div style="float:left;" >
+          <button type="button" class="btn btn-primary" @click="previousDialog" >
+            Back
+          </button>
+        </div>
+      </div>
+    </div>
+
   </div>
 </template>
 <script>
@@ -196,7 +219,7 @@ export default {
       selectedUsers: [],
       name: '',
       owner: this.$user ,
-      status: 'Queued',
+      status: 'On Hold',
       description: '',
       tags : [],
       tagString: '',

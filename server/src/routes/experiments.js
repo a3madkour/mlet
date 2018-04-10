@@ -18,8 +18,10 @@ router.post('/', (req, res) => {
   var project = req.body.project;
   var project_id = req.body.project_id;
   var status = req.body.status;
+  var notify = req.body.notify;
   var tags = req.body.tags;
   var parameterFile = req.body.parameterFile;
+  var terminal_out = req.body.terminal_out;
   var notes = req.body.notes;
   var users = req.body.users;
   var start_time = req.body.start_time;
@@ -31,8 +33,10 @@ router.post('/', (req, res) => {
     project: project,
     project_id: project_id,
     status: status,
+    notify: notify,
     tags : tags,
     parameterFile : parameterFile,
+    terminal_out : terminal_out,
     notes: notes,
     users : users,
     start_time: start_time,
@@ -116,8 +120,14 @@ router.put('/:id', (req, res) => {
     if(req.body.tags != null){
       experiment.tags = req.body.tags;
     }
+    if(req.body.notify != null){
+      experiment.notify = req.body.notify;
+    }
     if(req.body.parameterFile != null){
       experiment.parameterFile = req.body.parameterFile;
+    }
+    if(req.body.terminal_out != null){
+      experiment.terminal_out = req.body.terminal_out;
     }
     if(req.body.notes != null){
       experiment.notes = req.body.notes;

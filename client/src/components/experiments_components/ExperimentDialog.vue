@@ -82,7 +82,10 @@
       </div>
         <div class = 'buttons'>
           <div style="float:right;" >
-            <button type="button" class="btn btn-success" @click=nextDialog>
+            <button v-if='selected.includes(this.$user)' type="button" class="btn btn-primary" @click=nextDialog>
+              Next
+            </button>
+            <button v-if='!selected.includes(this.$user)' type="button" class="btn btn-success" @click=endDialog>
               Confirm
             </button>
           </div>
@@ -93,7 +96,7 @@
           </div>
         </div>
     </div>
-    <div v-if='currentScreen === 4 && users.includes(this.$user)'>
+    <div v-if='currentScreen === 4 && selected.includes(this.$user)'>
       <form class="form-group" @submit='nextDialog' >
         <div class="form-group">
           <label for="repo">Please select when you would like to run this experiment:</label>
@@ -119,7 +122,6 @@
         </div>
       </form>
     </div>
-
   </div>
 </template>
 <script>
@@ -142,6 +144,7 @@ export default {
       this.currentScreen += 1;
       if(this.currentScreen == 3){
         this.getUsers();
+        this.selected = []
       }
     },
     previousDialog : function(){
@@ -163,6 +166,9 @@ export default {
       reader.readAsText(file);
     },
     endDialog(){
+      if(this.selected.includes(this.$user)){
+          this.notify = true; 
+      }
       this.addExperiment();
       this.$notify({group: 'experiment-created', type:'success', title: 'Experiment created!'});
       this.$emit('close');
@@ -172,7 +178,6 @@ export default {
     },
     async addExperiment(){
       this.tags = this.tagString.split(',')
-      console.log(this.users)
       await ExperimentsService.addExperiment({
         name: this.name,
         description: this.description,
@@ -181,6 +186,7 @@ export default {
         project_id: this.selectedProject._id,
         status: this.status,
         tags: this.tags,
+        notify: this.notify,
         parameterFile: this.parameterFile,
         notes: this.notes,
         users: this.selectedUsers,
@@ -207,11 +213,16 @@ export default {
       const response = await ProjectsService.fetchProjects()
       this.projects = response.data.projects
     },
+    async updateUser(){
+
+    },
     userClick(user){
       user.active = !user.active
       if(this.selectedUsers.indexOf(user) <0 ){
+        this.selected.push(user.name);
         this.selectedUsers.push(user);
       }else{
+        this.selected = this.selected.filter(item => item !== user.name)
         this.selectedUsers = this.selected.filter(item => item !== user)
       }
     }
@@ -221,7 +232,9 @@ export default {
       currentScreen : 0,
       users: [], 
       selectedUsers: [],
+      selected: [],
       name: '',
+      notify: false,
       owner: this.$user ,
       status: 'On Hold',
       description: '',

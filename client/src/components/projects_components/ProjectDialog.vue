@@ -196,7 +196,7 @@ export default {
     },
     async addProject(){
       this.tags = this.tagString.split(',')
-      await ProjectsService.addProject({
+      const response = await ProjectsService.addProject({
           name:this.name,
           description: this.description,
           owner: this.owner,
@@ -204,6 +204,7 @@ export default {
           users: this.selectedUsers
       })
       EventBus.$emit('project_dialog_close'); 
+      this.getProject();
     },
     async getUsers(){
       const response = await UsersService.fetchUsers();
@@ -218,17 +219,38 @@ export default {
       }
       this.users = users;
     },
+    async getProject(){
+      const response = await ProjectsService.fetchProjects({'project_name':this.name})
+      this._id = response.data.projects._id
+      this.updateUser();
+    },
+    async updateUser(){
+      for (var i = 0 ; this.selectedUsers.length;i++){
+        this.index = i
+        if(typeof this.selectedUsers[i].projects === "undefined"){
+            console.log('undefined baby')
+            this.selectedUsers[i].projects = []
+        }
+        this.selectedUsers[i].projects.push({'name':this.name,'_id':this._id})
+        await UsersService.updateUser({
+          id: this.selectedUsers[this.index]._id,
+          projects: this.selectedUsers[this.index].projects
+        });
+      }
+      this.index = 0;
+        
+    },
     userClick(user){
         
         this.users[this.users.indexOf(user)].active = !this.users[this.users.indexOf(user)].active;
         if(this.selected.indexOf(user.name) <0 ){
             this.selected.push(user.name);
             this.selectedAll.push(user);
-            this.selectedUsers.push({name: user.name, permissions: user.permissions});
+            this.selectedUsers.push({name: user.name, permissions: user.permissions,_id:user._id});
         }else{
             this.selected = this.selected.filter(item => item !== user.name)
             this.selectedAll = this.selectedAll.filter(item => item !== user)
-            this.selectedUsers = this.selectedUsers.filter(item => item !== {name: user.name, permissions: user.permissions})
+            this.selectedUsers = this.selectedUsers.filter(item => item !== {name: user.name, permissions: user.permissions, _id:user._id})
         }
     }
   },
@@ -242,6 +264,7 @@ export default {
     owner : this.$user ,
     repo: '',
     executable:'',
+    index:0,
     tagString: '',
     tags: [],
     description: '',

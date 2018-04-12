@@ -80,11 +80,11 @@
     <div v-if='currentScreen === 3'>
       <form class="form-group" @submit='nextDialog' >
         <div class="form-group" >
-          <label for="parametersFile">Please select a file for parameter format:</label>
+          <label for="parametersString">Please select a file for parameter format:</label>
           <input type="file" @change="onFileChange"> 
         </div>
         <div class="form-group" >
-          <textarea  type="parameterFile" class="form-control" id="parameterFile" placeholder=" " v-model="parameterFile" required></textarea>
+          <textarea  type="parameterString" class="form-control" id="parameterString" placeholder=" " v-model="parameterString" required></textarea>
         </div>
         <div class = 'buttons'>
           <div style="float:right;" >
@@ -123,8 +123,8 @@
             </div>
         </div>
         <div class="form-group">
-          <label for="parameterFile" >Input Spec:</label>
-          <input type="parameterFile"id="projectTags" class="form-control" v-model="parameterFile" required>
+          <label for="parameterString" >Input Spec:</label>
+          <input type="parameterString"id="projectTags" class="form-control" v-model="parameterString" required>
         </div>
         <div class="form-group" >
           <label for="executable">Executable path:</label>
@@ -180,7 +180,7 @@ export default {
       var vm = this;
 
       reader.onload = (e) => {
-        vm.parameterFile = e.target.result;
+        vm.parameterString = e.target.result;
       };
       reader.readAsText(file);
     },
@@ -196,11 +196,26 @@ export default {
     },
     async addProject(){
       this.tags = this.tagString.split(',')
+
+      var params = this.parameterString.split("\n"); 
+      params.pop();
+      for(var i=0; i<params.length; i++){
+        var param_values = params[i].split(",");
+        this.parameters.push(param_values[0]);
+        this.param_types.push(param_values[1]);
+        this.param_defaults.push(param_values[2]);
+        this.param_help_msgs.push(param_values[3]);
+      }
+
       const response = await ProjectsService.addProject({
           name:this.name,
           description: this.description,
           owner: this.owner,
           date_of_creation: moment().format('MMMM Do YYYY, h:mm:ss a'),
+          parameters: this.parameters,
+          param_types: this.param_types,
+          param_defaults: this.param_defaults,
+          param_help_msgs: this.param_help_msgs,
           users: this.selectedUsers
       })
       EventBus.$emit('project_dialog_close'); 
@@ -255,20 +270,25 @@ export default {
     }
   },
   data (){
-    return{currentScreen : 0, 
-    users: [], 
-    selected:[],
-    selectedUsers:[],
-    selectedAll:[],
-    name : '',
-    owner : this.$user ,
-    repo: '',
-    executable:'',
-    index:0,
-    tagString: '',
-    tags: [],
-    description: '',
-    parameterFile: ''
+    return{
+      currentScreen : 0, 
+      users: [], 
+      selected:[],
+      selectedUsers:[],
+      selectedAll:[],
+      name : '',
+      owner : this.$user ,
+      repo: '',
+      executable:'',
+      index:0,
+      tagString: '',
+      tags: [],
+      description: '',
+      parameterString: '',
+      parameters: [],
+      param_types: [],
+      param_defaults: [], 
+      param_help_msgs: [] 
     }
   }
 }

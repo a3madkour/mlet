@@ -14,24 +14,22 @@
       <div class="col-6">
         <div class="card" align="left">
           <div class="card-body">
-            <p class="card-text-1"><b>Status:</b> {{this.status}} <button v-if='this.status === "On Hold"'>Run Experiment</button></p>
-            <p class="card-text-2"><b>Project:</b> <router-link v-bind:to="{name: 'ProjectDetails', params: {id:this.project_id}}">{{this.project}}</router-link></p>
+            <p class="card-text-1"><b>Status:</b> {{this.status}} 
+            <button v-if='this.status === "On Hold"' @click="runExperiment">Run Experiment</button>
+            <button v-if='this.status === "Running"' @click="stopExperiment">Stop Experiment</button></p>
+            <p class="card-text-2"><b>Project:</b> <router-link v-bind:to="{name: 'ProjectDetails', params: {id:this.project_id}}">{{this.project_name}}</router-link></p>
             <p class="card-text-3"><b>Owner:</b> {{this.owner}} </p>
             <p class="card-text-4"><b>Started:</b> {{this.start_time}} </p>
             <p class="card-text-5"><b>Finished:</b> {{this.finished_time}}</p>
           </div>
         </div>
       </div>
-      <div class="col-6" v-if='this.status != "Running"'>
-        <div class="card" align="left">
-            <textarea rows="9" cols="50" placeholder="Parameters..." class="form-control" v-on-clickaway="saveParameters" @click="editingParameters" v-model="parameterFile">
-            </textarea>
-        </div>
-      </div>
-      <div class="col-6" v-if='this.status === "Running"'>
-        <div class="card" align="left">
-            <textarea rows="9" cols="50" placeholder="Parameters..." class="form-control" v-on-clickaway="saveParameters" @click="editingParameters" v-model="parameterFile" readonly>
-            </textarea>
+      <div class="col-6">
+        <div class="card" align="left" @click="editingParameters" v-on-clickaway="saveParameters">
+          <div class='parameters' v-for="(param, index) in project.parameters" >
+            <label>{{param}} ({{project.param_types[index]}}): {{project.param_help_msgs[index]}}</label>
+            <input class="form-control" v-model="parameters[index]" v-bind:disabled="is_exp_running">
+          </div>
         </div>
       </div>
     </div>
@@ -73,6 +71,7 @@
 import Vue from 'vue';
 import EventBus from '../../event-bus';
 import ExperimentsService from '@/services/ExperimentsService'
+import ProjectsService from '@/services/ProjectsService'
 import Icon from 'vue-awesome/components/Icon'
 import 'swiper/dist/css/swiper.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
@@ -86,16 +85,19 @@ export default {
     return {
       name: '',
       status: '',
-      project: '',
+      is_exp_running: false,
+      project: null,
+      project_name: '',
       owner: '',
       start_time: null,
       finished_time: null,
-      editting_notes: false,
+      editing_notes: false,
+      editing_parameters: false,
       oldNotes: '',
       notes: '',
-      parameterFile: '',
+      parameters: [],
       terminal_out: '',
-      oldParameter: '',
+      oldParameter: [],
       swiperOption: {
         spaceBetween: 50,
         pagination: {
@@ -122,23 +124,47 @@ export default {
     },
     editingParameters: function() {
       this.editing_parameters = true;
-      this.oldParameter = this.parameterFile;
+      this.oldParameter = this.parameters.slice();
     },
     async getExperiment(){
       const response = await ExperimentsService.getExperiment({
           id: this.$route.params.id
-      })
+      });
       this.name = response.data.name;
       this.status = response.data.status;
+      this.is_exp_running = (this.status === "Running");
       this.owner = response.data.owner;
-      this.project = response.data.project;
+      this.project_name = response.data.project;
       this.project_id = response.data.project_id;
       this.start_time = response.data.start_time;
-      this.parameterFile = response.data.parameterFile;
+      this.parameters = response.data.parameters;
       this.notes = response.data.notes;
       this.terminal_out = response.data.terminal_out;
       this.oldNotes = this.notes;
-      this.oldParameter = this.parameterFile;
+      this.oldParameter = this.parameters.slice();
+
+      const project_response = await ProjectsService.getProject({
+          id: this.project_id
+      });
+      this.project = project_response.data;
+    },
+    runExperiment: function() {
+      this.$notify({group: 'experiment-saved', type:'success', title: 'Experiment is running!'});
+      this.status = "Running";
+      this.is_exp_running = true;
+      this.saveStatus();
+    },
+    stopExperiment: function() {
+      this.$notify({group: 'experiment-saved', type:'warning', title: 'Experiment is stopped!'});
+      this.status = "On Hold";
+      this.is_exp_running = false;
+      this.saveStatus();
+    },
+    async saveStatus() {
+      await ExperimentsService.updateExperiment({
+        id:this.$route.params.id,
+        status:this.status
+      })
     },
     async saveNotes() {
       if (this.editing_notes) {
@@ -155,15 +181,25 @@ export default {
     async saveParameters() {
       if (this.editing_parameters) {
         this.editing_parameters = false;
-        if(this.oldParameter !== this.parameterFile){
+        if(!this.arraysEqual(this.oldParameter, this.parameters)){
           this.$notify({group: 'experiment-saved', type:'success', title: 'Experiment parameters have been saved!'});
           await ExperimentsService.updateExperiment({
             id:this.$route.params.id,
-            parameterFile:this.parameterFile
+            parameters:this.parameters
           })
         }
       }
     },
+	  arraysEqual: function(a, b) {
+      if (a === b) return true;
+      if (a == null || b == null) return false;
+      if (a.length != b.length) return false;
+
+      for (var i = 0; i < a.length; ++i) {
+        if (a[i] !== b[i]) return false;
+      }
+      return true;
+    }
   },
 }
 </script>
@@ -192,5 +228,9 @@ export default {
   height: 420px;
   width: 500px!important;
   padding: 40px!important;
+}
+
+.parameters {
+  padding: 10px 10px;
 }
 </style>

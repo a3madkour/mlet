@@ -20,7 +20,7 @@ router.post('/', (req, res) => {
   var status = req.body.status;
   var notify = req.body.notify;
   var tags = req.body.tags;
-  var parameterFile = req.body.parameterFile;
+  var parameters = req.body.parameters;
   var terminal_out = req.body.terminal_out;
   var notes = req.body.notes;
   var users = req.body.users;
@@ -35,7 +35,7 @@ router.post('/', (req, res) => {
     status: status,
     notify: notify,
     tags : tags,
-    parameterFile : parameterFile,
+    parameters : parameters,
     terminal_out : terminal_out,
     notes: notes,
     users : users,
@@ -123,8 +123,8 @@ router.put('/:id', (req, res) => {
     if(req.body.notify != null){
       experiment.notify = req.body.notify;
     }
-    if(req.body.parameterFile != null){
-      experiment.parameterFile = req.body.parameterFile;
+    if(req.body.parameters != null){
+      experiment.parameters = req.body.parameters;
     }
     if(req.body.terminal_out != null){
       experiment.terminal_out = req.body.terminal_out;

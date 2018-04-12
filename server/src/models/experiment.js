@@ -10,7 +10,7 @@ var ExperimentSchema = new Schema({
   notify: Boolean,
   description: String,
   tags: [String],
-  parameterFile: String,
+  parameters: [String],
   terminal_out: String,
   notes:String,
   users: [String],

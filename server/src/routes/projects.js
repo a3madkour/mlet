@@ -16,12 +16,20 @@ router.post('/', (req, res) => {
   var description = req.body.description;
   var owner = req.body.owner;
   var date_of_creation = req.body.date_of_creation;
+  var parameters = req.body.parameters;
+  var param_types = req.body.param_types;
+  var param_defaults = req.body.param_defaults;
+  var param_help_msgs = req.body.param_help_msgs;
   var users = req.body.users;
   var new_project = new Project({
     name: name,
     description: description,
     owner: owner,
     date_of_creation: date_of_creation,
+    parameters: parameters,
+    param_types: param_types,
+    param_defaults: param_defaults,
+    param_help_msgs: param_help_msgs,
     users: users
   })
 
@@ -59,7 +67,7 @@ router.get('/', (req, res) => {
           projects: projects
         })
       });
-  
+
   }else{
     Project.find({}, function (error, projects) {
       if (error) { console.error(error); }
@@ -83,7 +91,7 @@ router.put('/:id', (req, res) => {
   var db = req.db;
   Project.findById(req.params.id, function (error, project) {
     if (error) { console.error(error); }
-    
+
     if(req.body.name !=null){
       project.name = req.body.name
     }
@@ -95,6 +103,18 @@ router.put('/:id', (req, res) => {
     }
     if(req.body.date_of_creation !=null){
       project.date_of_creation = req.body.date_of_creation;
+    }
+    if(req.body.parameters) {
+      project.parameters = req.body.parameters;
+    }
+    if(req.body.param_types) {
+      project.param_types = req.body.param_types;
+    }
+    if(req.body.param_defaults) {
+      project.param_defaults = req.body.param_defaults;
+    }
+    if(req.body.param_help_msgs) {
+      project.param_help_msgs = req.body.param_help_msgs;
     }
     if(req.body.users !=null){
       project.users = req.body.users;

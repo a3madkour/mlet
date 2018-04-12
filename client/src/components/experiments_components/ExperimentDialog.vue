@@ -10,7 +10,7 @@
         <div class="form-group">
           <label for="experimentName">Please select the project for the experiment:</label>
         </div >
-        <select v-model="selectedProject" class="form-control" required >
+        <select v-model="selectedProject" class="form-control" v-on:change="selected_project" required >
           <option v-for="project in projects" :value="project" >{{project.name}}</option>
         </select>
         <div class = 'buttons'>
@@ -53,12 +53,9 @@
     </div>
     <div v-if='currentScreen === 2'>
       <form class="form-group" @submit='nextDialog' >
-        <div class="form-group" >
-          <label for="parametersFile">Please select file for parameters:</label>
-          <input type="file" @change="onFileChange">
-        </div>
-        <div class="form-group" >
-          <textarea  type="fileTxt" class="form-control" id="fileTxt" placeholder=" " v-model="parameterFile" required></textarea>
+        <div class='parameters' v-for="(param, index) in selectedProject.parameters">
+          <label>{{param}} ({{param_types[index]}}): {{param_help_msgs[index]}}</label>
+          <input class="form-control" v-model="exp_params[index]" required>
         </div>
         <div class = 'buttons'>
           <div style="float:right;" >
@@ -139,6 +136,15 @@ export default {
   mounted(){
     this.getProjects();
   },
+  watch: {
+    selectedProject: function() {
+      for(var i=0; i<this.selectedProject.parameters.length; i++) {
+        this.exp_params.push(this.selectedProject.param_defaults[i]); 
+        this.param_types.push(this.selectedProject.param_types[i]);
+        this.param_help_msgs.push(this.selectedProject.param_help_msgs[i]);
+      }
+    }
+  },
   methods: {
     nextDialog : function(){
       this.currentScreen += 1;
@@ -149,21 +155,6 @@ export default {
     },
     previousDialog : function(){
       this.currentScreen -= 1;
-    },
-    onFileChange(e) {
-      var files = e.target.files || e.dataTransfer.files;
-      if (!files.length)
-        return;
-      this.createImage(files[0]);
-    },
-    createImage(file) {
-      var reader = new FileReader();
-      var vm = this;
-
-      reader.onload = (e) => {
-        vm.parameterFile = e.target.result;
-      };
-      reader.readAsText(file);
     },
     endDialog(){
       if(this.selected.includes(this.$user)){
@@ -187,7 +178,7 @@ export default {
         status: this.status,
         tags: this.tags,
         notify: this.notify,
-        parameterFile: this.parameterFile,
+        parameters: this.exp_params,
         notes: this.notes,
         users: this.selectedUsers,
         start_time: moment().format('MMMM Do YYYY, h:mm:ss a'),
@@ -240,7 +231,9 @@ export default {
       description: '',
       tags : [],
       tagString: '',
-      parameterFile: '',
+      exp_params: [],
+      param_types: [],
+      param_help_msgs: [], 
       notes: '',
       selectedProject :{name: '', _id:''},
       projects:[]

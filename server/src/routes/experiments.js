@@ -69,15 +69,22 @@ router.get('/', (req, res) => {
         experiments: experiments
       })
     }).sort({_id:-1})
-  } else if(req.query.project_id == null){
-    Experiment.find({}, function (error, experiments) {
+  } else if(req.query.project_id != null){
+    Experiment.find({'project_id':req.query.project_id}, function (error, experiments) {
+      if (error) { console.error(error); }
+      res.send({
+        experiments: experiments
+      })
+    }).sort({_id:-1})
+  } else if(req.query.project_name != null){
+    Experiment.find({'project_name':req.query.project_name}, function (error, experiments) {
       if (error) { console.error(error); }
       res.send({
         experiments: experiments
       })
     }).sort({_id:-1})
   }else{
-    Experiment.find({'project_id':req.query.project_id}, function (error, experiments) {
+    Experiment.find({}, function (error, experiments) {
       if (error) { console.error(error); }
       res.send({
         experiments: experiments

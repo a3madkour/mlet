@@ -35,14 +35,7 @@ router.post('/', (req, res) => {
 })
 // Fetch all posts
 router.get('/', (req, res) => {
-  if(req.query.project_id == null){
-    User.find({}, function (error, users) {
-      if (error) { console.error(error); }
-      res.send({
-        users: users
-      })
-    }).sort({_id:-1})
-  }else{
+  if(req.query.project_id != null){
     User.
       find({}).
       where('projects').
@@ -54,6 +47,23 @@ router.get('/', (req, res) => {
           users: users
         })
       });
+  }if (req.query.user_name != null){
+    User.
+      findOne({'name': req.query.user_name}).
+      exec(function(error,users){
+        if (error) { console.error(error); }
+        res.send({
+          users: users
+        })
+      });
+    
+  }else{
+    User.find({}, function (error, users) {
+      if (error) { console.error(error); }
+      res.send({
+        users: users
+      })
+    }).sort({_id:-1})
   }
 })
 // Fetch single post

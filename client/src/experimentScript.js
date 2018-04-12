@@ -83,14 +83,13 @@ var baseUrl = 'localhost:8081'
             });
         }
 
-addUser({name : "user", password: "Iamarealgoodboi",projects: [{name : 'MINST Classification', _id:'1'}]}, "/users")
 addUser({name : "Jack", password: "Iamarealrealgoodboi",projects: [{name : 'MINST Classification', _id:'1'}]}, "/users")
 addUser({name : "Jill", password: "Iamarealrealrealgoodboi",projects: [{name : 'MINST Classification', _id:'1'}]}, "/users")
-addUser({name : "MINST Classification", owner: "user", description:"Enter Stuff here", date_of_creation:"April 1 1801",users:[{name:'user',_id:'1'}, {name:'Jack',_id:'_2'},{name:'Jill',_id:'3'},{name:'User',_id:'3'}]}, "/projects")
+addUser({name : "MINST Classification", owner: "User", description:"Enter Stuff here", date_of_creation:"April 1 1801",users:[{name:'user',_id:'1'}, {name:'Jack',_id:'_2'},{name:'Jill',_id:'3'},{name:'User',_id:'3'}]}, "/projects")
 experiments  = [
   {
     "name": "Experiment 1",
-    "owner": "user",
+    "owner": "User",
     "parameterFile": "'Epochs': 100,\n'Learning Rate': 0.1,\n'Optimizer': 'SGD',\n'Num Hidden Layers': 1,\n'Hidden Layer Size': 32,\n'Final Loss': 0.3251,\n'Classification Accuracy': 0.72",
     "status": "Complete",
     "project": "MINST Classification",
@@ -117,7 +116,7 @@ experiments  = [
   },
   {
     "name": "Experiment 4",
-    "owner": "user",
+    "owner": "User",
     "parameterFile": "'Epochs': 100,\n'Learning Rate': 0.001,\n'Optimizer': 'SGD',\n'Num Hidden Layers': 2,\n'Hidden Layer Size': 32,\n'Final Loss':  0.32343,\n'Classification Accuracy': 0.73",
     "status": "Complete",
     "project": "MINST Classification",
@@ -126,7 +125,7 @@ experiments  = [
   },
   {
     "name": "Experiment 5",
-    "owner": "user",
+    "owner": "User",
     "parameterFile": "'Epochs': 50,\n'Learning Rate': 0.001,\n'Optimizer': 'SGD',\n'Num Hidden Layers': 2,\n'Hidden Layer Size': 32,\n'Final Loss':  0.28967,\n'Classification Accuracy': 0.78",
     "status": "Complete",
     "project": "MINST Classification",
@@ -153,7 +152,7 @@ experiments  = [
   },
   {
     "name": "Experiment 8",
-    "owner": "user",
+    "owner": "User",
     "parameterFile": "'Epochs': 500,\n'Learning Rate': 0.1,\n'Optimizer': 'ADAM',\n'Num Hidden Layers': 4,\n'Hidden Layer Size': 64,\n'Final Loss':  0.39852,\n'Classification Accuracy': 0.7",
     "status": "Complete",
     "project": "MINST Classification",
@@ -198,7 +197,7 @@ experiments  = [
   },
   {
     "name": "Experiment 13",
-    "owner": "user",
+    "owner": "User",
     "parameterFile": "'Epochs': 100,\n'Learning Rate': 0.01,\n'Optimizer': 'RMS',\n'Num Hidden Layers': 8,\n'Hidden Layer Size': 16,\n'Final Loss':  0.14349,\n'Classification Accuracy': 0.88",
     "status": "Complete",
     "project": "MINST Classification",
@@ -234,7 +233,7 @@ experiments  = [
   },
   {
     "name": "Experiment 17",
-    "owner": "user",
+    "owner": "User",
     "parameterFile": "'Epochs': 200,\n'Learning Rate': 0.001,\n'Optimizer': 'ADAM',\n'Num Hidden Layers': 2,\n'Hidden Layer Size': 64,\n'Final Loss':  0.11423,\n'Classification Accuracy': 0.89",
     "status": "Complete",
     "project": "MINST Classification",

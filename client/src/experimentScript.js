@@ -85,7 +85,7 @@ var baseUrl = 'localhost:8081'
 
 addUser({name : "Jack", password: "Iamarealrealgoodboi",projects: [{name : 'MINST Classification', _id:'1'}]}, "/users")
 addUser({name : "Jill", password: "Iamarealrealrealgoodboi",projects: [{name : 'MINST Classification', _id:'1'}]}, "/users")
-addUser({name : "MINST Classification", owner: "User", description:"Enter Stuff here", date_of_creation:"April 1 1801",users:[{name:'user',_id:'1'}, {name:'Jack',_id:'_2'},{name:'Jill',_id:'3'},{name:'User',_id:'3'}]}, "/projects")
+addUser({name : "MINST Classification", owner: "User", description:"Enter Stuff here", date_of_creation:"April 1 1801",users:[{name:'user',_id:'1'}, {name:'Jack',_id:'_2'},{name:'Jill',_id:'3'},{name:'User',_id:'3'}], parameterFile: "epochs,int,100,Number of epochs to train for\nlr,float,0.1,Learning rate\noptimizer,str,sgd,Optimizer to use: (sgd/rms/adam)\nnum_hidden,int,2,Number of hidden layers\nhidden_size,int,32,Number of units in hidden layer"}, "/projects")
 experiments  = [
   {
     "name": "Experiment 1",

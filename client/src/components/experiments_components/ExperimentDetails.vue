@@ -12,7 +12,7 @@
     </div>
     <div class="row">
       <div class="col-6">
-        <div class="card" align="left">
+        <div class="card" align="left" style="height:23.6rem; ">
           <div class="card-body">
             <p class="card-text-1"><b>Status:</b> {{this.status}} 
             <button v-if='this.status === "On Hold"' @click="runExperiment">Run Experiment</button>
@@ -21,11 +21,12 @@
             <p class="card-text-3"><b>Owner:</b> {{this.owner}} </p>
             <p class="card-text-4"><b>Started:</b> {{this.start_time}} </p>
             <p class="card-text-5"><b>Finished:</b> {{this.finished_time}}</p>
+            <button  @click="cloneExperiment">Clone Experiment</button></p>
           </div>
         </div>
       </div>
       <div class="col-6">
-        <div class="card" align="left" @click="editingParameters" v-on-clickaway="saveParameters">
+        <div class="card" align="left" style="max-height:23.6rem;overflow:auto" @click="editingParameters" v-on-clickaway="saveParameters">
           <div class='parameters' v-for="(param, index) in project.parameters" >
             <label>{{param}} ({{project.param_types[index]}}): {{project.param_help_msgs[index]}}</label>
             <input class="form-control" v-model="parameters[index]" v-bind:disabled="is_exp_running">
@@ -64,6 +65,7 @@
         </div>
       </div>
     </div>
+    <modals-container/>
   </div>
 </template>
 
@@ -72,6 +74,7 @@ import Vue from 'vue';
 import EventBus from '../../event-bus';
 import ExperimentsService from '@/services/ExperimentsService'
 import ProjectsService from '@/services/ProjectsService'
+import CloneDialog from './CloneDialog.vue';
 import Icon from 'vue-awesome/components/Icon'
 import 'swiper/dist/css/swiper.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
@@ -118,6 +121,10 @@ export default {
     this.getExperiment();
   },
   methods: {
+    cloneExperiment: function(){
+      this.$modal.show(CloneDialog,{id:this.$route.params.id}, {name:"clone_experiment", clickToClose: false, height:"auto", width:"50%"});
+
+    },
     editingNotes: function() {
       this.editing_notes = true;
       this.oldNotes = this.notes;

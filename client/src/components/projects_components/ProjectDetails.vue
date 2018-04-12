@@ -124,7 +124,6 @@ export default {
   mounted(){
     this.id = this.$route.params.id
     this.getProject(); 
-    this.getExperiments();
   },
   methods:{
     show(){
@@ -141,8 +140,10 @@ export default {
       this.owner = response.data.owner;
       this.description = response.data.description;
       this.date_of_creation = response.data.date_of_creation;
+      this.getExperiments();
     },
     async getExperiments(){
+      console.log(this.name)
       const response = await ExperimentsService.fetchExperiments({'project_name':this.name})
        this.tableData = response.data.experiments
     }

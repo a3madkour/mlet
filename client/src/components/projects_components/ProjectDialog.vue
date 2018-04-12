@@ -185,6 +185,13 @@ export default {
       reader.readAsText(file);
     },
     endDialog(){
+      if(!this.selected.includes(this.$user)){
+            for(var j=0;j < this.users.length;j++){
+              if(this.users[j].name == this.$user){
+                  this.selectedUsers.push({name:this.users[j].name, _id:this.users[j]._id});
+              }
+            }
+      }
       this.addProject()
       this.$emit('close')
       this.$notify({group: 'project-created', type:'success', title: 'Project created!'});
@@ -243,7 +250,6 @@ export default {
       for (var i = 0 ; this.selectedUsers.length;i++){
         this.index = i
         if(typeof this.selectedUsers[i].projects === "undefined"){
-            console.log('undefined baby')
             this.selectedUsers[i].projects = []
         }
         this.selectedUsers[i].projects.push({'name':this.name,'_id':this._id})

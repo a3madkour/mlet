@@ -47,7 +47,7 @@ router.get('/', (req, res) => {
           users: users
         })
       });
-  }if (req.query.user_name != null){
+  }else if (req.query.user_name != null){
     User.
       findOne({'name': req.query.user_name}).
       exec(function(error,users){

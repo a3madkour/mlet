@@ -143,7 +143,7 @@ export default {
       this.date_of_creation = response.data.date_of_creation;
     },
     async getExperiments(){
-      const response = await ExperimentsService.fetchExperiments({'project_id':this.id})
+      const response = await ExperimentsService.fetchExperiments({'project_name':this.name})
        this.tableData = response.data.experiments
     }
   }

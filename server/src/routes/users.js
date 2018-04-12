@@ -35,11 +35,11 @@ router.post('/', (req, res) => {
 })
 // Fetch all posts
 router.get('/', (req, res) => {
-  if(req.query.project_id != null){
+  if(req.query.project_name != null){
     User.
       find({}).
       where('projects').
-      elemMatch({"_id":req.query.project_id}).
+      elemMatch({"name":req.query.project_name}).
       sort({_id:-1}).
       exec(function(error,users){
         if (error) { console.error(error); }
@@ -56,7 +56,6 @@ router.get('/', (req, res) => {
           users: users
         })
       });
-    
   }else{
     User.find({}, function (error, users) {
       if (error) { console.error(error); }

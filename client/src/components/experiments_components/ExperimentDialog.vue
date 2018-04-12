@@ -197,7 +197,7 @@ export default {
       EventBus.$emit('experiment_dialog_close');
     },
     async getUsers(){
-      const response = await UsersService.fetchUsers({'project_id':this.selectedProject._id});
+      const response = await UsersService.fetchUsers({'project_name':this.selectedProject.name});
       var users = []
       for(var i = 0 ; i<response.data.users.length;i++){
         var user = {};

@@ -14,7 +14,7 @@ var ExperimentSchema = new Schema({
   terminal_out: String,
   notes:String,
   users: [String],
-  start_time: {type:String, required:true},
+  start_time: {type:String, required: true},
   end_time: String
 });
 

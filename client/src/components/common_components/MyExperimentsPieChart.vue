@@ -43,7 +43,7 @@ export default {
       var num_running_experiments = this.experiments.filter(item => item.status == "Running").length;
       var num_queued_experiments = this.experiments.filter(item => item.status == "Queued").length;
       var num_not_queued_experiments = this.experiments.filter(item => item.status == "On Hold").length;
-      var num_completed_experiments = this.experiments.filter(item => item.status == "Completed").length;
+      var num_completed_experiments = this.experiments.filter(item => item.status == "Complete").length;
       var num_failed_experiments = this.experiments.filter(item => item.status == "Failed").length;
       this.experimentData.datasets[0].data = [num_running_experiments,
                                               num_queued_experiments,

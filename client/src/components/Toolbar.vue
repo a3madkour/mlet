@@ -6,10 +6,6 @@
       </a>
       <a v-bind:class="{active: active_el == 1}" href="#/notifications" title="Notifications">
         <Popper v-if="num_new_notifications > 0" :trigger='null' :force-show=true :visible-arrow=false :options="{placement: 'top-end'}">
-          <div class="popper">
-            {{ num_new_notifications }}
-          </div>
-
           <icon slot="reference" name="bell" scale="2.5"></icon>
         </Popper>
         <span>Notifications</span>

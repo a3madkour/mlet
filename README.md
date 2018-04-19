@@ -22,3 +22,9 @@ npm start
 The webpage should show up at <http://localhost:8080>
 
 
+For user testing we use two script found in the client folder: setupScript and experimentScript. If you would like to populate the database with the entries we used for the user testing run the following command in the client folder: 
+```
+node experimentScript
+```
+
+Note: You will need mongorestore for this script to work, refer to the mongodb doc for more details. 
